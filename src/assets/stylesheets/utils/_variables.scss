@@ -1,7 +1,8 @@
-$primary-color: hsl(0°, 100%, 70%);
-$secondary-color: hsl(45°, 100%, 60%);
-$success-color: hsl(80°, 60%, 50%);
-$info-color: hsl(195°, 100%, 40%);
+$primary-color: hsl(0, 100%, 70%);
+$secondary-color: hsl(195, 100%, 40%);
+$success-color: hsl(80, 60%, 50%);
+$warning-color: hsl(45, 100%, 60%);
+$info-color: hsl(270, 50%, 40%)
 
 $breakpoints: (
   desktop: 800px

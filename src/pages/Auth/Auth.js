@@ -108,8 +108,23 @@ const Auth = () => {
                 </Form>
             </div>
             
-            <div className="auth__handler" onClick={handleIsSignup}>
-                {isSignup ? (<p>Already have an account? Sign In</p>): (<p>New to yumzy? Sign Up</p>)}
+            <div className="auth__handler">
+                {isSignup ? (
+                    <p>Already have an account? 
+                        <span 
+                            className="auth__handler_toggle"
+                            onClick={handleIsSignup}> 
+                                &nbsp;Sign In
+                        </span>
+                    </p>) : (
+                    <p>New to yumzy? 
+                        <span 
+                            className="auth__handler_toggle"
+                            onClick={handleIsSignup}> 
+                                &nbsp;Sign Up
+                        </span>
+                    </p>)
+                }
             </div>
         </div>
     )

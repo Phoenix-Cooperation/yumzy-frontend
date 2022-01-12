@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 
@@ -57,7 +56,6 @@ const Auth = () => {
     })
 
     useEffect(() => {
-        console.log("errors", errors);
         clearErrors();
     }, [isSignup])
 
@@ -74,37 +72,38 @@ const Auth = () => {
     return (
         <div className="auth">
             <div className="auth__form">
-
-                <Logo className="auth__form-logo"/>
+                <div className="auth__form_logo">
+                    <Logo className="auth__form_logo_img"/>
+                </div>
                 <Form onSubmit={handleSubmit(onSubmit)}>
 
                     <Form.Group>
-                        <Form.Control className="auth__form-input--special" {...register("email")} type="email" placeholder="Email Address"/>
-                        <p className="auth__form-error" >{errors.email?.message}</p>
+                        <Form.Control className="auth__form_input" {...register("email")} type="email" placeholder="Email Address"/>
+                        <p className="auth__form_error" >{errors.email?.message}</p>
                     </Form.Group>
 
                     {isSignup && (
                         <Form.Group>
-                            <Form.Control className="auth__form-input" {...register("username")} type="text" placeholder="Username"/>
-                            <p className="auth__form-error" >{errors.username?.message}</p>
+                            <Form.Control className="auth__form_input" {...register("username")} type="text" placeholder="Username"/>
+                            <p className="auth__form_error" >{errors.username?.message}</p>
                         </Form.Group>
                     )}
 
                     <Form.Group>
-                        <Form.Control className="auth__form-input" {...register("password")} type="password" placeholder="Password"/>
-                        <p className="auth__form-error" >{errors.password?.message}</p>
+                        <Form.Control className="auth__form_input" {...register("password")} type="password" placeholder="Password"/>
+                        <p className="auth__form_error" >{errors.password?.message}</p>
                     </Form.Group>
                 
                     {isSignup && (
                         <Form.Group>
-                            <Form.Control className="auth__form-input" {...register("confirmPassword")} type="password" placeholder="Re-enter password"/>
-                            <p className="auth__form-error" >{errors.confirmPassword?.message}</p>
+                            <Form.Control className="auth__form_input" {...register("confirmPassword")} type="password" placeholder="Re-enter password"/>
+                            <p className="auth__form_error" >{errors.confirmPassword?.message}</p>
                         </Form.Group>
                     )}
 
-                    <Button variant="primary" type="submit">
-                    Submit
-                    </Button>
+                    <button className="auth__form_btn" type="submit">
+                        {isSignup ? "Sign Up" : "Sign In"}
+                    </button>
 
                 </Form>
             </div>

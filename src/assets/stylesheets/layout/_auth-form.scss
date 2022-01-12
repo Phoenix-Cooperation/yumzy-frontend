@@ -1,0 +1,40 @@
+.auth{      
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 10%;
+    right: 10%;
+    width: toRem(400);
+
+
+    &__form {
+        background-color: $form-background-color;
+        border: 1px solid $border-color;
+        padding: toRem(20) toRem(32);
+        
+        &-logo {
+            height: 100px;
+            width: 200px;
+        }
+
+        &-input { 
+            width: 90%;
+        }
+
+        &-error {
+            color: $primary-color;
+        }
+
+    }
+
+    &__handler {
+        background-color: $form-background-color;
+        border: 1px solid $border-color;
+        text-align: center;
+        margin-top: toRem(16);
+        padding: toRem(24) toRem(16);
+        p {
+            margin-bottom: 0 !important;
+        }
+    }
+}

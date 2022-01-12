@@ -38,7 +38,7 @@ $form-border-radius: 5px;
             background-color: $primary-color;
             width: 97%;
             color: white;
-            padding: toRem(8) toRem(0);
+            padding: toRem(6) toRem(0);
             text-align: center;
             border-radius: $form-border-radius;
         }
@@ -51,8 +51,15 @@ $form-border-radius: 5px;
         text-align: center;
         margin-top: toRem(16);
         padding: toRem(24) toRem(16);
+
         p {
             margin-bottom: 0 !important;
         }
+
+        &_toggle {
+            color: $primary-color;
+            cursor: pointer;
+        }
+
     }
 }

@@ -1,3 +1,4 @@
+$form-border-radius: 5px;
 .auth{      
     position: absolute;
     display: flex;
@@ -10,19 +11,36 @@
     &__form {
         background-color: $form-background-color;
         border: 1px solid $border-color;
-        padding: toRem(20) toRem(32);
+        padding: toRem(16) toRem(32);
         
-        &-logo {
-            height: 100px;
-            width: 200px;
+        &_logo {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: toRem(18);
+            &_img {
+                height: 100px;
+                width: 200px;
+            }
         }
 
-        &-input { 
+        &_input { 
             width: 90%;
+            border-radius: $form-border-radius;
         }
 
-        &-error {
+        &_error {
             color: $primary-color;
+        }
+
+        &_btn {
+            border: 1px solid $primary-color;
+            background-color: $primary-color;
+            width: 97%;
+            color: white;
+            padding: toRem(6) toRem(0);
+            text-align: center;
+            border-radius: $form-border-radius;
         }
 
     }
@@ -33,8 +51,15 @@
         text-align: center;
         margin-top: toRem(16);
         padding: toRem(24) toRem(16);
+
         p {
             margin-bottom: 0 !important;
         }
+
+        &_toggle {
+            color: $primary-color;
+            cursor: pointer;
+        }
+
     }
 }

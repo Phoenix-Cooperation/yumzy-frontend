@@ -3,7 +3,7 @@ $form-border-radius: 5px;
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 10%;
+    top: 8%;
     right: 10%;
     width: toRem(400);
 
@@ -43,6 +43,35 @@ $form-border-radius: 5px;
             border-radius: $form-border-radius;
         }
 
+        &_googleLogin {
+            margin-top: toRem(24);
+            display: flex;
+            flex-direction: column;
+
+            &_hr {
+                margin-bottom: toRem(8);
+            }
+            &_orSpan {
+                display: flex;
+                justify-content: center;
+                margin-bottom: toRem(16);
+                // position: relative;
+                // top: -25px;
+            }
+
+            &_btn {
+                height: toRem(50);
+                border: 1px solid $border-color;
+                border-radius: $form-border-radius;
+
+                &_logo {
+                    height: toRem(38);
+                    width: toRem(38);
+                    margin-right: toRem(8);
+                }
+            }
+        }
+
     }
 
     &__handler {
@@ -50,7 +79,7 @@ $form-border-radius: 5px;
         border: 1px solid $border-color;
         text-align: center;
         margin-top: toRem(16);
-        padding: toRem(24) toRem(16);
+        padding: toRem(18) toRem(16);
 
         p {
             margin-bottom: 0 !important;

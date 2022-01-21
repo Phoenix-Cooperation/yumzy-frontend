@@ -6,6 +6,7 @@ import * as yup from "yup";
 import Form from "react-bootstrap/Form";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
+import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
 
 
 const SignupSchema = yup.object().shape({
@@ -106,6 +107,14 @@ const Auth = () => {
                     </button>
 
                 </Form>
+                
+                <div className="auth__form_googleLogin">
+                    <hr className="auth__form_googleLogin_hr"/>
+                    <span className="auth__form_googleLogin_orSpan">or</span>
+                    <button className="auth__form_googleLogin_btn">
+                        <span><GoogleLogo className="auth__form_googleLogin_btn_logo"/>Continue with Google</span>
+                    </button>
+                </div>
             </div>
             
             <div className="auth__handler">

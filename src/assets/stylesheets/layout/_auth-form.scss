@@ -1,94 +1,94 @@
 $form-border-radius: 5px;
 .auth{      
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 8%;
-    right: 10%;
-    width: toRem(400);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 8%;
+  right: 10%;
+  width: toRem(400);
 
 
-    &__form {
-        background-color: $form-background-color;
+  &__form {
+    background-color: $form-background-color;
+    border: 1px solid $border-color;
+    padding: toRem(16) toRem(32);
+    
+    &_logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: toRem(18);
+      &_img {
+        height: 100px;
+        width: 200px;
+      }
+    }
+
+    &_input { 
+      width: 90%;
+      border-radius: $form-border-radius;
+    }
+
+    &_error {
+      color: $primary-color;
+    }
+
+    &_btn {
+      border: 1px solid $primary-color;
+      background-color: $primary-color;
+      width: 97%;
+      color: white;
+      padding: toRem(6) toRem(0);
+      text-align: center;
+      border-radius: $form-border-radius;
+    }
+
+    &_googleLogin {
+      margin-top: toRem(24);
+      display: flex;
+      flex-direction: column;
+
+      &_hr {
+        margin-bottom: toRem(8);
+      }
+      &_orSpan {
+        display: flex;
+        justify-content: center;
+        margin-bottom: toRem(16);
+        // position: relative;
+        // top: -25px;
+      }
+
+      &_btn {
+        height: toRem(50);
         border: 1px solid $border-color;
-        padding: toRem(16) toRem(32);
-        
+        border-radius: $form-border-radius;
+
         &_logo {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            margin-bottom: toRem(18);
-            &_img {
-                height: 100px;
-                width: 200px;
-            }
+          height: toRem(38);
+          width: toRem(38);
+          margin-right: toRem(8);
         }
-
-        &_input { 
-            width: 90%;
-            border-radius: $form-border-radius;
-        }
-
-        &_error {
-            color: $primary-color;
-        }
-
-        &_btn {
-            border: 1px solid $primary-color;
-            background-color: $primary-color;
-            width: 97%;
-            color: white;
-            padding: toRem(6) toRem(0);
-            text-align: center;
-            border-radius: $form-border-radius;
-        }
-
-        &_googleLogin {
-            margin-top: toRem(24);
-            display: flex;
-            flex-direction: column;
-
-            &_hr {
-                margin-bottom: toRem(8);
-            }
-            &_orSpan {
-                display: flex;
-                justify-content: center;
-                margin-bottom: toRem(16);
-                // position: relative;
-                // top: -25px;
-            }
-
-            &_btn {
-                height: toRem(50);
-                border: 1px solid $border-color;
-                border-radius: $form-border-radius;
-
-                &_logo {
-                    height: toRem(38);
-                    width: toRem(38);
-                    margin-right: toRem(8);
-                }
-            }
-        }
-
+      }
     }
 
-    &__handler {
-        background-color: $form-background-color;
-        border: 1px solid $border-color;
-        text-align: center;
-        margin-top: toRem(16);
-        padding: toRem(18) toRem(16);
+  }
 
-        p {
-            margin-bottom: 0 !important;
-        }
+  &__handler {
+    background-color: $form-background-color;
+    border: 1px solid $border-color;
+    text-align: center;
+    margin-top: toRem(16);
+    padding: toRem(18) toRem(16);
 
-        &_toggle {
-            color: $primary-color;
-            cursor: pointer;
-        }
-
+    p {
+      margin-bottom: 0 !important;
     }
+
+    &_toggle {
+      color: $primary-color;
+      cursor: pointer;
+    }
+
+  }
 }

@@ -4,12 +4,12 @@ import Auth from "./pages/Auth/Auth";
 
 
 function App() {
-    return (
-        <div>
-             Yumzy
-            <Auth/>
-        </div>
-    );
+  return (
+    <div>
+      Yumzy
+      <Auth />
+    </div>
+  );
 }
 
 export default App;

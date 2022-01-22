@@ -1,59 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import Form from "react-bootstrap/Form";
 
 import { auth, signIn, registerUser, signInWithGoogle } from "../../services/firebase-auth";
+import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
 
-
-const SignupSchema = yup.object().shape({
-    username: yup
-        .string()
-        .required("your name is required"),
-    email: yup
-        .string()
-        .email()
-        .required("your email is required"),
-    password: yup
-        .string()
-        .min(8, "password should have at least 8 characters")
-        .required("password is required"),
-    confirmPassword: yup
-        .string()
-        .required("confirm password is required")
-        .when("password", {
-            is: password => (password && password.length > 0 ? true : false),
-            then: yup.string().oneOf([yup.ref("password")], "Password doesn't match")
-        })
-});
-
-const signUpDefaultValues = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-}
-
-const signInDefaultValues = {
-    email: "",
-    password: "",
-}
-
-const SigninSchema = yup.object().shape({
-    email: yup
-        .string()
-        .email()
-        .required("your email is required"),
-    password: yup
-        .string()
-        .min(8, "password should have at least 8 characters")
-        .required("password is required"),
-});
 
 const Auth = () => {
 

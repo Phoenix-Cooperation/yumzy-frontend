@@ -5,6 +5,8 @@ import * as yup from "yup";
 
 import Form from "react-bootstrap/Form";
 
+import { auth, signIn, registerUser, logout, signInWithGoogle } from "../../services/firebase-auth";
+
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
 
@@ -30,6 +32,18 @@ const SignupSchema = yup.object().shape({
         })
 });
 
+const signUpDefaultValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+}
+
+const signInDefaultValues = {
+    email: "",
+    password: "",
+}
+
 const SigninSchema = yup.object().shape({
     email: yup
         .string()
@@ -46,28 +60,52 @@ const Auth = () => {
 
     const [isSignup, setIsSignup] = useState(false);
     const [schema, setSchema] = useState();
+    const [defaultValues, setDefaultValues] = useState();
 
     useEffect(() => {
         const tempSchema = isSignup ? SignupSchema : SigninSchema;
+        const tempDefaultValues = isSignup ? signUpDefaultValues : signInDefaultValues;
         setSchema(tempSchema);
+        setDefaultValues(tempDefaultValues)
     }, [isSignup])
     
-    const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({
-        resolver: yupResolver(schema)
+    const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: defaultValues
     })
 
     useEffect(() => {
         clearErrors();
+        reset()
     }, [isSignup])
 
     const onSubmit = async data => {
         console.log(data, "data");
+        if (isSignup) {
+            const { email, password, username } = data;
+            registerUser(email, password)
+            console.log(username)
+        } else {
+            const { email, password } = data;
+            signIn(email, password)
+        }
         // const userData = { username: data.username, email: data.email, password: data.password }
     }
 
     const handleIsSignup = () => {
         setIsSignup(prev => !prev)
     }
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const token = await user.getIdToken()
+                localStorage.setItem("token", token);
+            }
+        })
+    }, [auth])
+
+
 
     console.log(isSignup);
     return (
@@ -111,7 +149,10 @@ const Auth = () => {
                 <div className="auth__form_googleLogin">
                     <hr className="auth__form_googleLogin_hr"/>
                     <span className="auth__form_googleLogin_orSpan">or</span>
-                    <button className="auth__form_googleLogin_btn">
+                    <button 
+                        className="auth__form_googleLogin_btn"
+                        onClick={signInWithGoogle}
+                    >
                         <span><GoogleLogo className="auth__form_googleLogin_btn_logo"/>Continue with Google</span>
                     </button>
                 </div>

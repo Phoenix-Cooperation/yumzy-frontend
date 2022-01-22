@@ -5,7 +5,7 @@ import * as yup from "yup";
 
 import Form from "react-bootstrap/Form";
 
-import { auth, signIn, registerUser, logout, signInWithGoogle } from "../../services/firebase-auth";
+import { auth, signIn, registerUser, signInWithGoogle } from "../../services/firebase-auth";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";

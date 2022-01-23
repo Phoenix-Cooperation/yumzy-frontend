@@ -61,9 +61,6 @@ const Auth = () => {
     })
   }, [auth])
 
-
-
-  console.log(isSignup);
   return (
     <div className="auth">
       <div className="auth__form">

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 
-import { auth, signIn, registerUser, signInWithGoogle } from "../../services/firebase-auth";
+import { auth, signIn, registerUser, signInWithGoogle} from "../../services/firebase-auth";
 import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
@@ -13,6 +14,7 @@ import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.sv
 
 const Auth = () => {
 
+  const navigate = useNavigate();
 
   const [isSignup, setIsSignup] = useState(false);
   const [schema, setSchema] = useState();
@@ -57,6 +59,7 @@ const Auth = () => {
       if (user) {
         const token = await user.getIdToken()
         localStorage.setItem("token", token);
+        navigate("/", { replace: true })
       }
     })
   }, [auth])

@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 
 import firebase from "firebase/compat/app";
@@ -28,13 +29,20 @@ if (!firebase.apps.length) {
 
 export const auth = getAuth();
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, username) => {
   try {
-    const user = await createUserWithEmailAndPassword(auth, email, password)
-    return user;
+    await createUserWithEmailAndPassword(auth, email, password)
   } catch (error) {
     console.log(error);
     return null;
+  }
+
+  console.log(auth.currentUser.uid)
+  try {
+    const userData = await updateProfile(auth.currentUser, { displayName: username })
+    return userData.uid;
+  } catch (error) {
+    console.log(error);
   }
 }
 export const signIn = async (email, password) => {
@@ -58,6 +66,7 @@ export const signInWithGoogle = async () => {
 }
 
 export const logout = async () => {
+  
   try {
     await signOut(auth)
     localStorage.removeItem("token")

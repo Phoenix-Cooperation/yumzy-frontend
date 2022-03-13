@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-
+import { useMutation, gql } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 
-import { auth, signIn, registerUser, signInWithGoogle} from "../../services/firebase-auth";
+import { auth, signIn, registerUser, signInWithGoogle, logout} from "../../services/firebase-auth";
 import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
@@ -16,9 +16,19 @@ const Auth = () => {
 
   const navigate = useNavigate();
 
+  const CREATE_USER = gql`
+    mutation CREATE_USER($username: String!, $email: String!, $id: String!) {
+        createUser(username: $username, email: $email, user_id: $id) {
+            username
+        }
+    }
+`
+
   const [isSignup, setIsSignup] = useState(false);
   const [schema, setSchema] = useState();
   const [defaultValues, setDefaultValues] = useState();
+
+  const [registerUserBE, { loading, error }] = useMutation(CREATE_USER)
 
   useEffect(() => {
     const tempSchema = isSignup ? SignupSchema : SigninSchema;
@@ -41,13 +51,23 @@ const Auth = () => {
     console.log(data, "data");
     if (isSignup) {
       const { email, password, username } = data;
-      registerUser(email, password)
-      console.log(username)
+      const id = await registerUser(email, password, username)
+      console.log("id", id)
+      registerUserBE({ variables: {username, email, id }})
     } else {
       const { email, password } = data;
-      signIn(email, password)
+      const user = signIn(email, password)
+      console.log(user)
     }
     // const userData = { username: data.username, email: data.email, password: data.password }
+  }
+
+  const handleGoogleSignIn = async () => {
+    const user = await signInWithGoogle();
+    console.log(user)
+    console.log(user.user.displayName, user.user.email, user.user.uid)
+    const { displayName, email, uid } = user.user
+    registerUserBE({ variables: { username: displayName, email, id:uid }})
   }
 
   const handleIsSignup = () => {
@@ -55,11 +75,15 @@ const Auth = () => {
   }
 
   useEffect(() => {
+    // console.log(auth.currentUser)
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken()
         localStorage.setItem("token", token);
         navigate("/", { replace: true })
+      }
+      else {
+        localStorage.removeItem("token")
       }
     })
   }, [auth])
@@ -107,7 +131,7 @@ const Auth = () => {
           <span className="auth__form_googleLogin_orSpan">or</span>
           <button 
             className="auth__form_googleLogin_btn"
-            onClick={signInWithGoogle}
+            onClick={handleGoogleSignIn}
           >
             <span><GoogleLogo className="auth__form_googleLogin_btn_logo"/>Continue with Google</span>
           </button>
@@ -131,6 +155,8 @@ const Auth = () => {
             </span>
           </p>)
         }
+
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   )

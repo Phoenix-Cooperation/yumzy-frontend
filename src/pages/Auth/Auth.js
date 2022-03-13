@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 
 import { auth, signIn, registerUser, signInWithGoogle, logout} from "../../services/firebase-auth";
 import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
+import { isLoggedIn } from "../../api/cache";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
@@ -80,10 +81,12 @@ const Auth = () => {
       if (user) {
         const token = await user.getIdToken()
         localStorage.setItem("token", token);
+        isLoggedIn(true);
         navigate("/", { replace: true })
       }
       else {
         localStorage.removeItem("token")
+        isLoggedIn(false);
       }
     })
   }, [auth])

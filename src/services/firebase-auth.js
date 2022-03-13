@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 
 import firebase from "firebase/compat/app";
+import { isLoggedIn } from "../api/cache"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAi78iH0dsPuDqGZKUcxC0UtLQI6ya9cV0",
@@ -19,6 +20,7 @@ const firebaseConfig = {
   appId: "1:812654463437:web:d516e613d487695cae1c84",
   measurementId: "G-44GZ4JB8ET"
 };
+
 
 // Initialize Firebase
 // export const app = firebase.initializeApp(firebaseConfig);
@@ -70,6 +72,7 @@ export const logout = async () => {
   try {
     await signOut(auth)
     localStorage.removeItem("token")
+    isLoggedIn(false);
   } catch (error) {
     console.log(error);
   }

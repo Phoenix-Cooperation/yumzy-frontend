@@ -1,5 +1,5 @@
 const useAuth = () => {
-  if (localStorage.getItem('token')) {
+  if (localStorage.getItem("token")) {
     return true;
   }
   return false;

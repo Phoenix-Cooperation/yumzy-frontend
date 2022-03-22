@@ -1,0 +1,31 @@
+.navbar{
+    &__logo {
+        height: toRem(45);
+    }
+
+    &__search {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+        @include media-breakpoint-down(lg) {
+            flex-direction: column;
+            width: auto;
+            margin-top: toRem(10);
+        }
+    }
+    
+    &__links {
+        width: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;    
+    }
+
+    &__linkImg {
+        transition: fill 0.4s ease;
+        &:hover {
+            fill: darken($primary-color, 10%);
+        }
+    }
+}

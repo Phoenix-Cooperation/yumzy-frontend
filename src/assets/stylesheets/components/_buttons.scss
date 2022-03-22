@@ -1,0 +1,9 @@
+.btn-outline-primary {
+    border-color: $primary-color;
+    color: $primary-color;
+
+    &:hover {
+        background-color: darken($primary-color, 5%);
+        border: $primary-color;
+    }
+}

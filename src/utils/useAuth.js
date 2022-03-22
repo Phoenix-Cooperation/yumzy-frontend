@@ -9,7 +9,7 @@ const useAuth = () => {
   `;
 
   const { data } = useQuery(IS_LOGGED_IN);
-  console.log(data.isLoggedIn, "Loggend Auth")
+  // console.log(data.isLoggedIn, "Loggend Auth")
   return !!data.isLoggedIn
 }
 

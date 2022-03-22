@@ -1,22 +1,22 @@
 
 import React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { ReactComponent as Home } from "../assets/images/icons/home.svg"
 import { ReactComponent as Notifications } from "../assets/images/icons/bell.svg"
 import { ReactComponent as Chat } from "../assets/images/icons/chat.svg"
 import { ReactComponent as Explore } from "../assets/images/icons/explore.svg"
-import { ReactComponent as Logo } from "../assets/images/Logo.svg"
+import { ReactComponent as Logo } from "../assets/images/navbar-logo.svg"
 
 const NavBar = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
         <div href="#">
-          <Nav.Link>
+          <Link to="/home">
             <Logo className="navbar__logo" />
-
-          </Nav.Link>
+          </Link>
         </div>
         <Navbar.Toggle />
         <Navbar.Collapse id="navbarScroll">

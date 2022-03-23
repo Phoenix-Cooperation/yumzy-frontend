@@ -7,8 +7,6 @@ import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { logout } from "./services/firebase-auth"
 
-import PrivateRoute from "./utils/PrivateRoute";
-
 // import {logout} from "./services/"
 
 function App() {
@@ -28,3 +26,4 @@ function App() {
 }
 
 export default App;
+ 

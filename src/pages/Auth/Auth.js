@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import { auth, signIn, registerUser, signInWithGoogle, logout} from "../../services/firebase-auth";
 import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
 import { isLoggedIn } from "../../api/cache";
+import userStore from "../../utils/userStore";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
@@ -55,10 +56,12 @@ const Auth = () => {
       const id = await registerUser(email, password, username)
       console.log("id", id)
       registerUserBE({ variables: {username, email, id }})
+      userStore.setUser(username)
     } else {
-      const { email, password } = data;
+      const { email, password, username } = data;
       const user = signIn(email, password)
-      console.log(user)
+      const { photoURL } = user.user;
+      userStore.setUser(username, photoURL)
     }
     // const userData = { username: data.username, email: data.email, password: data.password }
   }
@@ -66,9 +69,10 @@ const Auth = () => {
   const handleGoogleSignIn = async () => {
     const user = await signInWithGoogle();
     console.log(user)
-    console.log(user.user.displayName, user.user.email, user.user.uid)
-    const { displayName, email, uid } = user.user
+    console.log(user.user.displayName, user.user.email, user.user.uid, user.user.photoURL)
+    const { displayName, email, uid, photoURL } = user.user
     registerUserBE({ variables: { username: displayName, email, id:uid }})
+    userStore.setUser(displayName, photoURL)
   }
 
   const handleIsSignup = () => {
@@ -80,12 +84,12 @@ const Auth = () => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken()
-        localStorage.setItem("token", token);
+        userStore.setToken(token)
         isLoggedIn(true);
         navigate("/", { replace: true })
       }
       else {
-        localStorage.removeItem("token")
+        userStore.clearUserStore();
         isLoggedIn(false);
       }
     })

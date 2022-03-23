@@ -8,7 +8,7 @@ import { ReactComponent as Notifications } from "../assets/images/icons/bell.svg
 import { ReactComponent as Chat } from "../assets/images/icons/chat.svg"
 import { ReactComponent as Explore } from "../assets/images/icons/explore.svg"
 import { ReactComponent as Logo } from "../assets/images/navbar-logo.svg"
-
+import { ReactComponent as Search } from "../assets/images/icons/search-icon.svg"
 const NavBar = () => {
 
   const GET_USER = gql`
@@ -30,31 +30,26 @@ const NavBar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse id="navbarScroll">
           <div className="navbar__search">
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-primary">Search</Button>
-            </Form>
-            <Nav
-              className="navbar__links"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link href="#action1"><Home className="navbar__linkImg" /></Nav.Link>
-              <Nav.Link href="#action2"><Chat className="navbar__linkImg" /></Nav.Link>
-              <Nav.Link href="#action2"><Notifications className="navbar__linkImg" /></Nav.Link>
-              <Nav.Link href="#action2"><Explore className="navbar__linkImg" /></Nav.Link>
-            </Nav>
+            <form>
+              <Search />
+              <input type="text" placeholder="Search"/>
+            </form>
           </div>
+          <Nav
+            className="navbar__links"
+            style={{ maxHeight: "100px" }}
+            navbarScroll
+          >
+            <Nav.Link href="#action1"><Home className="navbar__linkImg" /></Nav.Link>
+            <Nav.Link href="#action2"><Chat className="navbar__linkImg" /></Nav.Link>
+            <Nav.Link href="#action2"><Notifications className="navbar__linkImg" /></Nav.Link>
+            <Nav.Link href="#action2"><Explore className="navbar__linkImg" /></Nav.Link>
+          </Nav>
         </Navbar.Collapse>
 
         {data.user.photoURL && (
           <div className="navbar__avatar">
-            <img src={data.user.photoURL} />
+            <img src={data.user.photoURL} alt="photo url"/>
           </div>
 
         )}

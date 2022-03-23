@@ -23,5 +23,5 @@ export const isLoggedIn = makeVar(!!localStorage.getItem("token"))
 
 export const user = makeVar({
   username: localStorage.getItem("username"),
-  photoURL: localStorage.getItem("photoURL")
+  photoURL: localStorage.getItem("photoURL"),
 })

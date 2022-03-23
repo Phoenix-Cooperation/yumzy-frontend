@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 
 import firebase from "firebase/compat/app";
-import { isLoggedIn } from "../api/cache"
 import userStore from "../utils/userStore";
 
 const firebaseConfig = {
@@ -74,7 +73,6 @@ export const logout = async () => {
     await signOut(auth)
     localStorage.removeItem("token")
     userStore.clearUserStore();
-    isLoggedIn(false);
   } catch (error) {
     console.log(error);
   }

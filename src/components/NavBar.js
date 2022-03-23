@@ -3,6 +3,8 @@ import React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import userStore from "../utils/userStore";
+
 import { ReactComponent as Home } from "../assets/images/icons/home.svg"
 import { ReactComponent as Notifications } from "../assets/images/icons/bell.svg"
 import { ReactComponent as Chat } from "../assets/images/icons/chat.svg"
@@ -43,9 +45,12 @@ const NavBar = () => {
           </div>
         </Navbar.Collapse>
 
-        <div className="navbar__avatar">
+        {userStore.getPhotoURL() && (
+          <div className="navbar__avatar">
+            <img src={userStore.getPhotoURL()} />
+          </div>
 
-        </div>
+        )}
 
       </Container>
     </Navbar>

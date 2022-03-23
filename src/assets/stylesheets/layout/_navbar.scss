@@ -16,9 +16,30 @@
     }
 
     &__search {
+        margin: auto;
         display: flex;
-        justify-content: space-around;
-        width: 100%;
+        justify-content: flex-start;
+        width: fit-content;
+        border: 2px lighten($primary-color, 5%) solid;
+        border-radius: 10px;
+        // z-index: 2;
+        svg {
+            height: toRem(20);
+            width: toRem(20);
+            padding: toRem(3) toRem(7);
+            fill: lighten($primary-color, 5%);
+        }
+
+        input {
+            border: none;
+            height: toRem(30);
+            border-radius: 10px;
+            outline: none;
+            &:focus-visible{
+                outline: none;
+            }
+            // padding-right: 40px; 
+        }
 
         @include media-breakpoint-down(lg) {
             flex-direction: column;
@@ -28,6 +49,7 @@
     }
     
     &__links {
+        margin-left: toRem(50);
         width: 20%;
         display: flex;
         flex-wrap: wrap;

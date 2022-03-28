@@ -43,7 +43,7 @@ const NavBar = () => {
             <Nav.Link href="#action1"><Home className="navbar__linkImg" /></Nav.Link>
             <Nav.Link href="#action2"><Chat className="navbar__linkImg" /></Nav.Link>
             <Nav.Link href="#action2"><Notifications className="navbar__linkImg" /></Nav.Link>
-            <Nav.Link href="#action2"><Explore className="navbar__linkImg" /></Nav.Link>
+            <Nav.Link href="/create"><Explore className="navbar__linkImg" /></Nav.Link>
           </Nav>
         </Navbar.Collapse>
 

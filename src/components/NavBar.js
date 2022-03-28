@@ -49,7 +49,8 @@ const NavBar = () => {
 
         {data.user.photoURL && (
           <div className="navbar__avatar">
-            <img src={data.user.photoURL} alt="photo url"/>
+            {console.log(data.user.photoURL)}
+            <img src={data.user.photoURL} alt="dp" referrerpolicy="origin"/>
           </div>
 
         )}

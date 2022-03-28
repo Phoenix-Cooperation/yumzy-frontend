@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./assets/stylesheets/main.scss";
-import UserLayout from "./Layouts/UserLayout";
+import UserLayout from "./layouts/UserLayout";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { logout } from "./services/firebase-auth"

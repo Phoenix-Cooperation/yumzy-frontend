@@ -50,7 +50,7 @@ const NavBar = () => {
         {data.user.photoURL && (
           <div className="navbar__avatar">
             {console.log(data.user.photoURL)}
-            <img src={data.user.photoURL} alt="dp" referrerpolicy="origin"/>
+            <img src={data.user.photoURL} alt="dp" referrerPolicy="origin"/>
           </div>
 
         )}

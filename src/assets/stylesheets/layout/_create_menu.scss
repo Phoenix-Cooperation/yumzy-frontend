@@ -15,10 +15,18 @@
         margin-top: toRem(20);
         color: black;
         // background-color: $primary-color;
+        &:hover {
+            color: #7c7c7c;
+        }
+
         &--active {
             color: white;
             margin-top: toRem(20);
             background-color: $primary-color;
+
+            &:hover {
+                color: #dadada;
+            }
             &:focus {
                 color: white;
             }

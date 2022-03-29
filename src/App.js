@@ -18,6 +18,9 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<UserLayout/>} >
             <Route path="home" element={<Home />} />
+            <Route path="chat" element={<Home />} />
+            <Route path="explore" element={<Home />} />
+            <Route path="notifications" element={<Home />} />
             <Route path="create" element={<CreateMenu/>} >
               <Route index element={<Home />} />
               <Route path="recipe" element={<Home />} />

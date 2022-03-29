@@ -17,8 +17,8 @@ const CreateMenu = () => {
         <div className="create-menu__link-group">
           <Nav.Link 
             as={Link} 
-            className={classNames(active === "/create/recipe" ? 
-              "create-menu__link--active" : "create-menu__link")} 
+            className={classNames("create-menu__link", active === "/create/recipe" && 
+              "create-menu__link--active")} 
             to="/create/recipe"
             onClick={() => setActive("/create/recipe")}
           >
@@ -26,8 +26,8 @@ const CreateMenu = () => {
           </Nav.Link>
           <Nav.Link 
             as={Link} 
-            className={classNames(active === "/create/tips" ? 
-              "create-menu__link--active" : "create-menu__link")} 
+            className={classNames("create-menu__link", active === "/create/tips" && 
+              "create-menu__link--active")} 
             to="/create/tips"
             onClick={() => setActive("/create/tips")}
           >
@@ -35,8 +35,8 @@ const CreateMenu = () => {
           </Nav.Link>
           <Nav.Link 
             as={Link} 
-            className={classNames(active === "/create/review" ? 
-              "create-menu__link--active" : "create-menu__link")} 
+            className={classNames("create-menu__link", active === "/create/review" && 
+              "create-menu__link--active")} 
             to="/create/review"
             onClick={() => setActive("/create/review")}
           >

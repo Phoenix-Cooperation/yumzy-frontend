@@ -1,0 +1,29 @@
+.post{
+
+  margin-left: 35rem;
+  width: 45rem;
+  height: 45rem;
+
+  &__avatar {
+      height: toRem(40);
+      width: toRem(40);
+      border-radius: toRem(30);
+      margin-right: toRem(10);
+  }
+
+  &__menu {
+      height: toRem(40);
+      width: toRem(40);
+      margin-right: toRem(10);
+      float: right;
+      margin-left: 10rem;
+  }
+
+  &__reacts {
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
+    margin-left: toRem(10);
+  }
+}

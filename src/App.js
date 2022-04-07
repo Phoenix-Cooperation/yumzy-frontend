@@ -5,6 +5,7 @@ import "./assets/stylesheets/main.scss";
 import UserLayout from "./Layouts/UserLayout";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
+import Posts from "./pages/Posts/PostPage"
 import { logout } from "./services/firebase-auth"
 
 // import {logout} from "./services/"
@@ -17,6 +18,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<UserLayout/>} >
             <Route path="home" element={<Home />} />
+            <Route path="" element={<Posts/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

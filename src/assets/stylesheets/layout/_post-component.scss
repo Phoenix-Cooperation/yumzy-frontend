@@ -2,7 +2,15 @@
 
   margin-left: 35rem;
   width: 45rem;
-  height: 45rem;
+  height: fit-content;
+
+  &__body {
+    padding: 0;
+  }
+
+  &__title {
+    padding: toRem(10);
+  }
 
   &__avatar {
       height: toRem(40);
@@ -25,5 +33,22 @@
     border-radius: toRem(30);
     margin-right: toRem(10);
     margin-left: toRem(10);
+    margin-bottom: toRem(10);
+  }
+
+  &__image {
+    height: toRem(450);
+    width: toRem(720);
+    padding-bottom: toRem(20);
+
+    img {
+      width: toRem(720);
+      height: toRem(450);
+    }
+  }
+
+  &__text {
+    padding: toRem(10);
+    margin-bottom: 0;
   }
 }

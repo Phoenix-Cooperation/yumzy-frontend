@@ -1,7 +1,6 @@
 import React from "react";
-import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { gql, useQuery } from "@apollo/client";
 
 import { ReactComponent as Home } from "../../assets/images/icons/home.svg"
 import { ReactComponent as Notifications } from "../../assets/images/icons/bell.svg"
@@ -13,14 +12,6 @@ import { ReactComponent as Search } from "../../assets/images/icons/search-icon.
 import AvatarDropdown from "./AvatarDropdown";
 
 const NavBar = () => {
-
-  const GET_USER = gql`
-    query GetUser {
-      user @client
-    }
-  `
-
-  const { data } = useQuery(GET_USER);
   
   return (
     <Navbar bg="light" expand="lg">

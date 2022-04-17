@@ -6,6 +6,7 @@ import UserLayout from "./layouts/UserLayout";
 import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
+import PrivateRoute from "./utils/PrivateRoute";
 import { logout } from "./services/firebase-auth"
 
 // import {logout} from "./services/"
@@ -21,7 +22,7 @@ function App() {
             <Route path="chat" element={<Home />} />
             <Route path="explore" element={<Home />} />
             <Route path="notifications" element={<Home />} />
-            <Route path="create" element={<CreateMenu/>} >
+            <Route path="create" element={<PrivateRoute><CreateMenu/></PrivateRoute>} >
               <Route index element={<Home />} />
               <Route path="recipe" element={<Home />} />
               <Route path="tips" element={<Home />} />

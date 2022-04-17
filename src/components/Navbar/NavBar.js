@@ -53,7 +53,7 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/explore">
               <Explore className="navbar__linkImg" />
             </Nav.Link>
-            <Nav.Link as={Link} to="/create">
+            <Nav.Link as={Link} to="/create"
               <Create className="navbar__linkImg" />
             </Nav.Link>
           </Nav>
@@ -61,7 +61,6 @@ const NavBar = () => {
 
         {data.user.photoURL && (
           <div className="navbar__avatar">
-            {console.log(data.user.photoURL)}
             <img src={data.user.photoURL} alt="dp" referrerPolicy="no-referrer"/>
           </div>
 

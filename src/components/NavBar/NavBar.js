@@ -3,13 +3,15 @@ import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstr
 import { Link } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
-import { ReactComponent as Home } from "../assets/images/icons/home.svg"
-import { ReactComponent as Notifications } from "../assets/images/icons/bell.svg"
-import { ReactComponent as Chat } from "../assets/images/icons/chat.svg"
-import { ReactComponent as Explore } from "../assets/images/icons/explore.svg"
-import { ReactComponent as Create } from "../assets/images/icons/create.svg"
-import { ReactComponent as Logo } from "../assets/images/navbar-logo.svg"
-import { ReactComponent as Search } from "../assets/images/icons/search-icon.svg"
+import { ReactComponent as Home } from "../../assets/images/icons/home.svg"
+import { ReactComponent as Notifications } from "../../assets/images/icons/bell.svg"
+import { ReactComponent as Chat } from "../../assets/images/icons/chat.svg"
+import { ReactComponent as Explore } from "../../assets/images/icons/explore.svg"
+import { ReactComponent as Create } from "../../assets/images/icons/create.svg"
+import { ReactComponent as Logo } from "../../assets/images/navbar-logo.svg"
+import { ReactComponent as Search } from "../../assets/images/icons/search-icon.svg"
+import AvatarDropdown from "./AvatarDropdown";
+
 const NavBar = () => {
 
   const GET_USER = gql`
@@ -53,18 +55,13 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/explore">
               <Explore className="navbar__linkImg" />
             </Nav.Link>
-            <Nav.Link as={Link} to="/create"
+            <Nav.Link as={Link} to="/create">
               <Create className="navbar__linkImg" />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
 
-        {data.user.photoURL && (
-          <div className="navbar__avatar">
-            <img src={data.user.photoURL} alt="dp" referrerPolicy="no-referrer"/>
-          </div>
-
-        )}
+        <AvatarDropdown/>
 
       </Container>
     </Navbar>

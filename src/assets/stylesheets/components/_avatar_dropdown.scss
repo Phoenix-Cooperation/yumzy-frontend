@@ -1,3 +1,11 @@
 .avatarDropdown {
-    
+
+    img {
+        height: toRem(40);
+        width: toRem(40);
+        border-radius: toRem(30);
+        // background-color: #646262;
+        margin-right: toRem(10);
+    }
+
 }

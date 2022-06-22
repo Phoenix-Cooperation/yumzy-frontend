@@ -7,6 +7,10 @@ import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { logout } from "./services/firebase-auth"
+import RecipePanel from "./pages/UploadContent/Recipe/RecipePanel";
+import TipsPanel from "./pages/UploadContent/Tips/TipsPanel";
+import ReviewPanel from "./pages/UploadContent/Review/ReviewPanel";
+import PostPanel from "./pages/UploadContent/Post/PostPanel";
 
 // import {logout} from "./services/"
 
@@ -22,10 +26,10 @@ function App() {
             <Route path="explore" element={<Home />} />
             <Route path="notifications" element={<Home />} />
             <Route path="create" element={<CreateMenu/>} >
-              <Route index element={<Home />} />
-              <Route path="recipe" element={<Home />} />
-              <Route path="tips" element={<Home />} />
-              <Route path="review" element={<Home />} />
+              <Route index element={<RecipePanel />} />
+              <Route path="recipe" element={<RecipePanel />} />
+              <Route path="tips" element={<TipsPanel />} />
+              <Route path="review" element={<ReviewPanel />} />
             </Route>
           </Route>
         </Routes>
@@ -36,4 +40,3 @@ function App() {
 }
 
 export default App;
- 

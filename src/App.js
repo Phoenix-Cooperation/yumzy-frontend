@@ -8,6 +8,10 @@ import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import PrivateRoute from "./utils/PrivateRoute";
 import { logout } from "./services/firebase-auth"
+import RecipePanel from "./pages/UploadContent/Recipe/RecipePanel";
+import TipsPanel from "./pages/UploadContent/Tips/TipsPanel";
+import ReviewPanel from "./pages/UploadContent/Review/ReviewPanel";
+import PostPanel from "./pages/UploadContent/Post/PostPanel";
 
 // import {logout} from "./services/"
 
@@ -37,4 +41,3 @@ function App() {
 }
 
 export default App;
- 

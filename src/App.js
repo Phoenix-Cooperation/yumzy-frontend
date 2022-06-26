@@ -26,7 +26,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="recipe" element={<Home />} />
               <Route path="tips" element={<Home />} />
-              <Route path="review" element={<Home />} />
+              <Route path="post" element={<Home />} />
             </Route>
           </Route>
         </Routes>

@@ -17,6 +17,15 @@ const CreateMenu = () => {
         <div className="create-menu__link-group">
           <Nav.Link 
             as={Link} 
+            className={classNames("create-menu__link", active === "/create/post" && 
+              "create-menu__link--active")} 
+            to="/create/post"
+            onClick={() => setActive("/create/post")}
+          >
+            Post
+          </Nav.Link>
+          <Nav.Link 
+            as={Link} 
             className={classNames("create-menu__link", active === "/create/recipe" && 
               "create-menu__link--active")} 
             to="/create/recipe"
@@ -33,15 +42,7 @@ const CreateMenu = () => {
           >
               Tips
           </Nav.Link>
-          <Nav.Link 
-            as={Link} 
-            className={classNames("create-menu__link", active === "/create/review" && 
-              "create-menu__link--active")} 
-            to="/create/review"
-            onClick={() => setActive("/create/review")}
-          >
-            Review
-          </Nav.Link>
+          
 
         </div>
       </Nav>

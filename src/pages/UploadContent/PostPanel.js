@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {useMutation} from "@apollo/client";
-import {CREATE_POST} from "../../../Graphql/mutations/contentCreateMutation";
+import {CREATE_POST} from "../../Graphql/mutations/contentCreateMutation";
 
 const PostPanel = () => {
 
@@ -38,9 +38,9 @@ const PostPanel = () => {
           </div>
           <div>
             <input type="text" id="description" name="description"
-                   placeholder="Description" onChange={(event) => {
-              setDescription(event.target.value)
-            }}/>
+              placeholder="Description" onChange={(event) => {
+                setDescription(event.target.value)
+              }}/>
           </div>
         </div>
         <div className="row-input">

@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {useMutation} from "@apollo/client";
-import {CREATE_RECIPE} from "../../../Graphql/mutations/contentCreateMutation";
+import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
 
 const RecipePanel = () => {
 
@@ -60,14 +60,14 @@ const RecipePanel = () => {
                     ))}
          * */
         setFileArray((prevState => [
-            ...prevState, URL.createObjectURL(file)
-          ]
+          ...prevState, URL.createObjectURL(file)
+        ]
         ));
 
         // to upload
         setImages((prevState => [
-            ...prevState, resizeImageFn(file)
-          ]
+          ...prevState, resizeImageFn(file)
+        ]
         ));
 
       });
@@ -121,23 +121,23 @@ const RecipePanel = () => {
         <box>
           <label htmlFor="title">Title</label>
           <input type="text" id="title" name="title"
-                 placeholder="Title" onChange={(event) => {
-            setTitle(event.target.value)
-          }}/>
+            placeholder="Title" onChange={(event) => {
+              setTitle(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="description">Description</label>
           <input type="text" id="description" name="description"
-                 placeholder="Description" onChange={(event) => {
-            setDescription(event.target.value)
-          }}/>
+            placeholder="Description" onChange={(event) => {
+              setDescription(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="ingredient">Ingredient</label>
           <input type="text" id="ingredient" name="ingredient"
-                 placeholder="Ingredient" onChange={(event) => {
-            setIngredient(event.target.value)
-          }}/>
+            placeholder="Ingredient" onChange={(event) => {
+              setIngredient(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="images">Images</label>
@@ -157,16 +157,16 @@ const RecipePanel = () => {
         <box>
           <label htmlFor="method">Method</label>
           <input type="text" id="method" name="method"
-                 placeholder="Method" onChange={(event) => {
-            setMethod(event.target.value)
-          }}/>
+            placeholder="Method" onChange={(event) => {
+              setMethod(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="time">Time</label>
           <input type="text" id="time" name="time"
-                 placeholder="Time" onChange={(event) => {
-            setTime(event.target.value)
-          }}/>
+            placeholder="Time" onChange={(event) => {
+              setTime(event.target.value)
+            }}/>
         </box>
         <box>
           <input type="submit" value="Submit"/>

@@ -40,16 +40,16 @@ const TipsPanel = () => {
         <box>
           <label htmlFor="title">Title</label>
           <input type="text" id="title" name="title"
-                 placeholder="Title" onChange={(event) => {
-            setTitle(event.target.value)
-          }}/>
+            placeholder="Title" onChange={(event) => {
+              setTitle(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="tips">Tips</label>
           <input type="text" id="tips" name="tips"
-                 placeholder="Tips" onChange={(event) => {
-            setTips(event.target.value)
-          }}/>
+            placeholder="Tips" onChange={(event) => {
+              setTips(event.target.value)
+            }}/>
         </box>
         <box>
           <label htmlFor="images">Images</label>

@@ -29,8 +29,11 @@ const PostPanel = () => {
     }).then();
   }
   return (
-    <div className="createPostPanel">
-      <h1>Add New Post</h1>
+    <div className="createContent">
+      <div className="createContent__header">
+        <h1>Add New Post</h1>
+      </div>
+      
       <form action="" onSubmit={handleSubmit}>
         <div className="row-input">
           <div>

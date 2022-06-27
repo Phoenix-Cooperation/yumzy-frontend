@@ -8,10 +8,10 @@ import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import PrivateRoute from "./utils/PrivateRoute";
 import { logout } from "./services/firebase-auth"
-import RecipePanel from "./pages/UploadContent/RecipePanel";
-import TipsPanel from "./pages/UploadContent/TipsPanel";
+import RecipePanel from "./pages/createContent/RecipePanel";
+import TipsPanel from "./pages/createContent/TipsPanel";
 // import ReviewPanel from "./pages/UploadContent/ReviewPanel";
-import PostPanel from "./pages/UploadContent/PostPanel";
+import PostPanel from "./pages/createContent/PostPanel";
 
 // import {logout} from "./services/"
 
@@ -27,10 +27,10 @@ function App() {
             <Route path="explore" element={<Home />} />
             <Route path="notifications" element={<Home />} />
             <Route path="create" element={<PrivateRoute><CreateMenu/></PrivateRoute>} >
-              <Route index element={<RecipePanel />} />
+              <Route index element={<PostPanel />} />
+              <Route path="post" element={<PostPanel />} />
               <Route path="recipe" element={<RecipePanel />} />
               <Route path="tips" element={<TipsPanel />} />
-              <Route path="post" element={<PostPanel />} />
             </Route>
           </Route>
         </Routes>

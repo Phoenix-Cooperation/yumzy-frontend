@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { logout } from "../../services/firebase-auth"
-import UploadMain from "../UploadContent/UploadMain";
+import UploadMain from "../createContent/UploadMain";
 const Home = () => {
   // const [books, getBooks] = useState([])
 

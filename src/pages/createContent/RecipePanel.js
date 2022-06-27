@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import {useMutation} from "@apollo/client";
+import Compress from "compress.js";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
 
 const RecipePanel = () => {

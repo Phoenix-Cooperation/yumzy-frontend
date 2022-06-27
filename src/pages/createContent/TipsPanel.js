@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import { useMutation } from "@apollo/client";
-import {CREATE_TIP} from "../../../Graphql/mutations/contentCreateMutation";
+import {CREATE_TIP} from "../../Graphql/mutations/contentCreateMutation";
 
 const TipsPanel = () => {
   const [title, setTitle] = useState("");

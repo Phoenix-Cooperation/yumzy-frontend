@@ -22,6 +22,14 @@
 
         textarea {
             grid-column: 2 / span 3;
+            border: 1px solid black;
+            height: toRem(34);
+            border-radius: $form-border-radius;
+            padding: toRem(5);
+
+            &:focus-visible {
+                outline: none;
+            }
         }
 
         &__imagesInput {
@@ -30,6 +38,15 @@
 
         input {
             grid-column: 2 / span 3;
+            border: 1px solid black;
+            height: toRem(34);
+            border-radius: $form-border-radius;
+            padding: toRem(5);
+
+            &:focus-visible {
+                // border: 1px solid black;
+                outline: none;
+            }
         }
 
 

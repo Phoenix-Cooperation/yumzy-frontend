@@ -23,7 +23,8 @@
         textarea {
             grid-column: 2 / span 3;
             border: 1px solid black;
-            height: toRem(34);
+            text-overflow: clip; 
+            height: toRem(50);
             border-radius: $form-border-radius;
             padding: toRem(5);
 

@@ -55,10 +55,10 @@ const PostPanel = () => {
         
         <textarea 
           className="createContent__form__descriptionInput" 
-          type="text" 
+          rows="4"
           id="description" 
           name="description"
-          placeholder="Description" onChange={(event) => {
+          onChange={(event) => {
             setDescription(event.target.value)
           }}
         />

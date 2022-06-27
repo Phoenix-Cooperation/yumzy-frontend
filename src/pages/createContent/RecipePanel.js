@@ -179,7 +179,7 @@ const RecipePanel = () => {
         >
           Method
         </label>
-        <input 
+        <textarea 
           type="text" 
           id="method" 
           name="method"

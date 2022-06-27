@@ -116,62 +116,97 @@ const RecipePanel = () => {
     }).then();
   }
   return (
-    <div className="createPostPanel">
-      <h1>Add New Recipe</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <box>
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title"
-            placeholder="Title" onChange={(event) => {
-              setTitle(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="description">Description</label>
-          <input type="text" id="description" name="description"
-            placeholder="Description" onChange={(event) => {
-              setDescription(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="ingredient">Ingredient</label>
-          <input type="text" id="ingredient" name="ingredient"
-            placeholder="Ingredient" onChange={(event) => {
-              setIngredient(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="images">Images</label>
-          <input
-            hidden
-            type="file"
-            name="image"
-            multiple
-            accept=".jpg, .jpeg, .png"
-            ref={imageInput}
-            onChange={onImageChange}/>
-          <button
-            onClick={focusImageUploadInput}>
+    <div className="createContent">
+      <div className="createContent__header">
+        <h1>Add New Recipe</h1>
+      </div>
+      <form className="createContent__form" onSubmit={handleSubmit}>
+        
+        <label className="createContent__form__titleLabel" htmlFor="title">Title</label>
+        <input className="createContent__form__titleInput" type="text" id="title" name="title"
+          onChange={(event) => {
+            setTitle(event.target.value)
+          }}/>
+        
+        
+        <label 
+          className="createContent__form__descriptionLabel" 
+          htmlFor="description"
+        >
+          Description
+        </label>
+        <textarea type="text" id="description" name="description"
+          onChange={(event) => {
+            setDescription(event.target.value)
+          }}/>
+        
+       
+        <label htmlFor="ingredient">Ingredient</label>
+        <input 
+          className="createContent__form__descriptionInput"
+          type="text" 
+          id="ingredient" 
+          name="ingredient"
+          onChange={(event) => {
+            setIngredient(event.target.value)
+          }}/>
+       
+       
+        <label 
+          className="createContent__form__imagesLabel"
+          htmlFor="images"
+        >
+          Images
+        </label>
+        <input
+          hidden
+          type="file"
+          name="image"
+          multiple
+          accept=".jpg, .jpeg, .png"
+          ref={imageInput}
+          onChange={onImageChange}/>
+        <div
+          className="createContent__form__imagesInput"
+          onClick={focusImageUploadInput}>
             UPLOAD
-          </button>
-        </box>
-        <box>
-          <label htmlFor="method">Method</label>
-          <input type="text" id="method" name="method"
-            placeholder="Method" onChange={(event) => {
-              setMethod(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="time">Time</label>
-          <input type="text" id="time" name="time"
-            placeholder="Time" onChange={(event) => {
-              setTime(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <input type="submit" value="Submit"/>
-        </box>
+        </div>
+        
+        
+        <label 
+          className="createContent__form__methodLabel"
+          htmlFor="method"
+        >
+          Method
+        </label>
+        <input 
+          type="text" 
+          id="method" 
+          name="method"
+          onChange={(event) => {
+            setMethod(event.target.value)
+          }}/>
+      
+        <label 
+          className="createContent__form__timeLable"
+          htmlFor="time"
+        >
+          Time
+        </label>
+        <input 
+          className="createContent__form__timeInput"
+          type="text" 
+          id="time" 
+          name="time"
+          onChange={(event) => {
+            setTime(event.target.value)
+          }}/>
+       
+        <button 
+          className="createContent__form__submit" 
+          type="submit" 
+          value="Submit"
+        >Submit</button>
       </form>
     </div>
   )

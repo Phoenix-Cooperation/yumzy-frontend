@@ -34,32 +34,47 @@ const PostPanel = () => {
         <h1>Add New Post</h1>
       </div>
       
-      <form action="" onSubmit={handleSubmit}>
-        <div className="row-input">
-          <div>
-            <label htmlFor="description">Description</label>
-          </div>
-          <div>
-            <input type="text" id="description" name="description"
-              placeholder="Description" onChange={(event) => {
-                setDescription(event.target.value)
-              }}/>
-          </div>
-        </div>
-        <div className="row-input">
-          <div>
-            <label htmlFor="images">Images</label>
-          </div>
-          <div>
-            <input
-              type="file"
-              name="image"
-              onChange={onImageChange} />
-          </div>
-        </div>
-        <box>
-          <input type="submit" value="Submit"/>
-        </box>
+      <form className="createContent__form" onSubmit={handleSubmit}>
+
+        <label className="createContent__form__titleLabel">Title</label>
+        <input className="createContent__form__titleInput" type="text" name="title" />
+
+        
+        <label 
+          className="createContent__form__descriptionLabel" 
+          htmlFor="description"
+        >
+            Description
+        </label>
+        
+        <textarea 
+          className="createContent__form__descriptionInput" 
+          type="text" 
+          id="description" 
+          name="description"
+          placeholder="Description" onChange={(event) => {
+            setDescription(event.target.value)
+          }}
+        />
+
+      
+       
+        <label 
+          className="createContent_form_imagesLabel"
+          htmlFor="images">Images</label>
+        <input
+          className="createContent_form_imagesInput"
+          type="file"
+          name="image"
+          onChange={onImageChange} />
+        
+        
+        <button 
+          className="createContent__form__submit" 
+          type="submit" 
+          value="Submit"
+        >Submit</button>
+        
       </form>
     </div>
   );

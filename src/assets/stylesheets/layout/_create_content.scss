@@ -1,8 +1,33 @@
 .createContent {
-    margin: toRem(10);
+    margin-top: toRem(20);
+    margin-left: toRem(30);
+    margin-right: toRem(30);
+    width: 90%;
 
     &__header {
-        width: 100%;
-        border-bottom: 1px solid black;
+        width: 90%;
+        border-bottom: 2px solid black;
+    }
+
+    &__form {
+        width: 90%;
+        margin-top: toRem(20);
+        display: grid;
+        gap: toRem(20); 
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto auto ;
+
+        textarea {
+            grid-column: 2 / span 3;
+        }
+
+        input {
+            grid-column: 2 / span 3;
+        }
+
+
+        &__submit {
+            grid-column: 2 / span 1;
+        }
     }
 }

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom"
 
 const CreateMenu = () => {
-  const [active, setActive] = useState("/create/recipe")
+  const [active, setActive] = useState("/create/post")
   console.log(active)
   return (
     <div className="d-flex flex-direction-row">

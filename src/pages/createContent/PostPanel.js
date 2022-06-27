@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
 import {CREATE_POST} from "../../Graphql/mutations/contentCreateMutation";
 
@@ -18,6 +18,12 @@ const PostPanel = () => {
       setImages(img);
     }
   };
+
+  const imageInput = React.createRef();
+
+  const focusImageUploadInput = () => {
+    imageInput.current.click();
+  }
 
   /**
    * post content submit function
@@ -63,13 +69,19 @@ const PostPanel = () => {
           className="createContent__form__imagesLabel"
           htmlFor="images">Images</label>
         <input
+          hidden
+          ref={imageInput}
           className="createContent_form_imagesInput"
           type="file"
           name="image"
           multiple
           accept=".jpg, .jpeg, .png"
           onChange={onImageChange} />
-        
+        <div
+          className="createContent__form__imagesInput"
+          onClick={focusImageUploadInput}>
+            UPLOAD
+        </div>
         
         <button 
           className="createContent__form__submit" 

@@ -1,23 +1,30 @@
 .createContent {
     margin-top: toRem(20);
-    margin-left: toRem(30);
+    margin-left: toRem(60);
     margin-right: toRem(30);
-    width: 90%;
+    width: 60%;
+    // display: flex;
+    // justify-content: space-around;
 
     &__header {
         width: 90%;
         border-bottom: 2px solid black;
+        margin-bottom: toRem(50);
     }
 
     &__form {
         width: 90%;
         margin-top: toRem(20);
         display: grid;
-        gap: toRem(20); 
+        gap: toRem(30); 
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto auto auto auto ;
+        grid-template-rows: auto auto auto auto auto auto;
 
         textarea {
+            grid-column: 2 / span 3;
+        }
+
+        &__imagesInput {
             grid-column: 2 / span 3;
         }
 
@@ -28,6 +35,13 @@
 
         &__submit {
             grid-column: 2 / span 1;
+            // border: 1px solid $primary-color;
+            // background-color: $primary-color;
+            // width: 97%;
+            // color: white;
+            // padding: toRem(6) toRem(0);
+            // text-align: center;
+            // border-radius: $form-border-radius;
         }
     }
 }

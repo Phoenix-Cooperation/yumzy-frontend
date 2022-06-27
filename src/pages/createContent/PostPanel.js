@@ -60,12 +60,14 @@ const PostPanel = () => {
       
        
         <label 
-          className="createContent_form_imagesLabel"
+          className="createContent__form__imagesLabel"
           htmlFor="images">Images</label>
         <input
           className="createContent_form_imagesInput"
           type="file"
           name="image"
+          multiple
+          accept=".jpg, .jpeg, .png"
           onChange={onImageChange} />
         
         

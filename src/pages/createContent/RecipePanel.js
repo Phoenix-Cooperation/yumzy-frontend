@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
 import Compress from "compress.js";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
@@ -26,7 +26,7 @@ const RecipePanel = () => {
    * */
   const [createRecipe, {error}] = useMutation(CREATE_RECIPE);
 
-  const imageInput = React.createRef();
+  const imageInput = React.useRef();
 
   // Initialization - image resizer
   const compress = new Compress();

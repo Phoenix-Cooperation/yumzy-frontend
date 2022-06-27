@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState, useRef } from "react"
 import { useMutation } from "@apollo/client";
 import {CREATE_TIP} from "../../Graphql/mutations/contentCreateMutation";
 
@@ -8,6 +8,12 @@ const TipsPanel = () => {
   const [images, setImages] = useState("");
 
   const [createTip, {error}] = useMutation(CREATE_TIP);
+
+  const imageInput = useRef();
+
+  const focusImageUploadInput = () => {
+    imageInput.current.click();
+  }
 
   /**
    * image validation and assign to variable
@@ -34,33 +40,66 @@ const TipsPanel = () => {
   }
 
   return (
-    <div className="createTipsPanel">
-      <h1>Add New Tip</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <box>
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title"
-            placeholder="Title" onChange={(event) => {
-              setTitle(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="tips">Tips</label>
-          <input type="text" id="tips" name="tips"
-            placeholder="Tips" onChange={(event) => {
-              setTips(event.target.value)
-            }}/>
-        </box>
-        <box>
-          <label htmlFor="images">Images</label>
-          <input
-            type="file"
-            name="image"
-            onChange={onImageChange} />
-        </box>
-        <box>
-          <input type="submit" value="Submit"/>
-        </box>
+    <div className="createContent">
+      <div className="createContent__header">
+        <h1>Add New Tip</h1>
+      </div>
+      <form className="createContent__form" onSubmit={handleSubmit}>
+
+        <label 
+          className="createContent__form__titleLabel" 
+          htmlFor="title"
+        >
+            Title
+        </label>
+        <input 
+          className="createContent__form__titleInput" 
+          type="text" 
+          id="title" 
+          name="title"
+          onChange={(event) => {
+            setTitle(event.target.value)
+          }}/>
+        
+        <label
+          className="createContent__form__tipsLabel" 
+          htmlFor="tips"
+        >
+          Tips
+        </label>
+        <textarea
+          className="createContent__form__tipsInput" 
+          type="text" 
+          id="tips" 
+          name="tips"
+          onChange={(event) => {
+            setTips(event.target.value)
+          }}/>
+        
+
+        <label 
+          className="createContent__form__imagesLabel"
+          htmlFor="images">Images</label>
+        <input
+          hidden
+          ref={imageInput}
+          className="createContent_form_imagesInput"
+          type="file"
+          name="image"
+          multiple
+          accept=".jpg, .jpeg, .png"
+          onChange={onImageChange} />
+        <div
+          className="createContent__form__imagesInput"
+          onClick={focusImageUploadInput}>
+            UPLOAD
+        </div>
+
+        <button 
+          className="createContent__form__submit" 
+          type="submit" 
+          value="Submit"
+        >Submit</button>
       </form>
     </div>
   )

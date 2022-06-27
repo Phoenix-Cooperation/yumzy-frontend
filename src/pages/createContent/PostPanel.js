@@ -19,7 +19,7 @@ const PostPanel = () => {
     }
   };
 
-  const imageInput = React.createRef();
+  const imageInput = useRef();
 
   const focusImageUploadInput = () => {
     imageInput.current.click();
@@ -62,8 +62,6 @@ const PostPanel = () => {
             setDescription(event.target.value)
           }}
         />
-
-      
        
         <label 
           className="createContent__form__imagesLabel"

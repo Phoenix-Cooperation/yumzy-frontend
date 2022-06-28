@@ -1,6 +1,8 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
 import Compress from "compress.js";
+
+import { ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
 
 const RecipePanel = () => {
@@ -10,7 +12,7 @@ const RecipePanel = () => {
    * */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [ingredient, setIngredient] = useState("");
+  const [ingredientsList, setIngredientsList] = useState([]);
   const [images, setImages] = useState([]);
   const [fileArray, setFileArray] = useState([]);
   const [method, setMethod] = useState("");
@@ -26,8 +28,24 @@ const RecipePanel = () => {
    * */
   const [createRecipe, {error}] = useMutation(CREATE_RECIPE);
 
-  const imageInput = React.useRef();
+  const imageInput = useRef();
 
+  const ingredientRef = useRef();
+
+  const addIngredient = () => {
+    const ingredient = ingredientRef.current.value;
+    if (ingredient !== "") {
+      setIngredientsList((prev) => [...prev, ingredient])
+    }
+    console.log(ingredientsList)
+    ingredientRef.current.value = "";
+  }
+
+  const removeIngredient = (index) => {
+    const tempIngredientList = [...ingredientsList];
+    tempIngredientList.splice(index, 1)
+    setIngredientsList(tempIngredientList);
+  }
   // Initialization - image resizer
   const compress = new Compress();
 
@@ -75,9 +93,7 @@ const RecipePanel = () => {
     }
   };
 
-  /**
-   * image resize function
-   * */
+  
   async function resizeImageFn(file) {
 
     const resizedImage = await compress.compress([file], {
@@ -108,7 +124,7 @@ const RecipePanel = () => {
       variables: {
         title: title,
         description: description,
-        ingredient: ingredient,
+        ingredient: ingredientsList,
         images: images,
         method: method,
         time: time
@@ -141,15 +157,28 @@ const RecipePanel = () => {
           }}/>
         
        
-        <label htmlFor="ingredient">Ingredient</label>
-        <input 
-          className="createContent__form__descriptionInput"
-          type="text" 
-          id="ingredient" 
-          name="ingredient"
-          onChange={(event) => {
-            setIngredient(event.target.value)
-          }}/>
+        <label className="createContent__form__ingredientLabel" htmlFor="ingredient">Ingredient</label>
+        <span className="createContent__form__ingredientInput">
+          <input 
+            type="text" 
+            name="ingredient"
+            ref={ingredientRef}
+          />
+          <span
+            className="createContent__form__ingredientInput__btn"
+            onClick={addIngredient}
+          >
+            Add
+          </span>
+          <div className="createContent__form__ingredientInput__list">
+            {ingredientsList.map((ingredient, index) => (
+              <div key={index}>
+                {ingredient}
+                <Xmark onClick={() => removeIngredient(index)}/>
+              </div>
+            ))}
+          </div>
+        </span>
        
        
         <label 

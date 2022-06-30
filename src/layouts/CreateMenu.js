@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom"
 
 const CreateMenu = () => {
-  const [active, setActive] = useState("/create/recipe")
+  const [active, setActive] = useState("/create/post")
   console.log(active)
   return (
     <div className="d-flex flex-direction-row">
@@ -15,6 +15,15 @@ const CreateMenu = () => {
         className="create-menu"
       >
         <div className="create-menu__link-group">
+          <Nav.Link 
+            as={Link} 
+            className={classNames("create-menu__link", active === "/create/post" && 
+              "create-menu__link--active")} 
+            to="/create/post"
+            onClick={() => setActive("/create/post")}
+          >
+            Post
+          </Nav.Link>
           <Nav.Link 
             as={Link} 
             className={classNames("create-menu__link", active === "/create/recipe" && 
@@ -33,15 +42,7 @@ const CreateMenu = () => {
           >
               Tips
           </Nav.Link>
-          <Nav.Link 
-            as={Link} 
-            className={classNames("create-menu__link", active === "/create/review" && 
-              "create-menu__link--active")} 
-            to="/create/review"
-            onClick={() => setActive("/create/review")}
-          >
-            Review
-          </Nav.Link>
+          
 
         </div>
       </Nav>

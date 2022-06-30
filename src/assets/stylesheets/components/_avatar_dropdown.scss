@@ -1,0 +1,60 @@
+.avatarDropDown {
+
+    &__avatar {
+        height: fit-content;
+        width: fit-content;
+    }
+
+    img {
+        height: toRem(40);
+        width: toRem(40);
+        border-radius: toRem(30);
+        // background-color: #646262;
+        margin-right: toRem(10);
+    }
+
+    &__dropDown{
+        position: absolute;
+        top: 58px;
+        // transform: translateX(-70%);
+        right: toRem(35);
+        background-color: darken($background-color, 10%);
+        padding: toRem(8);
+        // transition: height 5s ease;
+        overflow: hidden;
+
+        // TODO : make the dropdown transition smooth
+        // &__group{
+        //     width: 100px;
+        //     &-appear {
+        //         width: 100px;
+        //         &-active {
+        //             width: 100px;
+        //         }
+        //     }
+        //     &-enter {
+        //         width: 100px;
+        //         position: absolute;
+        //         transform: translateX(110%);
+
+        //         &-active {
+        //             width: 100px;
+        //             transform: translateX(0%);
+        //             transition: all 5s ease;
+        //         }
+        //     }
+
+        //     &-exit {
+        //         position: absolute;
+        //         width: 100px;
+        //         &-active {
+        //             width: 100px;
+        //             transform: translateX(110%);
+        //             transition: all 5s ease;
+        //         }
+        //     }
+
+        
+        // }
+    }
+}

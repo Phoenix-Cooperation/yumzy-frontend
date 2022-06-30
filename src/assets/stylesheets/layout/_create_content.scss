@@ -1,0 +1,106 @@
+.createContent {
+    margin-top: toRem(20);
+    margin-left: toRem(60);
+    margin-right: toRem(30);
+    width: 60%;
+    // display: flex;
+    // justify-content: space-around;
+
+    &__header {
+        width: 90%;
+        border-bottom: 2px solid black;
+        margin-bottom: toRem(50);
+    }
+
+    &__form {
+        width: 90%;
+        margin-top: toRem(20);
+        display: grid;
+        gap: toRem(30); 
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto auto auto;
+
+        textarea {
+            grid-column: 2 / span 3;
+            border: 1px solid black;
+            text-overflow: clip; 
+            height: toRem(50);
+            border-radius: $form-border-radius;
+            padding: toRem(5);
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+
+        &__ingredientInput {
+            grid-column: 2 / span 3;
+
+            &__list {
+                width: 100%;
+                display: grid;
+                gap: toRem(10);
+                grid-template-columns: 1fr 1fr;
+
+                svg {
+                    fill: rgb(75, 75, 75);
+                    margin-left: toRem(8);
+                    height: toRem(16);
+                    cursor: pointer;
+                }
+            }
+
+            &__btn {
+                border: 1px solid $primary-color;
+                background-color: $primary-color;
+                // width: 70%;
+                height: toRem(50);
+                color: white;
+                margin-left: toRem(20);
+                padding: toRem(10) toRem(10);
+                text-align: center;
+                border-radius: $form-border-radius;
+                cursor: pointer;
+
+                &:active {
+                    background-color: lighten($primary-color, 5%);
+                }
+            }
+
+        }
+
+
+        &__imagesInput {
+            grid-column: 2 / span 3;
+        }
+
+        input {
+            grid-column: 2 / span 3;
+            border: 1px solid black;
+            height: toRem(34);
+            border-radius: $form-border-radius;
+            padding: toRem(5);
+
+            &:focus-visible {
+                // border: 1px solid black;
+                outline: none;
+            }
+        }
+
+
+        &__submit {
+            grid-column: 2 / span 1;
+            border: 1px solid $primary-color;
+            background-color: $primary-color;
+            width: 70%;
+            color: white;
+            padding: toRem(6) toRem(0);
+            text-align: center;
+            border-radius: $form-border-radius;
+
+            &:active {
+                background-color: lighten($primary-color, 5%);
+            }
+        }
+    }
+}

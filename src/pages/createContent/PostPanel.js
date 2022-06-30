@@ -14,11 +14,13 @@ const PostPanel = () => {
    * */
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setImages(img);
+      // let img = event.target.files[0];
+      setImages(event.target.files);
     }
+    
   };
 
+  console.log(images);
   const imageInput = useRef();
 
   const focusImageUploadInput = () => {
@@ -71,7 +73,7 @@ const PostPanel = () => {
           ref={imageInput}
           className="createContent_form_imagesInput"
           type="file"
-          name="image"
+          // webkitdirectory="true"
           multiple
           accept=".jpg, .jpeg, .png"
           onChange={onImageChange} />

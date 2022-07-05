@@ -19,6 +19,7 @@
     "firebase": "^9.6.10",
     "graphql": "^16.2.0",
     "install": "^0.13.0",
+    "lodash": "^4.17.21",
     "npm": "^8.7.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",

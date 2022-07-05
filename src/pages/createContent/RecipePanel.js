@@ -1,8 +1,8 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
 import Compress from "compress.js";
-
-import { ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
+import _ from "lodash";
+import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
 
 const RecipePanel = () => {
@@ -13,8 +13,7 @@ const RecipePanel = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [ingredientsList, setIngredientsList] = useState([]);
-  const [images, setImages] = useState([]);
-  const [fileArray, setFileArray] = useState([]);
+  const [imageObjects, setImageObjects] = useState([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
 
@@ -37,7 +36,6 @@ const RecipePanel = () => {
     if (ingredient !== "") {
       setIngredientsList((prev) => [...prev, ingredient])
     }
-    console.log(ingredientsList)
     ingredientRef.current.value = "";
   }
 
@@ -72,28 +70,22 @@ const RecipePanel = () => {
           return;
         }
 
-        // to view uploaded images
-        /**
-         * {(this.fileArray || []).map(url => (
-                        <img src={url} alt="..." />
-                    ))}
-         * */
-        setFileArray((prevState => [
-          ...prevState, URL.createObjectURL(file)
-        ]
+        // updates model
+        setImageObjects((prevState => [
+            ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
+          ]
         ));
-
-        // to upload
-        setImages((prevState => [
-          ...prevState, resizeImageFn(file)
-        ]
-        ));
-
       });
     }
   };
 
-  
+  /**
+   * remove selected image from array
+   * */
+  const removeFileArrayValue = (index) => {
+    setImageObjects(imageObjects.filter(image => image !== imageObjects[index]));
+  }
+
   async function resizeImageFn(file) {
 
     const resizedImage = await compress.compress([file], {
@@ -125,7 +117,7 @@ const RecipePanel = () => {
         title: title,
         description: description,
         ingredient: ingredientsList,
-        images: images,
+        images: imageObjects,
         method: method,
         time: time
       },
@@ -137,37 +129,42 @@ const RecipePanel = () => {
         <h1>Add New Recipe</h1>
       </div>
       <form className="createContent__form" onSubmit={handleSubmit}>
-        
-        <label className="createContent__form__titleLabel" htmlFor="title">Title</label>
-        <input className="createContent__form__titleInput" type="text" id="title" name="title"
-          onChange={(event) => {
-            setTitle(event.target.value)
-          }}/>
-        
-        
-        <label 
-          className="createContent__form__descriptionLabel" 
-          htmlFor="description"
-        >
+
+        <label className="createContent__form__titleLabel"
+               htmlFor="title">Title</label>
+        <input className="createContent__form__titleInput"
+               type="text"
+               id="title"
+               name="title"
+               onChange={(event) => {
+                 setTitle(event.target.value)
+               }}/>
+
+
+        <label
+          className="createContent__form__descriptionLabel"
+          htmlFor="description">
           Description
         </label>
-        <textarea type="text" id="description" name="description"
-          onChange={(event) => {
-            setDescription(event.target.value)
-          }}/>
-        
-       
-        <label className="createContent__form__ingredientLabel" htmlFor="ingredient">Ingredient</label>
+        <textarea type="text"
+                  id="description"
+                  name="description"
+                  onChange={(event) => {
+                    setDescription(event.target.value)
+                  }}/>
+
+
+        <label className="createContent__form__ingredientLabel"
+               htmlFor="ingredient">Ingredient</label>
         <span className="createContent__form__ingredientInput">
-          <input 
-            type="text" 
+          <input
+            type="text"
             name="ingredient"
             ref={ingredientRef}
           />
           <span
             className="createContent__form__ingredientInput__btn"
-            onClick={addIngredient}
-          >
+            onClick={addIngredient}>
             Add
           </span>
           <div className="createContent__form__ingredientInput__list">
@@ -179,63 +176,78 @@ const RecipePanel = () => {
             ))}
           </div>
         </span>
-       
-       
-        <label 
+
+
+        <label
           className="createContent__form__imagesLabel"
-          htmlFor="images"
-        >
+          htmlFor="images">
           Images
         </label>
-        <input
-          hidden
-          type="file"
-          name="image"
-          multiple
-          accept=".jpg, .jpeg, .png"
-          ref={imageInput}
-          onChange={onImageChange}/>
-        <div
-          className="createContent__form__imagesInput"
-          onClick={focusImageUploadInput}>
+
+        <div className="createContent__form__imagesUploadMain">
+          <input
+            hidden
+            type="file"
+            name="image"
+            multiple
+            accept=".jpg, .jpeg, .png"
+            ref={imageInput}
+            onChange={onImageChange}/>
+          <div
+            className="createContent__form__imagesUploadMain__imagesInput"
+            onClick={focusImageUploadInput}>
             UPLOAD
+          </div>
+          <div className="createContent__form__imagesUploadMain__imageView">
+            {
+              imageObjects.map((image, index) => (
+                  <div key={index + "image-view-parent"}>
+                    <img
+                      className="createContent__form__imagesUploadMain__imageView__image"
+                      key={index + "image"}
+                      src={image.imageURL}
+                      alt="..."/>
+                    <Xmark onClick={() => removeFileArrayValue(index)}/>
+                  </div>
+                )
+              )
+            }
+          </div>
         </div>
-        
-        
-        <label 
+
+        <label
           className="createContent__form__methodLabel"
-          htmlFor="method"
-        >
+          htmlFor="method">
           Method
         </label>
-        <textarea 
-          type="text" 
-          id="method" 
+        <textarea
+          type="text"
+          id="method"
           name="method"
           onChange={(event) => {
             setMethod(event.target.value)
           }}/>
-      
-        <label 
+
+        <label
           className="createContent__form__timeLable"
-          htmlFor="time"
-        >
+          htmlFor="time">
           Time
         </label>
-        <input 
+        <input
           className="createContent__form__timeInput"
-          type="text" 
-          id="time" 
+          type="text"
+          id="time"
           name="time"
           onChange={(event) => {
             setTime(event.target.value)
           }}/>
-       
-        <button 
-          className="createContent__form__submit" 
-          type="submit" 
+
+        <button
+          className="createContent__form__submit"
+          type="submit"
           value="Submit"
-        >Submit</button>
+        >Submit
+        </button>
       </form>
     </div>
   )

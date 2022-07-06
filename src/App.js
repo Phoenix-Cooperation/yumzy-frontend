@@ -8,6 +8,8 @@ import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { logout } from "./services/firebase-auth"
 
+import ProfileInfo from "./components/ProfileInfo";
+
 // import {logout} from "./services/"
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ProfileInfo/>
       <button onClick={logout}>Logout</button>
     </div>
   );

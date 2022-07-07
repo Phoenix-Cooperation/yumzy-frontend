@@ -29,6 +29,7 @@ const AvatarDropdown = () => {
   }
 
   const handleShowDropDown = () => {
+    console.log("dropdown")
     setShowDropDown(!showDropDown)
     setDropDownHeight(0)
   }

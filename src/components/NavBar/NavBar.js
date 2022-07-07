@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { gql, useQuery } from "@apollo/client";
 
 import { ReactComponent as Home } from "../../assets/images/icons/home.svg"
 import { ReactComponent as Notifications } from "../../assets/images/icons/bell.svg"

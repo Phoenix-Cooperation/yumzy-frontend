@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
@@ -10,15 +10,11 @@ import { ReactComponent as Explore } from "../../assets/images/icons/explore.svg
 import { ReactComponent as Create } from "../../assets/images/icons/create.svg"
 import { ReactComponent as Logo } from "../../assets/images/navbar-logo.svg"
 import { ReactComponent as Search } from "../../assets/images/icons/search-icon.svg"
+
+import AvatarDropdown from "./AvatarDropdown";
+
 const NavBar = () => {
 
-  const GET_USER = gql`
-    query GetUser {
-      user @client
-    }
-  `
-
-  const { data } = useQuery(GET_USER);
   
   return (
     <Navbar bg="light" expand="lg">
@@ -59,14 +55,7 @@ const NavBar = () => {
           </Nav>
         </Navbar.Collapse>
 
-        {data.user.photoURL && (
-          <div className="navbar__avatar">
-            {console.log(data.user.photoURL)}
-            <img src={data.user.photoURL} alt="dp" referrerPolicy="no-referrer"/>
-          </div>
-
-        )}
-
+        <AvatarDropdown/>
       </Container>
     </Navbar>
   )

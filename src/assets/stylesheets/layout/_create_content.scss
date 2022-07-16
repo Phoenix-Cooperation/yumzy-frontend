@@ -38,9 +38,14 @@
 
             &__list {
                 width: 100%;
-                display: grid;
-                gap: toRem(10);
-                grid-template-columns: 1fr 1fr;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-right: toRem(15);
+
+                div {
+                    margin-right: toRem(15);
+                }
 
                 svg {
                     fill: rgb(75, 75, 75);

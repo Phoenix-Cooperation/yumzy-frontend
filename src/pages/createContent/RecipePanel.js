@@ -72,8 +72,8 @@ const RecipePanel = () => {
 
         // updates model
         setImageObjects((prevState => [
-            ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
-          ]
+          ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
+        ]
         ));
       });
     }
@@ -131,14 +131,14 @@ const RecipePanel = () => {
       <form className="createContent__form" onSubmit={handleSubmit}>
 
         <label className="createContent__form__titleLabel"
-               htmlFor="title">Title</label>
+          htmlFor="title">Title</label>
         <input className="createContent__form__titleInput"
-               type="text"
-               id="title"
-               name="title"
-               onChange={(event) => {
-                 setTitle(event.target.value)
-               }}/>
+          type="text"
+          id="title"
+          name="title"
+          onChange={(event) => {
+            setTitle(event.target.value)
+          }}/>
 
 
         <label
@@ -147,15 +147,15 @@ const RecipePanel = () => {
           Description
         </label>
         <textarea type="text"
-                  id="description"
-                  name="description"
-                  onChange={(event) => {
-                    setDescription(event.target.value)
-                  }}/>
+          id="description"
+          name="description"
+          onChange={(event) => {
+            setDescription(event.target.value)
+          }}/>
 
 
         <label className="createContent__form__ingredientLabel"
-               htmlFor="ingredient">Ingredient</label>
+          htmlFor="ingredient">Ingredient</label>
         <span className="createContent__form__ingredientInput">
           <input
             type="text"
@@ -201,15 +201,15 @@ const RecipePanel = () => {
           <div className="createContent__form__imagesUploadMain__imageView">
             {
               imageObjects.map((image, index) => (
-                  <div key={index + "image-view-parent"}>
-                    <img
-                      className="createContent__form__imagesUploadMain__imageView__image"
-                      key={index + "image"}
-                      src={image.imageURL}
-                      alt="..."/>
-                    <Xmark onClick={() => removeFileArrayValue(index)}/>
-                  </div>
-                )
+                <div key={index + "image-view-parent"}>
+                  <img
+                    className="createContent__form__imagesUploadMain__imageView__image"
+                    key={index + "image"}
+                    src={image.imageURL}
+                    alt="..."/>
+                  <Xmark onClick={() => removeFileArrayValue(index)}/>
+                </div>
+              )
               )
             }
           </div>

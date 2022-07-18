@@ -1,9 +1,9 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
-import Compress from "compress.js";
-import _ from "lodash";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
+import { uploadToS3 } from "./uploadToS3";
+import { resizeImageFn } from "./resizeImageFn";
 
 const RecipePanel = () => {
 
@@ -14,6 +14,7 @@ const RecipePanel = () => {
   const [description, setDescription] = useState("");
   const [ingredientsList, setIngredientsList] = useState([]);
   const [imageObjects, setImageObjects] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
 
@@ -45,16 +46,15 @@ const RecipePanel = () => {
     setIngredientsList(tempIngredientList);
   }
   // Initialization - image resizer
-  const compress = new Compress();
-
   /**
    * image validation and assign to variable
    * */
-  const onImageChange = (event) => {
+  const onImageChange = async (event) => {
 
-    if (event.target.files && event.target.files.length > 0) {
-      _.forEach(event.target.files, file => {
-
+    const files = event.target.files;
+    console.log(`files ${files}`, files)
+    if (files && files.length > 0) {
+      await Promise.all(Array.from(files).map(async (file) => {
         if (!file) {
           setErrorImageUpload("Image is not valid");
           return;
@@ -71,13 +71,16 @@ const RecipePanel = () => {
         }
 
         // updates model
+        const resizedImage = await resizeImageFn(file)
+        console.log(resizedImage);
         setImageObjects((prevState => [
-          ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
+          ...prevState, {file: resizedImage, imageURL: URL.createObjectURL(file)}
         ]
         ));
-      });
+      }))
     }
   };
+
 
   /**
    * remove selected image from array
@@ -86,22 +89,27 @@ const RecipePanel = () => {
     setImageObjects(imageObjects.filter(image => image !== imageObjects[index]));
   }
 
-  async function resizeImageFn(file) {
+  
 
-    const resizedImage = await compress.compress([file], {
-      size: 2, // the max size in MB, defaults to 2MB
-      quality: 1, // the quality of the image, max is 1,
-      maxWidth: 300, // the max width of the output image, defaults to 1920px
-      maxHeight: 300, // the max height of the output image, defaults to 1920px
-      resize: true // defaults to true, set false if you do not want to resize the image width and height
-    });
+  // async function resizeImageFn(file) {
 
-    const img = resizedImage[0];
-    const base64str = img.data
-    const imgExt = img.ext
-    const resizedFile = Compress.convertBase64ToFile(base64str, imgExt)
-    return resizedFile;
-  }
+  //   console.log(file);
+  //   const resizedImage = await compress.compress([file], {
+  //     size: 2, // the max size in MB, defaults to 2MB
+  //     quality: 1, // the quality of the image, max is 1,
+  //     maxWidth: 300, // the max width of the output image, defaults to 1920px
+  //     maxHeight: 300, // the max height of the output image, defaults to 1920px
+  //     resize: true // defaults to true, set false if you do not want to resize the image width and height
+  //   });
+
+  //   const img = resizedImage[0];
+  //   const base64str = img.data
+  //   const imgExt = img.ext
+  //   const BlobFile =  Compress.convertBase64ToFile(base64str, imgExt)
+  //   const resizedFile = new File([BlobFile], file.name, { type: file.type })
+  //   console.log(resizedFile)
+  //   return resizedFile;
+  // }
 
   const focusImageUploadInput = () => {
     imageInput.current.click();
@@ -112,16 +120,19 @@ const RecipePanel = () => {
    * */
   const handleSubmit = (event) => {
     event.preventDefault();
-    createRecipe({
-      variables: {
-        title: title,
-        description: description,
-        ingredient: ingredientsList,
-        images: imageObjects,
-        method: method,
-        time: time
-      },
-    }).then();
+    const [uploadedFiles, errors] = uploadToS3(imageObjects)
+    console.log("uploadedFiles",uploadedFiles)
+    console.log("errors", errors)
+    // createRecipe({
+    //   variables: {
+    //     title: title,
+    //     description: description,
+    //     ingredient: ingredientsList,
+    //     images: imageObjects,
+    //     method: method,
+    //     time: time
+    //   },
+    // }).then();
   }
   return (
     <div className="createContent">

@@ -3,7 +3,7 @@ import {useMutation} from "@apollo/client";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
 import { uploadToS3 } from "./uploadToS3";
-import { resizeImageFn } from "./resizeImageFn";
+import ImageUpload from "./ImageUpload";
 
 const RecipePanel = () => {
 
@@ -21,14 +21,12 @@ const RecipePanel = () => {
   /**
    * error messages
    * */
-  const [errorImageUpload, setErrorImageUpload] = useState("");
+  const [errorImageUpload, setErrorImageUpload] = useState([]);
 
   /**
    * GraphQL
    * */
   const [createRecipe, {error}] = useMutation(CREATE_RECIPE);
-
-  const imageInput = useRef();
 
   const ingredientRef = useRef();
 
@@ -49,38 +47,14 @@ const RecipePanel = () => {
   /**
    * image validation and assign to variable
    * */
-  const onImageChange = async (event) => {
 
-    const files = event.target.files;
-    console.log(`files ${files}`, files)
-    if (files && files.length > 0) {
-      await Promise.all(Array.from(files).map(async (file) => {
-        if (!file) {
-          setErrorImageUpload("Image is not valid");
-          return;
-        }
+  const handleErrorImageUpload = (error) => {
+    setErrorImageUpload((prev) => [...prev, error ])
+  }
 
-        if (!file.name.match(/\.(jpg|jpeg|png)$/)) {
-          setErrorImageUpload("Image type is not valid");
-          return;
-        }
-
-        if (file.size > 10e6) {
-          setErrorImageUpload("Please upload a file smaller than 10 MB");
-          return;
-        }
-
-        // updates model
-        const resizedImage = await resizeImageFn(file)
-        console.log(resizedImage);
-        setImageObjects((prevState => [
-          ...prevState, {file: resizedImage, imageURL: URL.createObjectURL(file)}
-        ]
-        ));
-      }))
-    }
-  };
-
+  const handleImageObjectsChange = ({file, imageURL}) => {
+    setImageObjects((prev) => [...prev, {file, imageURL}])
+  }
 
   /**
    * remove selected image from array
@@ -89,40 +63,14 @@ const RecipePanel = () => {
     setImageObjects(imageObjects.filter(image => image !== imageObjects[index]));
   }
 
-  
-
-  // async function resizeImageFn(file) {
-
-  //   console.log(file);
-  //   const resizedImage = await compress.compress([file], {
-  //     size: 2, // the max size in MB, defaults to 2MB
-  //     quality: 1, // the quality of the image, max is 1,
-  //     maxWidth: 300, // the max width of the output image, defaults to 1920px
-  //     maxHeight: 300, // the max height of the output image, defaults to 1920px
-  //     resize: true // defaults to true, set false if you do not want to resize the image width and height
-  //   });
-
-  //   const img = resizedImage[0];
-  //   const base64str = img.data
-  //   const imgExt = img.ext
-  //   const BlobFile =  Compress.convertBase64ToFile(base64str, imgExt)
-  //   const resizedFile = new File([BlobFile], file.name, { type: file.type })
-  //   console.log(resizedFile)
-  //   return resizedFile;
-  // }
-
-  const focusImageUploadInput = () => {
-    imageInput.current.click();
-  }
-
   /**
    * post content submit function
    * */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const [uploadedFiles, errors] = uploadToS3(imageObjects)
-    console.log("uploadedFiles",uploadedFiles)
-    console.log("errors", errors)
+    const [uploadedImages, errors] = await uploadToS3(imageObjects)
+    console.log(uploadedImages, "uploadedImages");
+    console.log(errors, "errors");
     // createRecipe({
     //   variables: {
     //     title: title,
@@ -196,19 +144,10 @@ const RecipePanel = () => {
         </label>
 
         <div className="createContent__form__imagesUploadMain">
-          <input
-            hidden
-            type="file"
-            name="image"
-            multiple
-            accept=".jpg, .jpeg, .png"
-            ref={imageInput}
-            onChange={onImageChange}/>
-          <div
-            className="createContent__form__imagesUploadMain__imagesInput"
-            onClick={focusImageUploadInput}>
-            UPLOAD
-          </div>
+          <ImageUpload 
+            handleErrors={handleErrorImageUpload}
+            handleImageChange={handleImageObjectsChange}
+          />
           <div className="createContent__form__imagesUploadMain__imageView">
             {
               imageObjects.map((image, index) => (
@@ -240,7 +179,7 @@ const RecipePanel = () => {
           }}/>
 
         <label
-          className="createContent__form__timeLable"
+          className="createContent__form__timeLabe1"
           htmlFor="time">
           Time
         </label>
@@ -253,6 +192,20 @@ const RecipePanel = () => {
             setTime(event.target.value)
           }}/>
 
+        <label
+          className="createContent__form__tagsLabel"
+          htmlFor="tags">
+            Tags
+        </label>
+        <input
+          className="createContent__form__tagsInput"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(event) => {
+          
+          }}/>
+          
         <button
           className="createContent__form__submit"
           type="submit"

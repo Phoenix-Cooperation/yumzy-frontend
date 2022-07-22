@@ -1,7 +1,7 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
-import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
+import { CREATE_RECIPE } from "../../api/mutations";
 import { uploadToS3 } from "./uploadToS3";
 import ImageUpload from "./ImageUpload";
 
@@ -17,6 +17,7 @@ const RecipePanel = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
+  const [tags, setTags] = useState([])
 
   /**
    * error messages
@@ -68,19 +69,34 @@ const RecipePanel = () => {
    * */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const [uploadedImages, errors] = await uploadToS3(imageObjects)
-    console.log(uploadedImages, "uploadedImages");
+    const [images, errors] = await uploadToS3(imageObjects)
+    console.log(images, "uploadedImages");
     console.log(errors, "errors");
-    // createRecipe({
-    //   variables: {
-    //     title: title,
-    //     description: description,
-    //     ingredient: ingredientsList,
-    //     images: imageObjects,
-    //     method: method,
-    //     time: time
-    //   },
-    // }).then();
+    if (errors.length >= 1) {
+      console.log("error in uploading images")
+    }
+
+    setUploadedImages(images)
+
+    console.log(uploadedImages)
+    const recipe = await createRecipe({
+      variables: {
+        recipeInput: {
+          title,
+          description,
+          ingredients: ingredientsList,
+          images: uploadedImages,
+          method,
+          time,
+          tags,
+        }
+      }
+    })
+
+    if (error) {
+      console.error("error in saving post", error)
+    }
+    console.log(recipe)
   }
   return (
     <div className="createContent">
@@ -203,7 +219,9 @@ const RecipePanel = () => {
           id="tags"
           name="tags"
           onChange={(event) => {
-          
+            const { value } = event.target;
+            const tempTags = value.split(" ")
+            setTags(tempTags)
           }}/>
           
         <button

@@ -1,10 +1,11 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
-import {CREATE_POST} from "../../Graphql/mutations/contentCreateMutation";
+import { CREATE_POST } from "../../api/mutations";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import _ from "lodash";
 import Compress from "compress.js";
 import ImageUpload from "./ImageUpload";
+import { uploadToS3 } from "./uploadToS3";
 
 
 const PostPanel = () => {
@@ -12,6 +13,7 @@ const PostPanel = () => {
   // Initialization - image resizer
   const compress = new Compress();
   const imageInput = useRef();
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageObjects, setImageObjects] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -41,11 +43,33 @@ const PostPanel = () => {
   /**
    * post content submit function
    * */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createPost({
-      variables: {description: description, images: imageObjects},
-    }).then();
+    const [images, errors] = await uploadToS3(imageObjects)
+    console.log(images, "uploadedImages");
+    console.log(errors, "errors");
+    if (errors.length >= 1) {
+      console.log("error in uploading images")
+    }
+
+    setUploadedImages(images);
+
+    const post = await createPost({
+      variables: {
+        postInput: {
+          title,
+          description,
+          images: uploadedImages,
+          tags,
+        }
+      }
+    })
+
+    if (error) {
+      console.error("error uploading images", error)
+    }
+
+    console.log(post)
   }
   return (
     <div className="createContent">
@@ -56,7 +80,14 @@ const PostPanel = () => {
       <form className="createContent__form" onSubmit={handleSubmit}>
 
         <label className="createContent__form__titleLabel">Title</label>
-        <input className="createContent__form__titleInput" type="text" name="title"/>
+        <input 
+          className="createContent__form__titleInput" 
+          type="text" 
+          name="title"
+          onChange={(event) => {
+              setTitle(event.target.value)
+            }}
+          />
 
 
         <label
@@ -117,7 +148,7 @@ const PostPanel = () => {
             const tempTags = value.split(" ")
             setTags(tempTags)
           }}/>
-          
+
         <button
           className="createContent__form__submit"
           type="submit"
@@ -130,4 +161,4 @@ const PostPanel = () => {
   );
 }
 
-export default PostPanel
+export default PostPanel;

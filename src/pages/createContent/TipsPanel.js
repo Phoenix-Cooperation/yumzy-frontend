@@ -1,59 +1,34 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
-import {CREATE_TIP} from "../../Graphql/mutations/contentCreateMutation";
-import _ from "lodash";
-import Compress from "compress.js";
+import { CREATE_TIPS } from "../../api/mutations";
+import { uploadToS3 } from "./uploadToS3";
+import ImageUpload from "./ImageUpload";
+
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 
 const TipsPanel = () => {
 
   // Initialization - image resizer
-  const compress = new Compress();
   const [title, setTitle] = useState("");
   const [tips, setTips] = useState("");
   const [imageObjects, setImageObjects] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   /**
    * error messages
    * */
   const [errorImageUpload, setErrorImageUpload] = useState("");
-  const [createTip, {error}] = useMutation(CREATE_TIP);
-  const imageInput = useRef();
 
-  /**
-   * image validation and assign to variable
-   * */
-  const onImageChange = (event) => {
+  const [createTips, {error}] = useMutation(CREATE_TIPS);
 
-    if (event.target.files && event.target.files.length > 0) {
-      _.forEach(event.target.files, file => {
-
-        if (!file) {
-          setErrorImageUpload("Image is not valid");
-          return;
-        }
-
-        if (!file.name.match(/\.(jpg|jpeg|png)$/)) {
-          setErrorImageUpload("Image type is not valid");
-          return;
-        }
-
-        if (file.size > 10e6) {
-          setErrorImageUpload("Please upload a file smaller than 10 MB");
-          return;
-        }
-
-        // updates model
-        setImageObjects((prevState => [
-            ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
-          ]
-        ));
-      });
-    }
-  };
-
-  const focusImageUploadInput = () => {
-    imageInput.current.click();
+  const handleErrorImageUpload = (error) => {
+    setErrorImageUpload((prev) => [...prev, error ])
   }
+
+  const handleImageObjectsChange = ({file, imageURL}) => {
+    setImageObjects((prev) => [...prev, {file, imageURL}])
+  }
+
 
   /**
    * remove selected image from array
@@ -62,36 +37,43 @@ const TipsPanel = () => {
     setImageObjects(imageObjects.filter(image => image !== imageObjects[index]));
   }
 
-  async function resizeImageFn(file) {
-
-    const resizedImage = await compress.compress([file], {
-      size: 2, // the max size in MB, defaults to 2MB
-      quality: 1, // the quality of the image, max is 1,
-      maxWidth: 300, // the max width of the output image, defaults to 1920px
-      maxHeight: 300, // the max height of the output image, defaults to 1920px
-      resize: true // defaults to true, set false if you do not want to resize the image width and height
-    });
-
-    const img = resizedImage[0];
-    const base64str = img.data
-    const imgExt = img.ext
-    const resizedFile = Compress.convertBase64ToFile(base64str, imgExt)
-    return resizedFile;
-  }
 
   /**
    * post content submit function
    * */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createTip({
-      variables: {
-        title: title,
-        tips: tips,
-        images: imageObjects
-      },
-    }).then();
+
+    event.preventDefault();
+    const [images, errors] = await uploadToS3(imageObjects)
+    console.log(images, "uploadedImages");
+    console.log(errors, "errors");
+    if (errors.length >= 1) {
+      console.log("error in uploading images")
+    }
+
+    setUploadedImages(images)
+
+    const tipsRes = await createTips({
+      variables: { 
+        tipsInput: {
+          title,
+          tips,
+          images: uploadedImages,
+          tags,
+        }
+      }
+    })
+
+    if (error) {
+      console.error("error in saving post", error)
+    }
+
+    console.log(tipsRes)
   }
+
+
+
 
   return (
     <div className="createContent">
@@ -137,35 +119,42 @@ const TipsPanel = () => {
           Images
         </label>
         <div className="createContent__form__imagesUploadMain">
-          <input
-            hidden
-            type="file"
-            name="image"
-            multiple
-            accept=".jpg, .jpeg, .png"
-            ref={imageInput}
-            onChange={onImageChange}/>
-          <div
-            className="createContent__form__imagesUploadMain__imagesInput"
-            onClick={focusImageUploadInput}>
-            UPLOAD
-          </div>
+          <ImageUpload 
+            handleErrors={handleErrorImageUpload}
+            handleImageChange={handleImageObjectsChange}
+          />
           <div className="createContent__form__imagesUploadMain__imageView">
             {
               imageObjects.map((image, index) => (
-                  <div key={index + "image-view-parent"}>
-                    <img
-                      className="createContent__form__imagesUploadMain__imageView__image"
-                      key={index + "image"}
-                      src={image.imageURL}
-                      alt="..."/>
-                    <Xmark onClick={() => removeFileArrayValue(index)}/>
-                  </div>
-                )
+                <div key={index + "image-view-parent"}>
+                  <img
+                    className="createContent__form__imagesUploadMain__imageView__image"
+                    key={index + "image"}
+                    src={image.imageURL}
+                    alt="..."/>
+                  <Xmark onClick={() => removeFileArrayValue(index)}/>
+                </div>
+              )
               )
             }
           </div>
         </div>
+        
+        <label
+          className="createContent__form__tagsLabel"
+          htmlFor="tags">
+            Tags
+        </label>
+        <input
+          className="createContent__form__tagsInput"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(event) => {
+            const { value } = event.target;
+            const tempTags = value.split(" ")
+            setTags(tempTags)
+          }}/>
 
         <button
           className="createContent__form__submit"

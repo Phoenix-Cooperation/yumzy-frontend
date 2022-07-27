@@ -44,10 +44,7 @@ const RecipePanel = () => {
     tempIngredientList.splice(index, 1)
     setIngredientsList(tempIngredientList);
   }
-  // Initialization - image resizer
-  /**
-   * image validation and assign to variable
-   * */
+  
 
   const handleErrorImageUpload = (error) => {
     setErrorImageUpload((prev) => [...prev, error ])

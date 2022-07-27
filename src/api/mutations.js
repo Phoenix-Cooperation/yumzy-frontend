@@ -17,3 +17,21 @@ export const CREATE_RECIPE = gql`
         }
     }
 `
+
+export const CREATE_POST = gql`
+    mutation CREATE_POST($postInput: PostInput! ) {
+        createPost(postInput: $postInput) {
+            title
+            tags
+            description
+        }
+    }
+`
+
+export const CREATE_TIPS = gql`
+    mutation CREATE_TIPS($tipsInput: TipsInput!) {
+        createTips(tipsInput: $tipsInput) {
+            title
+        }
+    }
+`

@@ -73,7 +73,7 @@ const RecipePanel = () => {
       console.log("error in uploading images")
     }
 
-    setUploadedImages(images)
+    // setUploadedImages(images)
 
     console.log(uploadedImages)
     const recipe = await createRecipe({
@@ -82,7 +82,7 @@ const RecipePanel = () => {
           title,
           description,
           ingredients: ingredientsList,
-          images: uploadedImages,
+          images,
           method,
           time,
           tags,

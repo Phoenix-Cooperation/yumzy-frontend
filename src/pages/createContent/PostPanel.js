@@ -46,20 +46,20 @@ const PostPanel = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const [images, errors] = await uploadToS3(imageObjects)
+    // setUploadedImages(images);
     console.log(images, "uploadedImages");
     console.log(errors, "errors");
     if (errors.length >= 1) {
       console.log("error in uploading images")
     }
 
-    setUploadedImages(images);
 
     const post = await createPost({
       variables: {
         postInput: {
           title,
           description,
-          images: uploadedImages,
+          images,
           tags,
         }
       }

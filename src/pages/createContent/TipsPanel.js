@@ -52,14 +52,14 @@ const TipsPanel = () => {
       console.log("error in uploading images")
     }
 
-    setUploadedImages(images)
+    // setUploadedImages(images)
 
     const tipsRes = await createTips({
       variables: { 
         tipsInput: {
           title,
           tips,
-          images: uploadedImages,
+          images,
           tags,
         }
       }

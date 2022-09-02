@@ -17,11 +17,48 @@
         position: absolute;
         top: 58px;
         // transform: translateX(-70%);
-        right: toRem(35);
-        background-color: darken($background-color, 10%);
-        padding: toRem(8);
-        // transition: height 5s ease;
+        right: toRem(20);
+        // min-height: max-content;
+        // background-color: transparentize($background-color, 0.35);
+        background-color: transparentize(darken(#f8f9fa, 15%), 0.35);
+        padding: toRem(8) toRem(20);
+        transition: background-color ease-in 1500ms;
         overflow: hidden;
+        border-radius: 15px;
+
+
+        &__item {
+            margin: toRem(6) 0;
+            padding: toRem(8);
+            cursor: pointer;
+            border-radius: toRem(10);
+
+            &:hover {
+                background-color: transparentize($color: #f8f9fa, $amount: 0.45);
+            }
+
+            &__container {
+                height: max-content;
+                border-bottom: 1px solid black;
+            }
+
+            &__username {
+                margin-top: toRem(10);
+                
+                // border-bottom: 1px solid black;
+                font-weight: bold;
+                span {
+                    height: max-content;
+                    border-bottom: 1px solid black;
+                }
+            }
+
+
+            
+            
+        }
+
+
 
         // TODO : make the dropdown transition smooth
         // &__group{

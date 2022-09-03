@@ -31,10 +31,8 @@ const AvatarDropdown = () => {
   })
   
   function calcHeight(el) {
-    console.log(el.offsetWidth * 0.2, "offset width")
-    console.log(el.offsetWidth, "offset width")
     const height = el.offsetHeight + el.offsetHeight * 0.09;
-    const width = el.offsetWidth + el.offsetWidth * 0.2;
+    const width = el.offsetWidth;
 
     if (width > 180) {
       setDropDownWidth(240);

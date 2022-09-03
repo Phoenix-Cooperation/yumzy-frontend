@@ -24,6 +24,7 @@ export default class userStore {
 
   static setToken(token) {
     this.storage.setItem("token", token);
+    window.dispatchEvent(new Event("storage"))
   }
 
   static getToken() {
@@ -42,6 +43,7 @@ export default class userStore {
     this.storage.removeItem("token")
     this.storage.removeItem("photoURL")
 
+    window.dispatchEvent(new Event("storage"))
     isLoggedIn(false);
     user({ username: undefined, photoURL: undefined })
   }

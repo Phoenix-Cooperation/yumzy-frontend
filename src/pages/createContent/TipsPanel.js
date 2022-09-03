@@ -126,9 +126,8 @@ const TipsPanel = () => {
           <div className="createContent__form__imagesUploadMain__imageView">
             {
               imageObjects.map((image, index) => (
-                <div key={index + "image-view-parent"}>
+                <div key={index + "image-view-parent"}  className="createContent__form__imagesUploadMain__imageView__image">
                   <img
-                    className="createContent__form__imagesUploadMain__imageView__image"
                     key={index + "image"}
                     src={image.imageURL}
                     alt="..."/>

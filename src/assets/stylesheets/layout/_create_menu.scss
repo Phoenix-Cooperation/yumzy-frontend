@@ -1,0 +1,35 @@
+.create-menu {
+    width: 200px;
+    height: 100vh;
+    flex-direction: column;
+    border-right: 1px #c4c4c4 solid;
+    text-align: left;
+    align-content: end;
+
+    &__link-group {
+        margin: toRem(30) toRem(0) toRem(40) toRem(10);
+    }
+
+    &__link {
+        width: toRem(140);
+        margin-top: toRem(20);
+        color: black;
+        // background-color: $primary-color;
+        &:hover {
+            color: #7c7c7c;
+        }
+
+        &--active {
+            color: white;
+            margin-top: toRem(20);
+            background-color: $primary-color;
+
+            &:hover {
+                color: #dadada;
+            }
+            &:focus {
+                color: white;
+            }
+        }
+    }
+}

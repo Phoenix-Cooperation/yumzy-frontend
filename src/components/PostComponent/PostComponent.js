@@ -5,34 +5,44 @@ import { ReactComponent as Menu } from "../../assets/images/icons/dots-vertical.
 import { ReactComponent as Yummy } from "../../assets/images/icons/emoticon-tongue.svg"
 import { ReactComponent as Comment } from "../../assets/images/icons/comment-processing.svg"
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
+import {postComponentProps} from "../../types/component.proptypes";
 
-const PostComponent = () => {
+const PostComponent = (props) => {
+
+  // eslint-disable-next-line no-undef
+  const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
+
   return (
     <Col>
       <Card className="post">
         <Card.Header><User className="post__avatar"/>User Name<Menu className="post__menu"/></Card.Header>
         <Carousel variant="dark" className="post__image">
-          <Carousel.Item>
-            <img
-              className=""
-              src="https://www.inspiredtaste.net/wp-content/uploads/2019/04/Vegetable-Baked-Pasta-Recipe-1200.jpg"
-              alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className=""
-              src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-close.jpg"
-              alt="Second slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className=""
-              src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-V2-bowl.jpg"
-              alt="Third slide"
-            />
-          </Carousel.Item>
+          {
+            props.data.images.map((image) => (
+              <Carousel.Item key={props.data.id}>
+                <img
+                  className=""
+                  src={s3Url+image}
+                  alt="First slide"
+                />
+              </Carousel.Item>
+            ))
+          }
+          
+          {/*<Carousel.Item>*/}
+          {/*  <img*/}
+          {/*    className=""*/}
+          {/*    src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-close.jpg"*/}
+          {/*    alt="Second slide"*/}
+          {/*  />*/}
+          {/*</Carousel.Item>*/}
+          {/*<Carousel.Item>*/}
+          {/*  <img*/}
+          {/*    className=""*/}
+          {/*    src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-V2-bowl.jpg"*/}
+          {/*    alt="Third slide"*/}
+          {/*  />*/}
+          {/*</Carousel.Item>*/}
         </Carousel>
         <Card.Body>
           <Card.Title>Card Title</Card.Title>
@@ -46,5 +56,5 @@ const PostComponent = () => {
     </Col>
   );
 };
-
+PostComponent.propTypes = postComponentProps;
 export default PostComponent;

@@ -1,7 +1,7 @@
 import { user, isLoggedIn } from "../api/cache";
 export default class userStore {
 
-  static storage = localStorage;
+  static storage = sessionStorage;
 
   static setUser(username, photoURL = undefined) {
     const tempUser = {

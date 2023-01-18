@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./assets/stylesheets/main.scss";
+
 import UserLayout from "./layouts/UserLayout";
 import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";

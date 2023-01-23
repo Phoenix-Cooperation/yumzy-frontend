@@ -28,27 +28,11 @@ const PostComponent = (props) => {
               </Carousel.Item>
             ))
           }
-          
-          {/*<Carousel.Item>*/}
-          {/*  <img*/}
-          {/*    className=""*/}
-          {/*    src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-close.jpg"*/}
-          {/*    alt="Second slide"*/}
-          {/*  />*/}
-          {/*</Carousel.Item>*/}
-          {/*<Carousel.Item>*/}
-          {/*  <img*/}
-          {/*    className=""*/}
-          {/*    src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Tomato-Spinach-Pasta-V2-bowl.jpg"*/}
-          {/*    alt="Third slide"*/}
-          {/*  />*/}
-          {/*</Carousel.Item>*/}
         </Carousel>
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>{props.data.title}</Card.Title>
           <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card content.
+            {props.data.description}
           </Card.Text>
           <Yummy className="post__reacts"/><Comment className="post__reacts"/><Bookmark className="post__reacts"/>
         </Card.Body>

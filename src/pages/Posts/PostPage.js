@@ -1,18 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
 import PostComponent from "../../components/PostComponent/PostComponent";
-import { GET_RECIPES } from "../../Graphql/Queries/getPostQueries"
+import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
 
 const PostPage = () => {
 
-  const { data,error } = useQuery(GET_RECIPES, {variables: {pageSize: 10}});
+  const [postData,setPostData] = useState([]);
+  const { data } = useQuery(GET_CONTENT, {variables: {pageSize: 10}});
+  console.log("addadasdd",data);
 
-  console.log(error,data);
-
+  useEffect(() => {
+    console.log(data);
+    if(data !== undefined) {
+      setPostData(data.getContent);
+    }
+  },[])
   return (
     <Row>
-      <PostComponent data = {data}/>
+      {postData.map((data) => (
+        <div key={data.id}>
+          <PostComponent data = {data}/>
+        </div>
+      ))}
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>
   );

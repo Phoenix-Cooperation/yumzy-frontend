@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 
-import { auth, signIn, registerUser, signInWithGoogle, logout} from "../../services/firebase-auth";
+import { auth, signIn, registerUser, signInWithGoogle } from "../../services/firebase-auth";
 import { SigninSchema, SignupSchema, signUpDefaultValues, signInDefaultValues } from "./Schema";
 import { isLoggedIn } from "../../api/cache";
 import userStore from "../../utils/userStore";
@@ -80,7 +80,7 @@ const Auth = () => {
   }
 
   useEffect(() => {
-    // console.log(auth.currentUser)
+    console.log(auth.currentUser)
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken()
@@ -163,7 +163,6 @@ const Auth = () => {
           </p>)
         }
 
-        <button onClick={logout}>Logout</button>
       </div>
     </div>
   )

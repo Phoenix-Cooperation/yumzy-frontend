@@ -15,7 +15,7 @@ const PostPage = () => {
     if(data !== undefined) {
       setPostData(data.getContent);
     }
-  },[])
+  },[data])
   return (
     <Row>
       {postData.map((data) => (

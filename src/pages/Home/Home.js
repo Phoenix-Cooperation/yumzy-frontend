@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { logout } from "../../services/firebase-auth"
+import PostPage from "../Posts/PostPage";
 import UploadMain from "../createContent/UploadMain";
 const Home = () => {
   // const [books, getBooks] = useState([])
@@ -22,6 +23,7 @@ const Home = () => {
       Home
       <button onClick={logout}>Logout</button>
       {/*<UploadMain/>*/}
+      <PostPage/>
     </div>
   )
 }

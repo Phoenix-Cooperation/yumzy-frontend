@@ -7,6 +7,7 @@ import UserLayout from "./layouts/UserLayout";
 import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
+import Posts from "./pages/Posts/PostPage"
 import PrivateRoute from "./utils/PrivateRoute";
 import { logout } from "./services/firebase-auth"
 import RecipePanel from "./pages/createContent/RecipePanel";

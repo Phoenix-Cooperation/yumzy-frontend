@@ -19,8 +19,8 @@ const DropdownContent = ({ user }) => {
           <div className="avatarDropDown__dropDown__item">Settings</div>
           <div className="avatarDropDown__dropDown__item">Help</div>
           <div className="avatarDropDown__dropDown__item" 
-            onClick={() => {
-              logout();
+            onClick={async () => {
+              await logout();
               navigate("/auth")
             }}
           >

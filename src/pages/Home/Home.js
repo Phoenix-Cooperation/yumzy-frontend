@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from "react"
 
-import { logout } from "../../services/firebase-auth"
+// import { logout } from "../../services/firebase-auth"
 import PostPage from "../Posts/PostPage";
-import UploadMain from "../createContent/UploadMain";
+// import UploadMain from "../createContent/UploadMain";
 const Home = () => {
   // const [books, getBooks] = useState([])
 
@@ -17,11 +17,11 @@ const Home = () => {
   // console.log(data);
   // console.log(error)
 
-  
+  console.log("home")
   return (
     <div>
-      Home
-      <button onClick={logout}>Logout</button>
+      {/* Home */}
+      {/* <button onClick={logout}>Logout</button> */}
       {/*<UploadMain/>*/}
       <PostPage/>
     </div>

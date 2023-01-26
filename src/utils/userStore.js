@@ -1,7 +1,7 @@
 import { user, isLoggedIn } from "../api/cache";
 export default class userStore {
 
-  static storage = localStorage;
+  static storage = sessionStorage;
 
   static setUser(username, photoURL = undefined) {
     const tempUser = {
@@ -24,6 +24,7 @@ export default class userStore {
 
   static setToken(token) {
     this.storage.setItem("token", token);
+    window.dispatchEvent(new Event("storage"))
   }
 
   static getToken() {
@@ -42,6 +43,7 @@ export default class userStore {
     this.storage.removeItem("token")
     this.storage.removeItem("photoURL")
 
+    window.dispatchEvent(new Event("storage"))
     isLoggedIn(false);
     user({ username: undefined, photoURL: undefined })
   }

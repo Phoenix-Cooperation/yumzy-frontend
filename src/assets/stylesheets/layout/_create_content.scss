@@ -79,21 +79,24 @@
       &__imageView {
         grid-column: 2 / span 3;
         width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        gap: toRem(6);
-
+        display: flex;
+        justify-content: flex-start;
+        margin-top: toRem(20);
+        
         &__image {
-          box-shadow: 1px 1px 50px grey;
-          width: 100px;
-          height: 100px;
+          box-shadow: 1px 1px 5px grey;
+          margin-right: toRem(32);
           object-fit: contain;
         }
 
+        img {
+          width: 100px;
+          height: 100px;
+        }
         svg {
           position: absolute;
           fill: rgb(75, 75, 75);
-          margin-left: toRem(0);
+          margin-left: toRem(5);
           margin-top: toRem(0);
           height: toRem(22);
           cursor: pointer;
@@ -101,9 +104,6 @@
       }
     }
 
-    &__methodLabel {
-      grid-column: 1 / span 2;
-    }
 
     input {
       grid-column: 2 / span 3;
@@ -117,7 +117,6 @@
         outline: none;
       }
     }
-
 
     &__submit {
       grid-column: 2 / span 1;

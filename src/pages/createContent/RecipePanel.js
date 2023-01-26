@@ -1,9 +1,9 @@
 import React, {useState, useRef} from "react"
 import {useMutation} from "@apollo/client";
-import Compress from "compress.js";
-import _ from "lodash";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
-import {CREATE_RECIPE} from "../../Graphql/mutations/contentCreateMutation";
+import { CREATE_RECIPE } from "../../api/mutations";
+import { uploadToS3 } from "./uploadToS3";
+import ImageUpload from "./ImageUpload";
 
 const RecipePanel = () => {
 
@@ -14,20 +14,20 @@ const RecipePanel = () => {
   const [description, setDescription] = useState("");
   const [ingredientsList, setIngredientsList] = useState([]);
   const [imageObjects, setImageObjects] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
+  const [tags, setTags] = useState([])
 
   /**
    * error messages
    * */
-  const [errorImageUpload, setErrorImageUpload] = useState("");
+  const [errorImageUpload, setErrorImageUpload] = useState([]);
 
   /**
    * GraphQL
    * */
   const [createRecipe, {error}] = useMutation(CREATE_RECIPE);
-
-  const imageInput = useRef();
 
   const ingredientRef = useRef();
 
@@ -44,40 +44,15 @@ const RecipePanel = () => {
     tempIngredientList.splice(index, 1)
     setIngredientsList(tempIngredientList);
   }
-  // Initialization - image resizer
-  const compress = new Compress();
+  
 
-  /**
-   * image validation and assign to variable
-   * */
-  const onImageChange = (event) => {
+  const handleErrorImageUpload = (error) => {
+    setErrorImageUpload((prev) => [...prev, error ])
+  }
 
-    if (event.target.files && event.target.files.length > 0) {
-      _.forEach(event.target.files, file => {
-
-        if (!file) {
-          setErrorImageUpload("Image is not valid");
-          return;
-        }
-
-        if (!file.name.match(/\.(jpg|jpeg|png)$/)) {
-          setErrorImageUpload("Image type is not valid");
-          return;
-        }
-
-        if (file.size > 10e6) {
-          setErrorImageUpload("Please upload a file smaller than 10 MB");
-          return;
-        }
-
-        // updates model
-        setImageObjects((prevState => [
-            ...prevState, {file: resizeImageFn(file), imageURL: URL.createObjectURL(file)}
-          ]
-        ));
-      });
-    }
-  };
+  const handleImageObjectsChange = ({file, imageURL}) => {
+    setImageObjects((prev) => [...prev, {file, imageURL}])
+  }
 
   /**
    * remove selected image from array
@@ -86,42 +61,39 @@ const RecipePanel = () => {
     setImageObjects(imageObjects.filter(image => image !== imageObjects[index]));
   }
 
-  async function resizeImageFn(file) {
-
-    const resizedImage = await compress.compress([file], {
-      size: 2, // the max size in MB, defaults to 2MB
-      quality: 1, // the quality of the image, max is 1,
-      maxWidth: 300, // the max width of the output image, defaults to 1920px
-      maxHeight: 300, // the max height of the output image, defaults to 1920px
-      resize: true // defaults to true, set false if you do not want to resize the image width and height
-    });
-
-    const img = resizedImage[0];
-    const base64str = img.data
-    const imgExt = img.ext
-    const resizedFile = Compress.convertBase64ToFile(base64str, imgExt)
-    return resizedFile;
-  }
-
-  const focusImageUploadInput = () => {
-    imageInput.current.click();
-  }
-
   /**
    * post content submit function
    * */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createRecipe({
+    const [images, errors] = await uploadToS3(imageObjects)
+    console.log(images, "uploadedImages");
+    console.log(errors, "errors");
+    if (errors.length >= 1) {
+      console.log("error in uploading images")
+    }
+
+    // setUploadedImages(images)
+
+    console.log(uploadedImages)
+    const recipe = await createRecipe({
       variables: {
-        title: title,
-        description: description,
-        ingredient: ingredientsList,
-        images: imageObjects,
-        method: method,
-        time: time
-      },
-    }).then();
+        recipeInput: {
+          title,
+          description,
+          ingredients: ingredientsList,
+          images,
+          method,
+          time,
+          tags,
+        }
+      }
+    })
+
+    if (error) {
+      console.error("error in saving post", error)
+    }
+    console.log(recipe)
   }
   return (
     <div className="createContent">
@@ -131,14 +103,14 @@ const RecipePanel = () => {
       <form className="createContent__form" onSubmit={handleSubmit}>
 
         <label className="createContent__form__titleLabel"
-               htmlFor="title">Title</label>
+          htmlFor="title">Title</label>
         <input className="createContent__form__titleInput"
-               type="text"
-               id="title"
-               name="title"
-               onChange={(event) => {
-                 setTitle(event.target.value)
-               }}/>
+          type="text"
+          id="title"
+          name="title"
+          onChange={(event) => {
+            setTitle(event.target.value)
+          }}/>
 
 
         <label
@@ -147,15 +119,15 @@ const RecipePanel = () => {
           Description
         </label>
         <textarea type="text"
-                  id="description"
-                  name="description"
-                  onChange={(event) => {
-                    setDescription(event.target.value)
-                  }}/>
+          id="description"
+          name="description"
+          onChange={(event) => {
+            setDescription(event.target.value)
+          }}/>
 
 
         <label className="createContent__form__ingredientLabel"
-               htmlFor="ingredient">Ingredient</label>
+          htmlFor="ingredient">Ingredient</label>
         <span className="createContent__form__ingredientInput">
           <input
             type="text"
@@ -185,31 +157,21 @@ const RecipePanel = () => {
         </label>
 
         <div className="createContent__form__imagesUploadMain">
-          <input
-            hidden
-            type="file"
-            name="image"
-            multiple
-            accept=".jpg, .jpeg, .png"
-            ref={imageInput}
-            onChange={onImageChange}/>
-          <div
-            className="createContent__form__imagesUploadMain__imagesInput"
-            onClick={focusImageUploadInput}>
-            UPLOAD
-          </div>
+          <ImageUpload 
+            handleErrors={handleErrorImageUpload}
+            handleImageChange={handleImageObjectsChange}
+          />
           <div className="createContent__form__imagesUploadMain__imageView">
             {
               imageObjects.map((image, index) => (
-                  <div key={index + "image-view-parent"}>
-                    <img
-                      className="createContent__form__imagesUploadMain__imageView__image"
-                      key={index + "image"}
-                      src={image.imageURL}
-                      alt="..."/>
-                    <Xmark onClick={() => removeFileArrayValue(index)}/>
-                  </div>
-                )
+                <div key={index + "image-view-parent"} className="createContent__form__imagesUploadMain__imageView__image">
+                  <img
+                    key={index + "image"}
+                    src={image.imageURL}
+                    alt="..."/>
+                  <Xmark onClick={() => removeFileArrayValue(index)}/>
+                </div>
+              )
               )
             }
           </div>
@@ -229,7 +191,7 @@ const RecipePanel = () => {
           }}/>
 
         <label
-          className="createContent__form__timeLable"
+          className="createContent__form__timeLabe1"
           htmlFor="time">
           Time
         </label>
@@ -242,6 +204,22 @@ const RecipePanel = () => {
             setTime(event.target.value)
           }}/>
 
+        <label
+          className="createContent__form__tagsLabel"
+          htmlFor="tags">
+            Tags
+        </label>
+        <input
+          className="createContent__form__tagsInput"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(event) => {
+            const { value } = event.target;
+            const tempTags = value.split(" ")
+            setTags(tempTags)
+          }}/>
+          
         <button
           className="createContent__form__submit"
           type="submit"

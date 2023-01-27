@@ -15,19 +15,25 @@ import TipsPanel from "./pages/createContent/TipsPanel";
 import PostPanel from "./pages/createContent/PostPanel";
 
 // import {logout} from "./services/"
-import { auth } from "./services/firebase-auth";
+import { auth, getIdToken } from "./services/firebase-auth";
 import { logout } from "./services/firebase-auth"
 import PrivateRoute from "./utils/PrivateRoute";
+import userStore from "./utils/userStore";
 
 function App() {
 
-  useEffect(() => {
-    console.log(auth.currentUser)
-    if (auth?.currentUser === null) {
-      logout()
-    }
-  }, [auth])
+  // console.log(auth?.currentUser)
 
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken()
+        console.log(token);
+        userStore.setToken(token)
+        console.log("token set")
+      }
+    })
+  })
   return (
     <div>
       <BrowserRouter>
@@ -48,6 +54,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }

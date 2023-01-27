@@ -38,7 +38,7 @@ const Auth = () => {
     setSchema(tempSchema);
     setDefaultValues(tempDefaultValues)
   }, [isSignup])
-    
+
   const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: defaultValues
@@ -55,7 +55,7 @@ const Auth = () => {
       const { email, password, username } = data;
       const id = await registerUser(email, password, username)
       console.log("id", id)
-      registerUserBE({ variables: {username, email, id }})
+      registerUserBE({ variables: { username, email, id } })
       userStore.setUser(username)
     } else {
       const { email, password, username } = data;
@@ -71,7 +71,7 @@ const Auth = () => {
     console.log(user)
     console.log(user.user.displayName, user.user.email, user.user.uid, user.user.photoURL)
     const { displayName, email, uid, photoURL } = user.user
-    registerUserBE({ variables: { username: displayName, email, id:uid }})
+    registerUserBE({ variables: { username: displayName, email, id: uid } })
     userStore.setUser(displayName, photoURL)
   }
 
@@ -80,7 +80,6 @@ const Auth = () => {
   }
 
   useEffect(() => {
-    console.log(auth.currentUser)
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken()
@@ -99,30 +98,30 @@ const Auth = () => {
     <div className="auth">
       <div className="auth__form">
         <div className="auth__form_logo">
-          <Logo className="auth__form_logo_img"/>
+          <Logo className="auth__form_logo_img" />
         </div>
         <Form onSubmit={handleSubmit(onSubmit)}>
 
           <Form.Group>
-            <Form.Control className="auth__form_input" {...register("email")} type="email" placeholder="Email Address"/>
+            <Form.Control className="auth__form_input" {...register("email")} type="email" placeholder="Email Address" />
             <p className="auth__form_error" >{errors.email?.message}</p>
           </Form.Group>
 
           {isSignup && (
             <Form.Group>
-              <Form.Control className="auth__form_input" {...register("username")} type="text" placeholder="Username"/>
+              <Form.Control className="auth__form_input" {...register("username")} type="text" placeholder="Username" />
               <p className="auth__form_error" >{errors.username?.message}</p>
             </Form.Group>
           )}
 
           <Form.Group>
-            <Form.Control className="auth__form_input" {...register("password")} type="password" placeholder="Password"/>
+            <Form.Control className="auth__form_input" {...register("password")} type="password" placeholder="Password" />
             <p className="auth__form_error" >{errors.password?.message}</p>
           </Form.Group>
-                
+
           {isSignup && (
             <Form.Group>
-              <Form.Control className="auth__form_input" {...register("confirmPassword")} type="password" placeholder="Re-enter password"/>
+              <Form.Control className="auth__form_input" {...register("confirmPassword")} type="password" placeholder="Re-enter password" />
               <p className="auth__form_error" >{errors.confirmPassword?.message}</p>
             </Form.Group>
           )}
@@ -132,33 +131,33 @@ const Auth = () => {
           </button>
 
         </Form>
-                
+
         <div className="auth__form_googleLogin">
-          <hr className="auth__form_googleLogin_hr"/>
+          <hr className="auth__form_googleLogin_hr" />
           <span className="auth__form_googleLogin_orSpan">or</span>
-          <button 
+          <button
             className="auth__form_googleLogin_btn"
             onClick={handleGoogleSignIn}
           >
-            <span><GoogleLogo className="auth__form_googleLogin_btn_logo"/>Continue with Google</span>
+            <span><GoogleLogo className="auth__form_googleLogin_btn_logo" />Continue with Google</span>
           </button>
         </div>
       </div>
-            
+
       <div className="auth__handler">
         {isSignup ? (
-          <p>Already have an account? 
-            <span 
+          <p>Already have an account?
+            <span
               className="auth__handler_toggle"
-              onClick={handleIsSignup}> 
-                                &nbsp;Sign In
+              onClick={handleIsSignup}>
+              &nbsp;Sign In
             </span>
           </p>) : (
-          <p>New to yumzy? 
-            <span 
+          <p>New to yumzy?
+            <span
               className="auth__handler_toggle"
-              onClick={handleIsSignup}> 
-                                &nbsp;Sign Up
+              onClick={handleIsSignup}>
+              &nbsp;Sign Up
             </span>
           </p>)
         }

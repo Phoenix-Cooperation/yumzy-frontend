@@ -8,7 +8,7 @@ const createClient = () => {
     uri: process.env.REACT_APP_BACKEND_API,
     cache: cache,
     headers: {
-      authorization: `Bearer ${sessionStorage.getItem("token") || ""}`,
+      authorization: `Bearer ${localStorage.getItem("token") || ""}`,
     }
   })
 }

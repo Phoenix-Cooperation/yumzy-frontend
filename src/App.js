@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const token = await user.getIdToken()
+        const token = await user.getIdToken(true);
         console.log(token);
         userStore.setToken(token)
         console.log("token set")
@@ -54,7 +54,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      <button onClick={logout}>Logout</button>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 .post{
 
-  margin-left: 35rem;
+  margin-left: 30%;
   width: 45rem;
   height: fit-content;
+  margin-bottom: 2rem;
 
   &__body {
     padding: 0;
@@ -44,6 +45,7 @@
     img {
       width: toRem(720);
       height: toRem(450);
+      object-fit: contain;
     }
   }
 

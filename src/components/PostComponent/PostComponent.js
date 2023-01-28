@@ -18,8 +18,8 @@ const PostComponent = (props) => {
         <Card.Header><User className="post__avatar"/>User Name<Menu className="post__menu"/></Card.Header>
         <Carousel variant="dark" className="post__image">
           {
-            props.data.images.map((image) => (
-              <Carousel.Item key={props.data.id}>
+            props.data.images.map((image, index) => (
+              <Carousel.Item key={props.data.id + index}>
                 <img
                   className=""
                   src={s3Url+image}

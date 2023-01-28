@@ -17,7 +17,7 @@ const Home = () => {
   // console.log(data);
   // console.log(error)
 
-  console.log("home")
+  // console.log("home")
   return (
     <div>
       {/* Home */}

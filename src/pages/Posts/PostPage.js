@@ -8,7 +8,6 @@ const PostPage = () => {
 
   const [postData,setPostData] = useState([]);
   const { data } = useQuery(GET_CONTENT, {variables: {pageSize: 10}});
-  console.log("addadasdd",data);
 
   useEffect(() => {
     console.log(data);

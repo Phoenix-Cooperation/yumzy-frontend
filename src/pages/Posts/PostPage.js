@@ -9,20 +9,7 @@ const PostPage = () => {
   const [postData,setPostData] = useState([]);
   const { data, fetchMore } = useQuery(GET_CONTENT, {variables: {pageSize: 2}});
 
-  // const observer = useRef();
-  // const lastElementRef = useCallback(
-  //   (node) => {
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         const newData = useQuery(GET_CONTENT, {variables: {pageSize: 2,after: data.length}});
-  //         setPostData([...postData,newData.data.getContent]);
-  //         console.log("loading")
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },[]
-  // );
+  // setPostData(data?.getContent)
   
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -57,22 +44,22 @@ const PostPage = () => {
     console.log(currentPosition);
     if (currentPosition > (0.5 * totalHeight)) {
       console.log("loading....132")
-      await fetchMore({
+      const { data: tempData } = await fetchMore({
         variables: {after: postData.length}
       });
-      // const newData = useQuery(GET_CONTENT, {variables: {pageSize: 2,after: 2}});
-      // setPostData([...postData,newData.data.getContent]);
-      // console.log(newData.data);
-      console.log(postData);
+      
+      if(tempData !== undefined) {
+        setPostData(prev => ([...prev, ...tempData.getContent]));
+      }
     }
   }
 
   useEffect(() => {
     console.log(data);
     if(data !== undefined) {
-      setPostData(data.getContent);
+      setPostData(prev => ([...prev, ...data.getContent]));
     }
-  },[data])
+  }, [data])
 
 
   return (

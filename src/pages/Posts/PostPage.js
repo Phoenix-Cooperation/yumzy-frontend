@@ -45,9 +45,8 @@ const PostPage = () => {
     const totalHeight = window.innerHeight;
     const currentPosition = window.scrollY;
     // console.log("loading....")
-    // console.log(totalHeight);
-    // console.log(currentPosition);
-    if (currentPosition > (0.9 * totalHeight)) {
+    console.log(totalHeight, currentPosition);
+    if (currentPosition > (0.95 * totalHeight)) {
       setScrolCount(scroleCount + 1);
       console.log("scrol down")
       if (!getMoreData) {
@@ -61,19 +60,22 @@ const PostPage = () => {
   
   useEffect(() => {
     const fetchMoreData = async () => {
-      if (getMoreData){
+      if (getMoreData && hasMore){
+        setGetMoreData(false)
         const { data, loading , error  } = await fetchMore({
           variables: { after: after }
         })
         
         if (data !== undefined) {
           setPostData([...postData, ...data.getContent.content]);
-          setAfter(prev => prev + pageSize)
-          setGetMoreData(false)
+          console.log("poasts", postData.length);
+          setAfter(postData.length)
+          setGetMoreData(false);
+          setHasMore(data.getContent.hasMore);
         }
       }
-      
-    } 
+    }
+    console.log("fetching more data")
     fetchMoreData()
   }, [getMoreData])
 

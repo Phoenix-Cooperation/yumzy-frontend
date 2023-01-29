@@ -14,37 +14,35 @@ const PostComponent = (props) => {
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
 
   return (
-    <div>
-      <Col>
-        <Card className="post">
-          <Card.Header>{props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? <img
-            className="post__avatar"
-            src={props.data.user.photoURL}
-            alt="First slide"
-          /> : <User className="post__avatar"/>}{props.data.user.username}<Menu className="post__menu"/></Card.Header>
-          <Carousel variant="dark" className="post__image">
-            {
-              props.data.images.map((image, index) => (
-                <Carousel.Item key={props.data.id + index}>
-                  <img
-                    className=""
-                    src={s3Url+image}
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-              ))
-            }
-          </Carousel>
-          <Card.Body>
-            <Card.Title>{props.data.title}</Card.Title>
-            <Card.Text>
-              {props.data.description}
-            </Card.Text>
-            <Yummy className="post__reacts"/><Comment className="post__reacts"/><Bookmark className="post__reacts"/>
-          </Card.Body>
-        </Card>
-      </Col>
-    </div>
+    <Col>
+      <Card className="post" onClick={() => props.handlePopup()}>
+        <Card.Header>{props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? <img
+          className="post__avatar"
+          src={props.data.user.photoURL}
+          alt="First slide"
+        /> : <User className="post__avatar"/>}{props.data.user.username}<Menu className="post__menu"/></Card.Header>
+        <Carousel variant="dark" className="post__image">
+          {
+            props.data.images.map((image, index) => (
+              <Carousel.Item key={props.data.id + index}>
+                <img
+                  className=""
+                  src={s3Url+image}
+                  alt="First slide"
+                />
+              </Carousel.Item>
+            ))
+          }
+        </Carousel>
+        <Card.Body>
+          <Card.Title>{props.data.title}</Card.Title>
+          <Card.Text>
+            {props.data.description}
+          </Card.Text>
+          <Yummy className="post__reacts"/><Comment className="post__reacts"/><Bookmark className="post__reacts"/>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 PostComponent.propTypes = postComponentProps;

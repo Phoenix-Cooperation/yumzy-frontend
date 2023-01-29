@@ -20,15 +20,26 @@ export const GET_RECIPES = gql`
 export const GET_CONTENT = gql`
   query getContent($pageSize: Int!, $after: Int) {
     getContent(pageSize: $pageSize, after: $after) {
-             description
-             id
-             ingredients
-             images
-             method
-             tags
-             time
-             title
-           
+             content {
+                id
+                type
+                title
+                description
+                ingredients
+                images
+                method
+                time
+                tips
+                tags
+                user {
+                  id
+                  username
+                  email
+                  user_id
+                  photoURL
+                }
+              }
+             hasMore
         }
   }
  `;

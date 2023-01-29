@@ -10,7 +10,9 @@ const PostPage = () => {
   const [postData,setPostData] = useState([]);
   const [after, setAfter] = useState(pageSize);
   const { data, fetchMore } = useQuery(GET_CONTENT, {variables: {pageSize: pageSize}});
-  const [getMoreData, setGetMoreData] = useState(false)
+  const [getMoreData, setGetMoreData] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [scroleCount, setScrolCount] = useState(0);
   // setPostData(data?.getContent)
   // setAfter(2);
 
@@ -45,7 +47,9 @@ const PostPage = () => {
     // console.log("loading....")
     // console.log(totalHeight);
     // console.log(currentPosition);
-    if (currentPosition > (0.7 * totalHeight)) {
+    if (currentPosition > (0.9 * totalHeight)) {
+      setScrolCount(scroleCount + 1);
+      console.log("scrol down")
       if (!getMoreData) {
         console.log("get more data true")
         setGetMoreData(true)
@@ -56,7 +60,6 @@ const PostPage = () => {
  
   
   useEffect(() => {
-    
     const fetchMoreData = async () => {
       if (getMoreData){
         const { data, loading , error  } = await fetchMore({
@@ -64,9 +67,9 @@ const PostPage = () => {
         })
         
         if (data !== undefined) {
-          setPostData(prev => ([...prev, ...data.getContent]))
+          setPostData([...postData, ...data.getContent.content]);
           setAfter(prev => prev + pageSize)
-          setGetMoreData(true)
+          setGetMoreData(false)
         }
       }
       
@@ -77,7 +80,7 @@ const PostPage = () => {
   useEffect(() => {
     console.log(data);
     if(data !== undefined) {
-      setPostData(prev => ([...prev, ...data.getContent]));
+      setPostData(prev => ([...prev, ...data.getContent.content]));
     }
   }, [data])
 

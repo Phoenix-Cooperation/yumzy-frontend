@@ -1,4 +1,4 @@
-import React, {forwardRef} from "react";
+import React from "react";
 import {Card, Carousel, Col} from "react-bootstrap";
 import { ReactComponent as User } from "../../assets/images/icons/account.svg"
 import { ReactComponent as Menu } from "../../assets/images/icons/dots-vertical.svg"
@@ -8,7 +8,7 @@ import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-o
 import {postComponentProps} from "../../types/component.proptypes";
 
 // eslint-disable-next-line react/display-name
-const PostComponent = forwardRef((props) => {
+const PostComponent = (props) => {
 
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
@@ -17,7 +17,11 @@ const PostComponent = forwardRef((props) => {
     <div>
       <Col>
         <Card className="post">
-          <Card.Header><User className="post__avatar"/>User Name<Menu className="post__menu"/></Card.Header>
+          <Card.Header>{props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? <img
+            className="post__avatar"
+            src={props.data.user.photoURL}
+            alt="First slide"
+          /> : <User className="post__avatar"/>}{props.data.user.username}<Menu className="post__menu"/></Card.Header>
           <Carousel variant="dark" className="post__image">
             {
               props.data.images.map((image, index) => (
@@ -42,6 +46,6 @@ const PostComponent = forwardRef((props) => {
       </Col>
     </div>
   );
-});
+};
 PostComponent.propTypes = postComponentProps;
 export default PostComponent;

@@ -1,7 +1,7 @@
 .navbar{
-    width: 100%;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
     &__logo {
         height: toRem(40);
         width: toRem(80);
@@ -20,6 +20,7 @@
 
     &__search {
         margin: auto;
+        margin-left: 32%;
         display: flex;
         justify-content: flex-start;
         width: fit-content;
@@ -38,6 +39,7 @@
             height: toRem(30);
             border-radius: 10px;
             outline: none;
+            width: toRem(500);
             &:focus-visible{
                 outline: none;
             }

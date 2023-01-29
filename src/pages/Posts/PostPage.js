@@ -6,11 +6,14 @@ import {useQuery} from "@apollo/client";
 
 const PostPage = () => {
 
+  const pageSize = 3;
   const [postData,setPostData] = useState([]);
-  const { data, fetchMore } = useQuery(GET_CONTENT, {variables: {pageSize: 2}});
-
+  const [after, setAfter] = useState(pageSize);
+  const { data, fetchMore } = useQuery(GET_CONTENT, {variables: {pageSize: pageSize}});
+  const [getMoreData, setGetMoreData] = useState(false)
   // setPostData(data?.getContent)
-  
+  // setAfter(2);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -39,20 +42,37 @@ const PostPage = () => {
   const handleScroll = async ()  => {
     const totalHeight = window.innerHeight;
     const currentPosition = window.scrollY;
-    console.log("loading....")
-    console.log(totalHeight);
-    console.log(currentPosition);
-    if (currentPosition > (0.5 * totalHeight)) {
-      console.log("loading....132")
-      const { data: tempData } = await fetchMore({
-        variables: {after: postData.length}
-      });
-      
-      if(tempData !== undefined) {
-        setPostData(prev => ([...prev, ...tempData.getContent]));
+    // console.log("loading....")
+    // console.log(totalHeight);
+    // console.log(currentPosition);
+    if (currentPosition > (0.7 * totalHeight)) {
+      if (!getMoreData) {
+        console.log("get more data true")
+        setGetMoreData(true)
       }
     }
   }
+
+ 
+  
+  useEffect(() => {
+    
+    const fetchMoreData = async () => {
+      if (getMoreData){
+        const { data, loading , error  } = await fetchMore({
+          variables: { after: after }
+        })
+        
+        if (data !== undefined) {
+          setPostData(prev => ([...prev, ...data.getContent]))
+          setAfter(prev => prev + pageSize)
+          setGetMoreData(true)
+        }
+      }
+      
+    } 
+    fetchMoreData()
+  }, [getMoreData])
 
   useEffect(() => {
     console.log(data);
@@ -65,8 +85,8 @@ const PostPage = () => {
   return (
     <Row>
       <div>
-        {postData.map((data) => (
-          <PostComponent key={data.id} data = {data} />
+        {postData.map((data, index) => (
+          <PostComponent key={data.id + index} data = {data} />
         ))}
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}

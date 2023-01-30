@@ -51,7 +51,7 @@ const PostPage = () => {
     const totalHeight = window.innerHeight;
     const currentPosition = window.scrollY;
     // console.log("loading....")
-    console.log(totalHeight, currentPosition);
+    // console.log(totalHeight, currentPosition);
     if (currentPosition > (0.95 * totalHeight)) {
       setScrolCount(scroleCount + 1);
       console.log("scrol down")
@@ -131,7 +131,7 @@ const PostPage = () => {
           </div>
         ))}
         {selectedPost && selectedPost.user && selectedPost.title &&
-        <BasicPost data={selectedPost} show={showPost} handleHide={() => handlePostHide}/>
+        <BasicPost data={selectedPost} show={showPost} handleHide={handlePostHide}/>
         }
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}

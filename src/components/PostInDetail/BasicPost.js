@@ -7,31 +7,36 @@ import { ReactComponent as Yummy } from "../../assets/images/icons/emoticon-tong
 import { ReactComponent as Comment } from "../../assets/images/icons/comment-processing.svg"
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
 const BasicPost = (props) => {
+  const { show, handleHide } = props
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(show);
   
-  useEffect(() => {
-    if(props.show) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-  },[props.show])
+  // useEffect(() => {
+  //   if(props.show) {
+  //     setShow(true);
+  //   } else {
+  //     setShow(false);
+  //   }
+  // },[props.show])
 
-  const handleHide = () => {
-    console.log("closingh");
-    props.handleHide();
-    setShow(false);
-  }
+  // const handleHide = () => {
+  //   console.log("closingh");
+  //   props.handleHide();
+  //   setShow(false);
+  // }
     
   return (
-    <Modal size="lg" show={show} className="post" onHide={() => handleHide()}>
-      <Modal.Header closeButton><Modal.Title>{props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? <img
-        className="post__avatar"
-        src={props.data.user.photoURL}
-        alt="First slide"
-      /> : <User className="post__avatar"/>}{props.data.user.username}<Menu className="post__menu"/></Modal.Title></Modal.Header>
+    <Modal size="lg" show={show} className="post" onHide={handleHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? 
+            (<img className="post__avatar" src={props.data.user.photoURL} alt="First slide" />) : 
+            (<User className="post__avatar"/>)}
+          {props.data.user.username}
+          <Menu className="post__menu"/>
+        </Modal.Title>
+      </Modal.Header>
       <Modal.Body>
         <Card>
           <Carousel variant="dark" className="post__image">

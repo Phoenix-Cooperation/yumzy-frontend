@@ -6,26 +6,60 @@ import { ReactComponent as Menu } from "../../assets/images/icons/dots-vertical.
 import { ReactComponent as Yummy } from "../../assets/images/icons/emoticon-tongue.svg"
 import { ReactComponent as Comment } from "../../assets/images/icons/comment-processing.svg"
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
+import { ReactComponent as YummyFill } from "../../assets/images/icons/emoticon-tongue-fill.svg"
+import {useMutation} from "@apollo/client";
+import {REACT_TO_CONTENT, UN_REACT_TO_CONTENT} from "../../api/mutations";
+import millify from "millify";
 const BasicPost = (props) => {
   const { show, handleHide } = props
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
-  // const [show, setShow] = useState(show);
-  
-  // useEffect(() => {
-  //   if(props.show) {
-  //     setShow(true);
-  //   } else {
-  //     setShow(false);
-  //   }
-  // },[props.show])
+  const [isReact, setIsReact] = useState(false);
+  const [postReactCount, setPostReactCount] = useState(0);
+  const [reactToPost] = useMutation(REACT_TO_CONTENT);
+  const [unReactToPost] = useMutation(UN_REACT_TO_CONTENT);
+  useEffect(() => {
+    if(props.data.currentUserReacted) {
+      setIsReact(true);
+    } else {
+      setIsReact(false);
+    }
+    if(props.data.reactCount > 0) {
+      setPostReactCount(props.data.reactCount)
+    } else {
+      setPostReactCount(0);
+    }
+  },[props.data])
+  const reactToContent = async () => {
+    const react = await reactToPost({
+      variables: {
+        contentId:props.data.id
+      }
+    })
+    console.log(react);
+    setIsReact(true);
+    setPostReactCount(postReactCount + 1);
+  }
 
-  // const handleHide = () => {
-  //   console.log("closingh");
-  //   props.handleHide();
-  //   setShow(false);
-  // }
-    
+  const unReactToContent = async () => {
+    const unreact = await unReactToPost({
+      variables: {
+        contentId:props.data.id
+      }
+    })
+    console.log(unreact);
+    setIsReact(false);
+    setPostReactCount(postReactCount - 1);
+  }
+
+  const handleReact = () => {
+    if (isReact) {
+      unReactToContent()
+    } else {
+      reactToContent()
+    }
+
+  }
   return (
     <Modal size="lg" show={show} className="post" onHide={handleHide}>
       <Modal.Header closeButton>
@@ -57,7 +91,13 @@ const BasicPost = (props) => {
             <Card.Text>
               {props.data.description}
             </Card.Text>
-            <Yummy className="post__reacts"/><Comment className="post__reacts"/><Bookmark className="post__reacts"/>
+            <div className="post__reactspannel">
+              <span onClick={handleReact}>
+                {isReact ? <YummyFill className="post__fillreacts"/> : <Yummy className="post__reacts"/>}
+                <span>{millify(postReactCount)}</span>
+              </span>
+              <Comment className="post__reacts"/><Bookmark className="post__reacts"/>
+            </div>
           </Card.Body>
         </Card>
       </Modal.Body>

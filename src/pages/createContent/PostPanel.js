@@ -85,9 +85,9 @@ const PostPanel = () => {
           type="text" 
           name="title"
           onChange={(event) => {
-              setTitle(event.target.value)
-            }}
-          />
+            setTitle(event.target.value)
+          }}
+        />
 
 
         <label

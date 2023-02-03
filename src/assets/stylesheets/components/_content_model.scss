@@ -1,31 +1,13 @@
-.post{
-
-  margin-left: 30%;
-  width: 45rem;
-  height: fit-content;
-  margin-bottom: 2rem;
-
-  &__body {
-    padding: 0;
-  }
-
+.contentModal {
   &__title {
     padding: toRem(10);
   }
 
   &__avatar {
-      height: toRem(40);
-      width: toRem(40);
-      border-radius: toRem(30);
-      margin-right: toRem(10);
-  }
-
-  &__menu {
-      height: toRem(40);
-      width: toRem(40);
-      margin-right: toRem(10);
-      float: right;
-      margin-left: 10rem;
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
   }
 
   &__reacts {
@@ -35,7 +17,18 @@
     margin-right: toRem(10);
     margin-left: toRem(10);
     margin-bottom: toRem(10);
-    cursor: pointer;
+  }
+
+  &__reactspannel {
+  
+  }
+
+  &__menu {
+    height: toRem(40);
+    width: toRem(40);
+    margin-right: toRem(10);
+    float: right;
+    margin-left: 10rem;
   }
 
   &__fillreacts {
@@ -45,15 +38,14 @@
     margin-right: toRem(10);
     margin-left: toRem(10);
     margin-bottom: toRem(10);
-    cursor: pointer;
     fill: lighten($primary-color, 5%);
   }
-  &__reactspannel {
-  }
+
   &__image {
     height: toRem(450);
     width: toRem(720);
     padding-bottom: toRem(20);
+    margin: auto;
 
     img {
       width: toRem(720);
@@ -66,4 +58,8 @@
     padding: toRem(10);
     margin-bottom: 0;
   }
+}
+
+.modal-dialog {
+  max-width: 80vw !important;
 }

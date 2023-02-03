@@ -4,6 +4,7 @@ import PostComponent from "../../components/PostComponent/PostComponent";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
 import BasicPost from "../../components/PostInDetail/BasicPost";
+import ContentModal from "../../components/PostInDetail/ContentModal";
 
 const PostPage = () => {
 
@@ -131,7 +132,7 @@ const PostPage = () => {
           </div>
         ))}
         {selectedPost && selectedPost.user && selectedPost.title &&
-        <BasicPost data={selectedPost} show={showPost} handleHide={handlePostHide}/>
+          <ContentModal contentData={selectedPost} show={showPost} handleHide={handlePostHide}/>
         }
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}

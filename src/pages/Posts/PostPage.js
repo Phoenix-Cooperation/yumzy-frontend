@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
-import PostComponent from "./Content";
+import ContentCard from "./ContentCard";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
 import BasicPost from "../../components/PostInDetail/BasicPost";
@@ -128,7 +128,7 @@ const PostPage = () => {
       <div>
         {postData.map((data, index) => (
           <div key={data.id+index}>
-            <PostComponent key={data.id + index} data = {data} handlePopup={() => handlePostPopup(data,index)}/>
+            <ContentCard key={data.id + index} data = {data} handlePopup={() => handlePostPopup(data,index)}/>
           </div>
         ))}
         {selectedPost && selectedPost.user && selectedPost.title &&

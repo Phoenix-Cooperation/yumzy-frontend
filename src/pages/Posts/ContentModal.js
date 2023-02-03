@@ -94,7 +94,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
         <Modal.Body>
           <Col md={8}>
             <Card>
-              <Carousel variant="dark" className="contentModal__image">
+              <Carousel variant="dark" className="contentModal__corousel">
                 {
                   contentData.images.map((image, index) => (
                     <Carousel.Item key={contentData.id + index}>

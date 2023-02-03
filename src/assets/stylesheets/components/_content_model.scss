@@ -23,6 +23,7 @@
   
   }
 
+
   &__menu {
     height: toRem(40);
     width: toRem(40);
@@ -41,16 +42,16 @@
     fill: lighten($primary-color, 5%);
   }
 
-  &__image {
+  &__corousel {
     height: toRem(450);
     width: toRem(720);
     padding-bottom: toRem(20);
     margin: auto;
-
+    background-color: black;
     img {
       width: toRem(720);
       height: toRem(450);
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 

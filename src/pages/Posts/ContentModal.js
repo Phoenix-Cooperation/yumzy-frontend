@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import Modal  from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button";
 import Col  from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
@@ -17,6 +16,8 @@ import {useMutation} from "@apollo/client";
 import {REACT_TO_CONTENT, UN_REACT_TO_CONTENT} from "../../api/mutations";
 
 import millify from "millify";
+import CommentSection from "./CommentSection";
+import { Row } from "react-bootstrap";
 const ContentModal = ({ show, handleHide, contentData }) => {
 
   // eslint-disable-next-line no-undef
@@ -92,37 +93,41 @@ const ContentModal = ({ show, handleHide, contentData }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Col md={8}>
-            <Card>
-              <Carousel variant="dark" className="contentModal__corousel">
-                {
-                  contentData.images.map((image, index) => (
-                    <Carousel.Item key={contentData.id + index}>
-                      <img
-                        className=""
-                        src={s3Url+image}
-                        alt="First slide"
-                      />
-                    </Carousel.Item>
-                  ))          
-                }
-              </Carousel>
-              <Card.Body>
-                <Card.Title>{contentData.title}</Card.Title>
-                <Card.Text>
-                  {contentData.description}
-                </Card.Text>
-                <div className="contentModal__reactspannel">
-                  <span onClick={handleReact}>
-                    {isReact ? <YummyFill className="contentModal__fillreacts"/> : <Yummy className="contentModal__reacts"/>}
-                    <span>{millify(postReactCount)}</span>
-                  </span>
-                  <Comment className="contentModal__reacts"/><Bookmark className="contentModal__reacts"/>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={3}></Col>
+          <Row>
+            <Col md={8}>
+              <Card>
+                <Carousel variant="dark" className="contentModal__corousel">
+                  {
+                    contentData.images.map((image, index) => (
+                      <Carousel.Item key={contentData.id + index}>
+                        <img
+                          className=""
+                          src={s3Url+image}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>
+                    ))          
+                  }
+                </Carousel>
+                <Card.Body>
+                  <Card.Title>{contentData.title}</Card.Title>
+                  <Card.Text>
+                    {contentData.description}
+                  </Card.Text>
+                  <div className="contentModal__reactspannel">
+                    <span onClick={handleReact}>
+                      {isReact ? <YummyFill className="contentModal__fillreacts"/> : <Yummy className="contentModal__reacts"/>}
+                      <span>{millify(postReactCount)}</span>
+                    </span>
+                    <Comment className="contentModal__reacts"/><Bookmark className="contentModal__reacts"/>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={3}>
+              <CommentSection/>
+            </Col>
+          </Row>
         </Modal.Body>
       </Modal>
     </>

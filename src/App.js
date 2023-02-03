@@ -19,7 +19,7 @@ import { auth, getIdToken } from "./services/firebase-auth";
 import { logout } from "./services/firebase-auth"
 import PrivateRoute from "./utils/PrivateRoute";
 import userStore from "./utils/userStore";
-import ContentModal from "./components/PostInDetail/ContentModal";
+import ContentModal from "./pages/Posts/ContentModal";
 
 function App() {
 

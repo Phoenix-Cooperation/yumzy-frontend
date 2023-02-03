@@ -28,7 +28,7 @@
     width: toRem(40);
     margin-right: toRem(10);
     float: right;
-    margin-left: 10rem;
+    // margin-left: 10rem;
   }
 
   &__fillreacts {
@@ -62,4 +62,8 @@
 
 .modal-dialog {
   max-width: 80vw !important;
+}
+
+.modal-title {
+  width: 98%;
 }

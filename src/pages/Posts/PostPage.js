@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
-import PostComponent from "../../components/PostComponent/PostComponent";
+import PostComponent from "./Content";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
 import BasicPost from "../../components/PostInDetail/BasicPost";
-import ContentModal from "../../components/PostInDetail/ContentModal";
+import ContentModal from "./ContentModal";
 
 const PostPage = () => {
 

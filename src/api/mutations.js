@@ -51,3 +51,11 @@ export const UN_REACT_TO_CONTENT = gql`
       }
     }
 `
+
+export const ADD_COMMENT = gql`
+    mutation ADD_COMMENT($comment: String!, $contentId: ID!) {
+        addComment(comment: $comment, contentId: $contentId) {
+            message
+          }
+    }
+`

@@ -16,6 +16,7 @@ const PostComponent = (props) => {
 
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
+  const [postCommentCount, setPostCommentCount] = useState(0);
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
   const [reactToPost] = useMutation(REACT_TO_CONTENT);
@@ -32,6 +33,13 @@ const PostComponent = (props) => {
     } else {
       setPostReactCount(0);
     }
+
+    if (props.data.commentCount > 0) {
+      setPostCommentCount(props.data.commentCount);
+    } else {
+      setPostCommentCount(0);
+    }
+    console.log(props.data,"main");
   },[props.data])
   const reactToContent = async () => {
     const react = await reactToPost({
@@ -98,7 +106,8 @@ const PostComponent = (props) => {
               {isReact ? <YummyFill className="post__fillreacts"/> : <Yummy className="post__reacts"/>}
               <span>{millify(postReactCount)}</span>
             </span>
-            <Comment className="post__reacts"/><Bookmark className="post__reacts"/>
+            <Comment className="post__reacts"/><span>{millify(postCommentCount)}</span>
+            <Bookmark className="post__reacts"/>
           </div>
         </Card.Body>
       </Card>

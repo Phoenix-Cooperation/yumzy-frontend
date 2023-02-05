@@ -31,6 +31,7 @@ export const GET_CONTENT = gql`
                 time
                 tips
                 tags
+                commentCount
                 user {
                   username
                   email
@@ -44,6 +45,22 @@ export const GET_CONTENT = gql`
         }
   }
  `;
+
+export const GET_COMMENTS = gql`
+  query getComments($contentId: ID) {
+   getComments(contentId: $contentId) {
+      id
+      comment
+      user {
+        username
+        email
+        user_id
+        photoURL
+      }
+   }
+}
+ `;
+
 
 // export const GET_TIPS = gql`
 //   query getAllTips(pageSize: Int!) {

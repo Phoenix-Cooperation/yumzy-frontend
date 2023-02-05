@@ -1,0 +1,31 @@
+.comment {
+  &__box {
+    width: 100%;
+    border: 2px lighten($border-color, 5%) solid;
+    background-color: #dadada;
+    border-radius: toRem(10);
+    margin: 2px;
+  }
+  &__column {
+    padding: 0;
+  }
+  &__commentbox {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: toRem(10);
+  }
+  &__avatar {
+    height: toRem(20);
+    width: toRem(20);
+    border-radius: toRem(10);
+    font-size: toRem(10);
+    margin-left: toRem(10);
+  }
+  &__userName {
+    height: toRem(20);
+    font-size: toRem(10);
+  }
+  &__comment {
+    margin-left: toRem(10);
+  }
+}

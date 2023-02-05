@@ -12,12 +12,13 @@ import { ReactComponent as Comment } from "../../assets/images/icons/comment-pro
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
 import { ReactComponent as YummyFill } from "../../assets/images/icons/emoticon-tongue-fill.svg"
 
-import {useMutation} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import {REACT_TO_CONTENT, UN_REACT_TO_CONTENT} from "../../api/mutations";
 
 import millify from "millify";
 import CommentSection from "./CommentSection";
 import { Row } from "react-bootstrap";
+import {GET_COMMENTS} from "../../Graphql/Queries/getPostQueries";
 const ContentModal = ({ show, handleHide, contentData }) => {
 
   // eslint-disable-next-line no-undef
@@ -25,8 +26,11 @@ const ContentModal = ({ show, handleHide, contentData }) => {
 
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
+  const [postCommentCount, setPostCommentCount] = useState(0);
+  const [comments, setComments] = useState(undefined);
   const [reactToPost] = useMutation(REACT_TO_CONTENT);
   const [unReactToPost] = useMutation(UN_REACT_TO_CONTENT)
+  const { data,fetchMore } = useQuery(GET_COMMENTS, {variables: {contentId: contentData.id}});
 
   useEffect(() => {
     if(contentData.currentUserReacted) {
@@ -39,9 +43,31 @@ const ContentModal = ({ show, handleHide, contentData }) => {
     } else {
       setPostReactCount(0);
     }
+    if (contentData.commentCount > 0) {
+      setPostCommentCount(contentData.commentCount)
+    } else {
+      setPostCommentCount(0);
+    }
+    console.log("model",contentData)
   },[contentData])
 
+  useEffect(() => {
+    if (data !== undefined && data.getComments !== undefined) {
+      setComments(data.getComments);
+    }
+  },[data])
 
+  const handleFetchMoreComment = async () => {
+    console.log("fetching");
+    const { data, loading , error  } = await fetchMore({
+      variables: { after: contentData.id }
+    })
+
+    if (data !== undefined) {
+      console.log(data.getComments, "new comments");
+      setComments([...comments,...data.getComments]);
+    }
+  }
   const reactToContent = async () => {
     const react = await reactToPost({
       variables: {
@@ -82,6 +108,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
         show={show}
         onHide={handleHide}
         dialogClassName="contentModal--width"
+        className="contentModal__model"
       >
         <Modal.Header>
           <Modal.Title>
@@ -119,13 +146,14 @@ const ContentModal = ({ show, handleHide, contentData }) => {
                       {isReact ? <YummyFill className="contentModal__fillreacts"/> : <Yummy className="contentModal__reacts"/>}
                       <span>{millify(postReactCount)}</span>
                     </span>
-                    <Comment className="contentModal__reacts"/><Bookmark className="contentModal__reacts"/>
+                    <Comment className="contentModal__reacts"/><span>{millify(postCommentCount)}</span>
+                    <Bookmark className="contentModal__reacts"/>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
             <Col md={3}>
-              <CommentSection/>
+              {comments !== undefined && <CommentSection contentId={contentData.id} comments={comments} handleCommentFetchMore={() => handleFetchMoreComment()}/>}
             </Col>
           </Row>
         </Modal.Body>

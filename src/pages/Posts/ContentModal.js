@@ -120,9 +120,9 @@ const ContentModal = ({ show, handleHide, contentData }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col md={8} className="contentModal__contentSection ">
-              <Card>
+          <Row className="d-flex justify-content-around">
+            <Col md={7} className="contentModal__contentSection ">
+              <Card className="contentModal__contentCard">
                 <Carousel variant="dark" className="contentModal__corousel">
                   {
                     contentData.images.map((image, index) => (
@@ -152,7 +152,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={3} className="contentModal__commentSection">
+            <Col md={4} className="contentModal__commentSection">
               {comments !== undefined && <CommentSection contentId={contentData.id} comments={comments} handleCommentFetchMore={() => handleFetchMoreComment()}/>}
             </Col>
           </Row>

@@ -36,8 +36,8 @@ const CommentSection = ({ contentId,comments,handleCommentFetchMore }) => {
   }
 
   return (
-    <div >
-      <Row>
+    <div className="commentsSection">
+      <div>
         <div className="commentsSection__comments">
           {postComments.map((comment,index) => (
             <div key={index}>
@@ -47,13 +47,13 @@ const CommentSection = ({ contentId,comments,handleCommentFetchMore }) => {
             </div>
           ))}
         </div>
-      </Row>
-      <Row>
+      </div>
+      <div>
         <div className="commentsSection__input">
           <Col md={11}><input type="text" className="" onInput={handleChange} value={inputComment}/></Col>
           <Col md={1}><span onClick={handleAddComment}><Send className="commentsSection__input_send"/></span></Col>
         </div>
-      </Row>
+      </div>
     </div>
   )
 }

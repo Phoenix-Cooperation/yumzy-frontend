@@ -121,7 +121,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            <Col md={8}>
+            <Col md={8} className="contentModal__contentSection ">
               <Card>
                 <Carousel variant="dark" className="contentModal__corousel">
                   {
@@ -152,7 +152,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={3}>
+            <Col md={3} className="contentModal__commentSection">
               {comments !== undefined && <CommentSection contentId={contentData.id} comments={comments} handleCommentFetchMore={() => handleFetchMoreComment()}/>}
             </Col>
           </Row>

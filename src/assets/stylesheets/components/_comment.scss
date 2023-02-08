@@ -1,31 +1,55 @@
 .comment {
+  
+
   &__box {
     width: 100%;
-    border: 2px lighten($border-color, 5%) solid;
-    background-color: #dadada;
-    border-radius: toRem(10);
-    margin: 2px;
+    min-height: toRem(50);
+    // border: 2px lighten($border-color, 5%) solid;
+    // background-color: #dadada;
+    border-bottom: 1px solid hsl(0, 4%, 82%);
+    // border-radius: toRem(10);
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: toRem(14);
+    padding-top: toRem(10);
+    padding-bottom: toRem(10);
+    justify-content: space-around;
   }
-  &__column {
-    padding: 0;
+  
+  &__commentCol {
+    margin-left: toRem(8);
+    
   }
+
+  &__avatarCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: toRem(10);
+    margin-right: toRem(5);
+  }
+
   &__commentbox {
     display: flex;
     justify-content: flex-start;
-    padding-left: toRem(10);
+    // padding-left: toRem(10);
   }
+
+
   &__avatar {
-    height: toRem(20);
-    width: toRem(20);
-    border-radius: toRem(10);
-    font-size: toRem(10);
-    margin-left: toRem(10);
+    height: toRem(30);
+    width: toRem(30);
+    border-radius: 50%;
+    
   }
   &__userName {
     height: toRem(20);
-    font-size: toRem(10);
+    font-weight: bold;
   }
   &__comment {
     margin-left: toRem(10);
+    word-wrap: break-word;
   }
 }

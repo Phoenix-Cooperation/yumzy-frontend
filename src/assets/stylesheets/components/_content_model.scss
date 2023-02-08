@@ -1,7 +1,11 @@
 .contentModal {
-  &__model {
-    height: toRem(900);
+  & > .card {
+    border: none !important;
   }
+  
+  // &__model {
+  //   // height: toRem(800);
+  // }
   &__title {
     padding: toRem(10);
   }
@@ -22,9 +26,9 @@
     margin-bottom: toRem(10);
   }
 
-  &__reactspannel {
+  // &__reactspannel {
   
-  }
+  // }
 
 
   &__menu {

@@ -5,7 +5,8 @@
   flex-direction: column;
   justify-content: space-between;
   border-left: 1px solid hsl(0, 4%, 82%);
-  // border-right: 1px solid hsl(0, 4%, 82%);
+  border-top: 1px solid hsl(0, 4%, 82%);
+  border-right: 1px solid hsl(0, 4%, 82%);
   margin: 0 !important;
 
    &__input {
@@ -35,7 +36,7 @@
    }
 
     &__comments {
-      height: toRem(578);
+      max-height: toRem(650);
       //  border: 2px lighten($border-color, 5%) solid;
       overflow-y: scroll;
       overflow-x: hidden;

@@ -50,7 +50,7 @@ const CommentSection = ({ contentId,comments,handleCommentFetchMore }) => {
       </div>
       <div>
         <div className="commentsSection__input">
-          <Col md={11}><input type="text" className="" onInput={handleChange} value={inputComment}/></Col>
+          <Col md={10}><input type="text" className="" onInput={handleChange} value={inputComment}/></Col>
           <Col md={1}><span onClick={handleAddComment}><Send className="commentsSection__input_send"/></span></Col>
         </div>
       </div>

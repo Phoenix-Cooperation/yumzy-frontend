@@ -3,7 +3,7 @@
 
   &__box {
     width: 100%;
-    min-height: toRem(50);
+    min-height: toRem(36);
     // border: 2px lighten($border-color, 5%) solid;
     // background-color: #dadada;
     border-bottom: 1px solid hsl(0, 4%, 82%);
@@ -14,13 +14,13 @@
     align-items: flex-start;
     font-size: toRem(14);
     padding-top: toRem(10);
-    padding-bottom: toRem(10);
+    padding-bottom: toRem(16);
     justify-content: space-around;
   }
   
   &__commentCol {
     margin-left: toRem(8);
-    
+    // width: 95%;
   }
 
   &__avatarCol{

@@ -10,3 +10,13 @@ export const POST_CREATE_SUBSCRIPTION = gql`
         }
     }
 `;
+
+export const POST_NOTIFICATION_GET = gql`
+    query OnGetPostNotification {
+        getNotification {
+            id
+            message
+            status
+        }
+    }
+`;

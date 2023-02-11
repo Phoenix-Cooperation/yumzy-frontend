@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
+import NotificationPage from "../notification/notificationPage.js";
 
 const NotificationPanel = () => {
   return (
     <div className="setting-panel">
+      <NotificationPage/>
       <div className="setting-panel__header">
         Notification Mode
       </div>

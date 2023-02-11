@@ -33,6 +33,7 @@ const createClient = () => {
   return new ApolloClient({
     // eslint-disable-next-line no-undef
     link: splitLink,
+    uri: process.env.REACT_APP_BACKEND_API,
     cache: cache,
     headers: {
       authorization: `Bearer ${localStorage.getItem("token") || ""}`,

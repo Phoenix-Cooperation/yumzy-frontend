@@ -17,6 +17,12 @@
     margin-right: toRem(10);
   }
 
+  &__content {
+    max-height: toRem(650);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
   &__reacts {
     height: toRem(40);
     width: toRem(40);
@@ -29,7 +35,16 @@
   // &__reactspannel {
   
   // }
+  
+  &__contentDataIngredients__list {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: toRem(10);
+    // &__item {
 
+    // }
+  }
 
   &__menu {
     height: toRem(40);

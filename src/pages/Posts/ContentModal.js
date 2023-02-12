@@ -57,6 +57,8 @@ const ContentModal = ({ show, handleHide, contentData }) => {
     }
   },[data])
 
+  console.log(contentData, "contentData");
+
   const handleFetchMoreComment = async () => {
     console.log("fetching");
     const { data, loading , error  } = await fetchMore({
@@ -123,33 +125,71 @@ const ContentModal = ({ show, handleHide, contentData }) => {
           <Row className="d-flex justify-content-around">
             <Col md={7} className="contentModal__contentSection ">
               <Card className="contentModal__contentCard">
-                <Carousel variant="dark" className="contentModal__corousel">
-                  {
-                    contentData.images.map((image, index) => (
-                      <Carousel.Item key={contentData.id + index}>
-                        <img
-                          className=""
-                          src={s3Url+image}
-                          alt="First slide"
-                        />
-                      </Carousel.Item>
-                    ))          
-                  }
-                </Carousel>
-                <Card.Body>
-                  <Card.Title>{contentData.title}</Card.Title>
-                  <Card.Text>
-                    {contentData.description}
-                  </Card.Text>
-                  <div className="contentModal__reactspannel">
-                    <span onClick={handleReact}>
-                      {isReact ? <YummyFill className="contentModal__fillreacts"/> : <Yummy className="contentModal__reacts"/>}
-                      <span>{millify(postReactCount)}</span>
-                    </span>
-                    <Comment className="contentModal__reacts"/><span>{millify(postCommentCount)}</span>
-                    <Bookmark className="contentModal__reacts"/>
-                  </div>
-                </Card.Body>
+                <div className="contentModal__content">
+                  <Carousel variant="dark" className="contentModal__corousel">
+                    {
+                      contentData.images.map((image, index) => (
+                        <Carousel.Item key={contentData.id + index}>
+                          <img
+                            className=""
+                            src={s3Url+image}
+                            alt="First slide"
+                          />
+                        </Carousel.Item>
+                      ))          
+                    }
+                  </Carousel>
+                  <Card.Body>
+                    <Card.Title className="contentModal__contentDataTitle">
+                      {contentData.title}
+                    </Card.Title>
+
+                    <Card.Text className="contentModal__contentDataDescription">
+                      {contentData.description}
+                    </Card.Text>
+                    
+                    <Card.Text className="contentModal__contentDataIngredients">
+                      {contentData?.ingredients && (
+                        <>
+                          <b>Ingredients:</b><br/>
+                          <div className="contentModal__contentDataIngredients__list">
+                            {contentData.ingredients.map((ingredient, index) => (
+                              <span key={index} className="contentModal_contentDataIngredients__item">
+                                {ingredient}
+                              </span>
+                            ))}
+
+                          </div>
+                        </>
+                      )}
+                    </Card.Text>
+
+                    <Card.Text className="contentModal__contentDataMethod">
+                      {contentData?.method && (<><b>Method:</b> {contentData.method}</>)}
+                    </Card.Text>
+                    
+                    
+                    <Card.Text className="contentModal__contentDataTime">
+                      {contentData?.time && (<><b>Time:</b> {contentData?.time}</>)}
+                    </Card.Text>
+                    
+                    <Card.Text className="contentModal__contentDataTips">
+                      {contentData?.tips && contentData.tips}
+                    </Card.Text>
+
+                    <Card.Text className="contentModal__contentDataTags">
+                      {contentData?.tags && contentData.tags}
+                    </Card.Text>
+                  </Card.Body>
+                </div>
+                <div className="contentModal__reactspannel">
+                  <span onClick={handleReact}>
+                    {isReact ? <YummyFill className="contentModal__fillreacts"/> : <Yummy className="contentModal__reacts"/>}
+                    <span>{millify(postReactCount)}</span>
+                  </span>
+                  <Comment className="contentModal__reacts"/><span>{millify(postCommentCount)}</span>
+                  <Bookmark className="contentModal__reacts"/>
+                </div>
               </Card>
             </Col>
             <Col md={4} className="contentModal__commentSection">

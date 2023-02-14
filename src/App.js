@@ -19,6 +19,7 @@ import {auth, getIdToken} from "./services/firebase-auth";
 import {logout} from "./services/firebase-auth"
 import PrivateRoute from "./utils/PrivateRoute";
 import userStore from "./utils/userStore";
+import ContentModal from "./pages/Posts/ContentModal";
 import NotificationPanel from "./pages/setting/NotificationPanel";
 import PrivacyPanel from "./pages/setting/PrivacyPanel";
 import LogoutPanel from "./pages/setting/LogoutPanel";
@@ -40,6 +41,7 @@ function App() {
   })
   return (
     <div>
+      {/* <ContentModal/> */}
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<Auth/>}/>

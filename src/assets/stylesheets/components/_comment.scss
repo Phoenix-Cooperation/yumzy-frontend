@@ -1,0 +1,55 @@
+.comment {
+  
+
+  &__box {
+    width: 100%;
+    min-height: toRem(36);
+    // border: 2px lighten($border-color, 5%) solid;
+    // background-color: #dadada;
+    border-bottom: 1px solid hsl(0, 4%, 82%);
+    // border-radius: toRem(10);
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: toRem(14);
+    padding-top: toRem(10);
+    padding-bottom: toRem(16);
+    justify-content: space-around;
+  }
+  
+  &__commentCol {
+    margin-left: toRem(8);
+    // width: 95%;
+  }
+
+  &__avatarCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: toRem(10);
+    margin-right: toRem(5);
+  }
+
+  &__commentbox {
+    display: flex;
+    justify-content: flex-start;
+    // padding-left: toRem(10);
+  }
+
+
+  &__avatar {
+    height: toRem(30);
+    width: toRem(30);
+    border-radius: 50%;
+    
+  }
+  &__userName {
+    height: toRem(20);
+    font-weight: bold;
+  }
+  &__comment {
+    margin-left: toRem(10);
+    word-wrap: break-word;
+  }
+}

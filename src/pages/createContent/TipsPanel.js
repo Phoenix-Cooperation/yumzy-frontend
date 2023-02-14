@@ -1,4 +1,5 @@
 import React, {useState, useRef} from "react"
+import { useNavigate } from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import { CREATE_TIPS } from "../../api/mutations";
 import { uploadToS3 } from "./uploadToS3";
@@ -8,6 +9,7 @@ import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 
 const TipsPanel = () => {
 
+  const navigate = useNavigate()
   // Initialization - image resizer
   const [title, setTitle] = useState("");
   const [tips, setTips] = useState("");
@@ -66,10 +68,11 @@ const TipsPanel = () => {
     })
 
     if (error) {
-      console.error("error in saving post", error)
+      console.error("error in saving tips", error)
     }
 
     console.log(tipsRes)
+    navigate("/", { replace: true })
   }
 
 

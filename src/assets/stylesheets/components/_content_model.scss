@@ -1,0 +1,91 @@
+.contentModal {
+  &__contentCard {
+    border: none !important;
+  }
+  
+  // &__model {
+  //   // height: toRem(800);
+  // }
+  &__title {
+    padding: toRem(10);
+  }
+
+  &__avatar {
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
+  }
+
+  &__content {
+    max-height: toRem(650);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__reacts {
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
+    margin-left: toRem(10);
+    margin-bottom: toRem(10);
+  }
+
+  // &__reactspannel {
+  
+  // }
+  
+  &__contentDataIngredients__list {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: toRem(10);
+    // &__item {
+
+    // }
+  }
+
+  &__menu {
+    height: toRem(40);
+    width: toRem(40);
+    margin-right: toRem(10);
+    float: right;
+    // margin-left: 10rem;
+  }
+
+  &__fillreacts {
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
+    margin-left: toRem(10);
+    margin-bottom: toRem(10);
+    fill: lighten($primary-color, 5%);
+  }
+
+  &__corousel {
+    height: toRem(450);
+    width: toRem(720);
+    padding-bottom: toRem(20);
+    margin: auto;
+    img {
+      width: toRem(720);
+      height: toRem(450);
+      object-fit: contain;
+    }
+  }
+
+  &__text {
+    padding: toRem(10);
+    margin-bottom: 0;
+  }
+}
+
+.modal-dialog {
+  max-width: 80vw !important;
+}
+
+.modal-title {
+  width: 98%;
+}

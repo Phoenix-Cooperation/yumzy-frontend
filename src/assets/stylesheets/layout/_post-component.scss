@@ -35,8 +35,21 @@
     margin-right: toRem(10);
     margin-left: toRem(10);
     margin-bottom: toRem(10);
+    cursor: pointer;
   }
 
+  &__fillreacts {
+    height: toRem(40);
+    width: toRem(40);
+    border-radius: toRem(30);
+    margin-right: toRem(10);
+    margin-left: toRem(10);
+    margin-bottom: toRem(10);
+    cursor: pointer;
+    fill: lighten($primary-color, 5%);
+  }
+  &__reactspannel {
+  }
   &__image {
     height: toRem(450);
     width: toRem(720);

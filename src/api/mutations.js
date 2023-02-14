@@ -35,3 +35,27 @@ export const CREATE_TIPS = gql`
         }
     }
 `
+
+export const REACT_TO_CONTENT = gql`
+    mutation REACT_TO_CONTENT($contentId: String!) {
+      reactToContent(contentId: $contentId) {
+        message
+      }
+    }
+`
+
+export const UN_REACT_TO_CONTENT = gql`
+    mutation REACT_TO_CONTENT($contentId: String!) {
+      unReactToContent(contentId: $contentId) {
+        message
+      }
+    }
+`
+
+export const ADD_COMMENT = gql`
+    mutation ADD_COMMENT($comment: String!, $contentId: ID!) {
+        addComment(comment: $comment, contentId: $contentId) {
+            message
+          }
+    }
+`

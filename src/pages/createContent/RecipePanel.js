@@ -4,9 +4,11 @@ import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
 import { CREATE_RECIPE } from "../../api/mutations";
 import { uploadToS3 } from "./uploadToS3";
 import ImageUpload from "./ImageUpload";
+import { useNavigate } from "react-router-dom";
 
 const RecipePanel = () => {
 
+  const navigate = useNavigate();
   /**
    * form variables
    * */
@@ -91,9 +93,10 @@ const RecipePanel = () => {
     })
 
     if (error) {
-      console.error("error in saving post", error)
+      console.error("error in saving recipe:", error)
     }
     console.log(recipe)
+    navigate("/", { replace: true })
   }
   return (
     <div className="createContent">

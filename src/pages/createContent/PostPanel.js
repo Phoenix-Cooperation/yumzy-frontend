@@ -1,4 +1,5 @@
 import React, {useState, useRef} from "react"
+import { useNavigate } from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import { CREATE_POST } from "../../api/mutations";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
@@ -9,6 +10,8 @@ import { uploadToS3 } from "./uploadToS3";
 
 
 const PostPanel = () => {
+
+  const navigate = useNavigate();
 
   // Initialization - image resizer
   const compress = new Compress();
@@ -66,9 +69,10 @@ const PostPanel = () => {
     })
 
     if (error) {
-      console.error("error uploading images", error)
-    }
+      console.error("Error saving post", error)
+    } 
 
+    navigate("/", { replace: true })
     console.log(post)
   }
   return (
@@ -85,9 +89,9 @@ const PostPanel = () => {
           type="text" 
           name="title"
           onChange={(event) => {
-              setTitle(event.target.value)
-            }}
-          />
+            setTitle(event.target.value)
+          }}
+        />
 
 
         <label

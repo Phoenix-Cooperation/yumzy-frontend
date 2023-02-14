@@ -32,17 +32,34 @@ export const GET_CONTENT = gql`
                 tips
                 tags
                 user {
-                  id
                   username
                   email
                   user_id
                   photoURL
                 }
+                reactCount
+                currentUserReacted
               }
              hasMore
         }
   }
  `;
+
+export const GET_COMMENTS = gql`
+  query getComments($contentId: ID) {
+   getComments(contentId: $contentId) {
+      id
+      comment
+      user {
+        username
+        email
+        user_id
+        photoURL
+      }
+   }
+}
+ `;
+
 
 // export const GET_TIPS = gql`
 //   query getAllTips(pageSize: Int!) {

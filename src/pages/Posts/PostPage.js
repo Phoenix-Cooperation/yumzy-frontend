@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
-import PostComponent from "../../components/PostComponent/PostComponent";
+import ContentCard from "./ContentCard";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
+import BasicPost from "../../components/PostInDetail/BasicPost";
+import ContentModal from "./ContentModal";
 
 const PostPage = () => {
 
@@ -13,6 +15,11 @@ const PostPage = () => {
   const [getMoreData, setGetMoreData] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [scroleCount, setScrolCount] = useState(0);
+  const [showPost, setShowPost] = useState(false);
+  const [showRecipePost, setShowRecipePost] = useState(false);
+  const [showTipsPost, setShowTipsPost] = useState(false);
+  const [selectedPost, setSelectedPost] = useState({});
+
   // setPostData(data?.getContent)
   // setAfter(2);
 
@@ -45,7 +52,7 @@ const PostPage = () => {
     const totalHeight = window.innerHeight;
     const currentPosition = window.scrollY;
     // console.log("loading....")
-    console.log(totalHeight, currentPosition);
+    // console.log(totalHeight, currentPosition);
     if (currentPosition > (0.95 * totalHeight)) {
       setScrolCount(scroleCount + 1);
       console.log("scrol down")
@@ -56,8 +63,6 @@ const PostPage = () => {
     }
   }
 
- 
-  
   useEffect(() => {
     const fetchMoreData = async () => {
       if (getMoreData && hasMore){
@@ -86,13 +91,49 @@ const PostPage = () => {
     }
   }, [data])
 
+  const handlePostPopup = (data,index) => {
+    console.log("Popup click",index)
+    console.log(data);
+    setSelectedPost(data);
+    setShowPost(true);
+
+    if (data.type === "post") {
+      setShowPost(true);
+    }
+    if (data.type === "recipe") {
+      setShowRecipePost(true);
+    }
+    if (data.type === "tips") {
+      setShowTipsPost(true);
+    }
+  }
+
+  const handlePostHide = () => {
+    setSelectedPost({});
+    setShowPost(false);
+    console.log("clodsin");
+    if (selectedPost.type === "post") {
+      setShowPost(false);
+    }
+    if (selectedPost.type === "recipe") {
+      setShowRecipePost(false);
+    }
+    if (selectedPost.type === "tips") {
+      setShowTipsPost(false);
+    }
+  }
 
   return (
     <Row>
       <div>
         {postData.map((data, index) => (
-          <PostComponent key={data.id + index} data = {data} />
+          <div key={data.id+index}>
+            <ContentCard key={data.id + index} data = {data} handlePopup={() => handlePostPopup(data,index)}/>
+          </div>
         ))}
+        {selectedPost && selectedPost.user && selectedPost.title &&
+          <ContentModal contentData={selectedPost} show={showPost} handleHide={handlePostHide}/>
+        }
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>

@@ -1,0 +1,134 @@
+.setting-menu {
+  height: 100vh;
+  text-align: right;
+  margin-left: 20px;
+  position: relative;
+
+  &__header-name {
+    position: absolute;
+    font-weight: bold;
+    margin-right: 0;
+    padding-bottom: 20px;
+  }
+}
+
+.setting-panel {
+  margin-top: toRem(20);
+  margin-left: toRem(60);
+  margin-right: toRem(30);
+  width: 60%;
+
+  &__header {
+    width: 90%;
+    font-weight: bold;
+    font-size: large;
+    padding: 15px 0 10px 0;
+  }
+
+  &__table {
+
+    &__row {
+      display: flex;
+      align-items: stretch;
+      padding: 5px 0 5px 0;
+
+      &__name {
+        width: 400px;
+      }
+
+      &__left_privacy {
+        text-align: left;
+        vertical-align: middle;
+        width: 200px;
+      }
+
+      &__middle_privacy {
+        text-align: left;
+        vertical-align: middle;
+        width: 0;
+        color: blue;
+      }
+
+      &__right_privacy {
+        text-align: left;
+        vertical-align: middle;
+        width: 0;
+      }
+    }
+  }
+
+  &__submit {
+    grid-column: 2 / span 1;
+    border: 1px solid $primary-color;
+    background-color: $primary-color;
+    width: 30%;
+    color: white;
+    padding: toRem(4) toRem(0);
+    text-align: center;
+    border-radius: $form-border-radius;
+
+    &:active {
+      background-color: lighten($primary-color, 5%);
+    }
+  }
+
+}
+
+.setting-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.setting-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.setting-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.setting-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 1px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .setting-slider {
+  background-color: $primary-color;
+}
+
+input:focus + .setting-slider {
+  box-shadow: 0 0 1px $primary-color;
+}
+
+input:checked + .setting-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.setting-slider.round {
+  border-radius: 34px;
+}
+
+.setting-slider.round:before {
+  border-radius: 50%;
+}

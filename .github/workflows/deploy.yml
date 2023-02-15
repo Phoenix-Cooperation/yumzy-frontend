@@ -1,0 +1,70 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with: 
+          node-version: "16.17.0"
+      
+      - name: Installing dependencies
+        run: npm install
+        
+      - name: Build project
+        run: npm run build
+        env: 
+          REACT_APP_BACKEND_API: ${{ secrets.REACT_APP_API }}
+          REACT_APP_S3_IMAGE_URL: ${{ secrets.REACT_APP_S3_IMAGE_URL}}
+          REACT_APP_S3_GET_PRESIGNED_URL_API: ${{ secrets.REACT_APP_S3_GET_PRESIGNED_URL_API }}
+
+      - name: console log folders
+        run: ls
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: ./build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: ./build
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+      
+      - name: Deploy to s3 bucket
+        run: aws s3 sync ./build s3://yumzy-live
+        

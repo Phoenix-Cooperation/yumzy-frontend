@@ -68,8 +68,8 @@ const Auth = () => {
 
   const handleGoogleSignIn = async () => {
     const user = await signInWithGoogle();
-    console.log(user)
-    console.log(user.user.displayName, user.user.email, user.user.uid, user.user.photoURL)
+    // console.log(user)
+    // console.log(user.user.displayName, user.user.email, user.user.uid, user.user.photoURL)
     const { displayName, email, uid, photoURL } = user.user
     registerUserBE({ variables: { username: displayName, email, id: uid } })
     userStore.setUser(displayName, photoURL)

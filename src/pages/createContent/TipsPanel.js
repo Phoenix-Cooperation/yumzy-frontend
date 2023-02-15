@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import { CREATE_TIPS } from "../../api/mutations";
@@ -15,7 +15,6 @@ const TipsPanel = () => {
   const [tips, setTips] = useState("");
   const [imageObjects, setImageObjects] = useState([]);
   const [tags, setTags] = useState([]);
-  const [uploadedImages, setUploadedImages] = useState([]);
   /**
    * error messages
    * */
@@ -26,7 +25,9 @@ const TipsPanel = () => {
   const handleErrorImageUpload = (error) => {
     setErrorImageUpload((prev) => [...prev, error ])
   }
+  console.log(errorImageUpload);
 
+  
   const handleImageObjectsChange = ({file, imageURL}) => {
     setImageObjects((prev) => [...prev, {file, imageURL}])
   }

@@ -1,10 +1,8 @@
-import React, {useState, useRef} from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import { CREATE_POST } from "../../api/mutations";
 import {ReactComponent as Xmark} from "../../assets/images/icons/x-mark.svg";
-import _ from "lodash";
-import Compress from "compress.js";
 import ImageUpload from "./ImageUpload";
 import { uploadToS3 } from "./uploadToS3";
 
@@ -14,12 +12,10 @@ const PostPanel = () => {
   const navigate = useNavigate();
 
   // Initialization - image resizer
-  const compress = new Compress();
-  const imageInput = useRef();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageObjects, setImageObjects] = useState([]);
-  const [uploadedImages, setUploadedImages] = useState([]);
   const [tags, setTags] = useState([]);
 
   /**
@@ -27,10 +23,12 @@ const PostPanel = () => {
    * */
   const [errorImageUpload, setErrorImageUpload] = useState([]);
   const [createPost, {error}] = useMutation(CREATE_POST);
-
+  
   const handleErrorImageUpload = (error) => {
     setErrorImageUpload((prev) => [...prev, error ])
   }
+
+  console.log(errorImageUpload)
 
   const handleImageObjectsChange = ({file, imageURL}) => {
     setImageObjects((prev) => [...prev, {file, imageURL}])

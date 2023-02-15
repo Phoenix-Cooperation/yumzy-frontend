@@ -16,7 +16,7 @@ const RecipePanel = () => {
   const [description, setDescription] = useState("");
   const [ingredientsList, setIngredientsList] = useState([]);
   const [imageObjects, setImageObjects] = useState([]);
-  const [uploadedImages, setUploadedImages] = useState([]);
+  // const [uploadedImages, setUploadedImages] = useState([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
   const [tags, setTags] = useState([])
@@ -51,6 +51,7 @@ const RecipePanel = () => {
   const handleErrorImageUpload = (error) => {
     setErrorImageUpload((prev) => [...prev, error ])
   }
+  console.log(errorImageUpload)
 
   const handleImageObjectsChange = ({file, imageURL}) => {
     setImageObjects((prev) => [...prev, {file, imageURL}])
@@ -77,7 +78,7 @@ const RecipePanel = () => {
 
     // setUploadedImages(images)
 
-    console.log(uploadedImages)
+    // console.log(uploadedImages)
     const recipe = await createRecipe({
       variables: {
         recipeInput: {

@@ -31,6 +31,7 @@ export const GET_CONTENT = gql`
                 time
                 tips
                 tags
+                commentCount
                 user {
                   username
                   email

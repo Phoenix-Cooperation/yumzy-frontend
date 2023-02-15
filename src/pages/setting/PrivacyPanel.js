@@ -19,15 +19,15 @@ const PrivacyPanel = () => {
           </div>
         </div>
         <div className="setting-panel__table__row">
-            <div className="setting-panel__table__row__left_privacy" style={{flexGrow: 1}}>
-              Receipt and Tips
-            </div>
-            <div style={{flexGrow: 3}} className="setting-panel__table__row__middle_privacy">
-              <div>Public</div>
-            </div>
-            <div style={{flexGrow: 4}} className="setting-panel__table__row__right_privacy">
-              <button className="setting-panel__submit">Change</button>
-            </div>
+          <div className="setting-panel__table__row__left_privacy" style={{flexGrow: 1}}>
+            Receipt and Tips
+          </div>
+          <div style={{flexGrow: 3}} className="setting-panel__table__row__middle_privacy">
+            <div>Public</div>
+          </div>
+          <div style={{flexGrow: 4}} className="setting-panel__table__row__right_privacy">
+            <button className="setting-panel__submit">Change</button>
+          </div>
         </div>
       </div>
       <div className="setting-panel__header">

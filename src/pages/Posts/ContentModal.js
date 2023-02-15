@@ -61,7 +61,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
 
   const handleFetchMoreComment = async () => {
     console.log("fetching");
-    const { data, loading , error  } = await fetchMore({
+    const { data } = await fetchMore({
       variables: { after: contentData.id }
     })
 

@@ -30,7 +30,7 @@ const Auth = () => {
   const [schema, setSchema] = useState();
   const [defaultValues, setDefaultValues] = useState();
 
-  const [registerUserBE, { loading, error }] = useMutation(CREATE_USER)
+  const [registerUserBE] = useMutation(CREATE_USER)
 
   useEffect(() => {
     const tempSchema = isSignup ? SignupSchema : SigninSchema;

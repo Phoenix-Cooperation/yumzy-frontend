@@ -3,7 +3,6 @@ import {Row} from "react-bootstrap";
 import ContentCard from "./ContentCard";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
-import BasicPost from "../../components/PostInDetail/BasicPost";
 import ContentModal from "./ContentModal";
 
 const PostPage = () => {
@@ -16,8 +15,8 @@ const PostPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const [scroleCount, setScrolCount] = useState(0);
   const [showPost, setShowPost] = useState(false);
-  const [showRecipePost, setShowRecipePost] = useState(false);
-  const [showTipsPost, setShowTipsPost] = useState(false);
+  // const [showRecipePost, setShowRecipePost] = useState(false);
+  // const [showTipsPost, setShowTipsPost] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
   // setPostData(data?.getContent)
@@ -67,7 +66,7 @@ const PostPage = () => {
     const fetchMoreData = async () => {
       if (getMoreData && hasMore){
         setGetMoreData(false)
-        const { data, loading , error  } = await fetchMore({
+        const { data } = await fetchMore({
           variables: { after: after }
         })
         
@@ -97,30 +96,30 @@ const PostPage = () => {
     setSelectedPost(data);
     setShowPost(true);
 
-    if (data.type === "post") {
-      setShowPost(true);
-    }
-    if (data.type === "recipe") {
-      setShowRecipePost(true);
-    }
-    if (data.type === "tips") {
-      setShowTipsPost(true);
-    }
+    // if (data.type === "post") {
+    //   setShowPost(true);
+    // }
+    // if (data.type === "recipe") {
+    //   setShowRecipePost(true);
+    // }
+    // if (data.type === "tips") {
+    //   setShowTipsPost(true);
+    // }
   }
 
   const handlePostHide = () => {
     setSelectedPost({});
     setShowPost(false);
     console.log("clodsin");
-    if (selectedPost.type === "post") {
-      setShowPost(false);
-    }
-    if (selectedPost.type === "recipe") {
-      setShowRecipePost(false);
-    }
-    if (selectedPost.type === "tips") {
-      setShowTipsPost(false);
-    }
+    // if (selectedPost.type === "post") {
+    //   setShowPost(false);
+    // }
+    // if (selectedPost.type === "recipe") {
+    //   setShowRecipePost(false);
+    // }
+    // if (selectedPost.type === "tips") {
+    //   setShowTipsPost(false);
+    // }
   }
 
   return (

@@ -15,11 +15,9 @@ import TipsPanel from "./pages/createContent/TipsPanel";
 import PostPanel from "./pages/createContent/PostPanel";
 
 // import {logout} from "./services/"
-import {auth, getIdToken} from "./services/firebase-auth";
-import {logout} from "./services/firebase-auth"
+import {auth} from "./services/firebase-auth";
 import PrivateRoute from "./utils/PrivateRoute";
 import userStore from "./utils/userStore";
-import ContentModal from "./pages/Posts/ContentModal";
 import NotificationPanel from "./pages/setting/NotificationPanel";
 import PrivacyPanel from "./pages/setting/PrivacyPanel";
 import LogoutPanel from "./pages/setting/LogoutPanel";

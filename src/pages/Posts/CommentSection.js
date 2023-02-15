@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, {useEffect, useState} from "react"
-import {Col, Row} from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { ReactComponent as Send } from "../../assets/images/icons/send.svg"
 import Comment from "./SingleComment/Comment";
 import {useMutation} from "@apollo/client";

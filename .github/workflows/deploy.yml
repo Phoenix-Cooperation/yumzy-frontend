@@ -31,7 +31,7 @@ jobs:
       - name: Build project
         run: npm run build
         env: 
-          REACT_APP_BACKEND_API: ${{ secrets.REACT_APP_API }}
+          REACT_APP_BACKEND_API: ${{ secrets.REACT_APP_BACKEND_API }}
           REACT_APP_S3_IMAGE_URL: ${{ secrets.REACT_APP_S3_IMAGE_URL}}
           REACT_APP_S3_GET_PRESIGNED_URL_API: ${{ secrets.REACT_APP_S3_GET_PRESIGNED_URL_API }}
 

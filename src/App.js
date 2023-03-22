@@ -14,6 +14,8 @@ import TipsPanel from "./pages/createContent/TipsPanel";
 // import ReviewPanel from "./pages/UploadContent/ReviewPanel";
 import PostPanel from "./pages/createContent/PostPanel";
 
+// import ProfileInfo from "./components/ProfileInfo";
+
 // import {logout} from "./services/"
 import {auth} from "./services/firebase-auth";
 import PrivateRoute from "./utils/PrivateRoute";

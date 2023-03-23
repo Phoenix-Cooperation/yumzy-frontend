@@ -7,6 +7,7 @@ import UserLayout from "./layouts/UserLayout";
 import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
+import Chat from "./pages/Chat/Chat";
 
 // import Posts from "./pages/Posts/PostPage"
 import RecipePanel from "./pages/createContent/RecipePanel";
@@ -66,6 +67,9 @@ function App() {
               <Route path="notification" element={<NotificationPanel/>}/>
               <Route path="privacy" element={<PrivacyPanel/>}/>
               <Route path="logout" element={<LogoutPanel/>}/>
+            </Route>
+            <Route path="chat" element={<PrivateRoute><Chat/></PrivateRoute>}>
+              <Route index element={<Chat/>}/>
             </Route>
           </Route>
         </Routes>

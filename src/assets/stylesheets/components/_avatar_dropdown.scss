@@ -33,6 +33,11 @@
             cursor: pointer;
             border-radius: toRem(10);
 
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
             &:hover {
                 background-color: transparentize($color: #f8f9fa, $amount: 0.45);
             }

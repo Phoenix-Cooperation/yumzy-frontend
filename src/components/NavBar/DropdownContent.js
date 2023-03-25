@@ -2,6 +2,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/firebase-auth";
+import { Link } from "react-router-dom";
 
 const DropdownContent = ({ user }) => {
   const navigate = useNavigate()
@@ -15,7 +16,11 @@ const DropdownContent = ({ user }) => {
               {user?.username}
             </div>
           </div>
-          <div className="avatarDropDown__dropDown__item">View Profile</div>
+          <div className="avatarDropDown__dropDown__item">
+            <Link to="/profile">
+              View Profile
+            </Link>
+          </div>
           <div className="avatarDropDown__dropDown__item">Settings</div>
           <div className="avatarDropDown__dropDown__item">Help</div>
           <div className="avatarDropDown__dropDown__item" 

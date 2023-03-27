@@ -3,6 +3,7 @@
     height: 170px;
     background-color: #ffffff;
     margin:auto;
+    margin-top: 250rem;
 }
 
 .profileImage{
@@ -24,4 +25,8 @@
     object-fit:cover;
     margin-top: 110px;
     margin-bottom: 0px;
+}
+
+.profile-content {
+    overflow-y: scroll;
 }

@@ -12,7 +12,7 @@ const DropdownContent = ({ user }) => {
         <div>
           <div className="avatarDropDown__dropDown__item__container">
             <div className="avatarDropDown__dropDown__item avatarDropDown__dropDown__item__username">
-              <img src={user.photoURL}/>
+              <img src={user.photoURL} />
               {user?.username}
             </div>
           </div>
@@ -21,9 +21,13 @@ const DropdownContent = ({ user }) => {
               View Profile
             </Link>
           </div>
-          <div className="avatarDropDown__dropDown__item">Settings</div>
+          <div className="avatarDropDown__dropDown__item">
+            <Link to="/settings">
+              Settings
+            </Link>
+          </div>
           <div className="avatarDropDown__dropDown__item">Help</div>
-          <div className="avatarDropDown__dropDown__item" 
+          <div className="avatarDropDown__dropDown__item"
             onClick={async () => {
               await logout();
               navigate("/auth")

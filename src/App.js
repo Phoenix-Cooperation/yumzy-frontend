@@ -24,7 +24,7 @@ import userStore from "./utils/userStore";
 import NotificationPanel from "./pages/setting/NotificationPanel";
 import PrivacyPanel from "./pages/setting/PrivacyPanel";
 import LogoutPanel from "./pages/setting/LogoutPanel";
-import Setting from "./layouts/Setting";
+import SettingLayout from "./layouts/SettingLayout";
 
 function App() {
 
@@ -59,7 +59,7 @@ function App() {
               <Route path="recipe" element={<RecipePanel/>}/>
               <Route path="tips" element={<TipsPanel/>}/>
             </Route>
-            <Route path="setting" element={<PrivateRoute><Setting/></PrivateRoute>}>
+            <Route path="settings" element={<PrivateRoute><SettingLayout/></PrivateRoute>}>
               <Route index element={<NotificationPanel/>}/>
               <Route path="notification" element={<NotificationPanel/>}/>
               <Route path="privacy" element={<PrivacyPanel/>}/>

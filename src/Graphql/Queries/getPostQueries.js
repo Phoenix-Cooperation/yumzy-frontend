@@ -46,6 +46,35 @@ export const GET_CONTENT = gql`
   }
  `;
 
+export const GET_CONTENT_BY_USER = gql`
+  query getContentUserId($pageSize: Int!, $after: Int) {
+    getContentUserId(pageSize: $pageSize, after: $after) {
+             content {
+                id
+                type
+                title
+                description
+                ingredients
+                images
+                method
+                time
+                tips
+                tags
+                commentCount
+                user {
+                  username
+                  email
+                  user_id
+                  photoURL
+                }
+                reactCount
+                currentUserReacted
+              }
+             hasMore
+        }
+  }
+ `;
+
 export const GET_COMMENTS = gql`
   query getComments($contentId: ID) {
    getComments(contentId: $contentId) {

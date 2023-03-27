@@ -22,6 +22,11 @@ const DropdownContent = ({ user }) => {
             </Link>
           </div>
           <div className="avatarDropDown__dropDown__item">
+            <Link to="/savedPost">
+                  Saved Posts
+            </Link>
+          </div>
+          <div className="avatarDropDown__dropDown__item">
             <Link to="/settings">
               Settings
             </Link>

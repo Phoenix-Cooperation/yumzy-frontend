@@ -6,13 +6,14 @@ import { ReactComponent as Yummy } from "../../assets/images/icons/emoticon-tong
 import { ReactComponent as YummyFill } from "../../assets/images/icons/emoticon-tongue-fill.svg"
 import { ReactComponent as Comment } from "../../assets/images/icons/comment-processing.svg"
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
-import { postComponentProps } from "../../types/component.proptypes";
-import { useMutation } from "@apollo/client";
-import { REACT_TO_CONTENT, UN_REACT_TO_CONTENT } from "../../api/mutations";
+import { ReactComponent as BookmarkFill } from "../../assets/images/icons/bookmark_FILL.svg"
+import {postComponentProps} from "../../types/component.proptypes";
+import {useMutation} from "@apollo/client";
+import {REACT_TO_CONTENT,UN_REACT_TO_CONTENT,SAVE_CONTENT} from "../../api/mutations";
 import millify from "millify";
 
 // eslint-disable-next-line react/display-name
-const PostComponent = (props) => {
+const ContentCard = (props) => {
 
   const { handleShowContentActions, data : { id } } = props
   const [isReact, setIsReact] = useState(false);
@@ -22,6 +23,7 @@ const PostComponent = (props) => {
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
   const [reactToPost] = useMutation(REACT_TO_CONTENT);
   const [unReactToPost] = useMutation(UN_REACT_TO_CONTENT);
+  const [contentSaved] = useMutation(SAVE_CONTENT);
 
   useEffect(() => {
     if (props.data.currentUserReacted) {
@@ -72,6 +74,16 @@ const PostComponent = (props) => {
     }
 
   }
+  const handleSave = async () => {
+    const res = await contentSaved({
+      variables: {
+        contentId:props.data.id,
+        contentType:props.data.type
+      }
+    })
+    console.log(res);
+  };
+
   return (
     <Col>
       <Card className="post" >
@@ -113,13 +125,15 @@ const PostComponent = (props) => {
               {isReact ? <YummyFill className="post__fillreacts" /> : <Yummy className="post__reacts" />}
               <span>{millify(postReactCount)}</span>
             </span>
-            <Comment className="post__reacts" /><span>{millify(postCommentCount)}</span>
-            <Bookmark className="post__reacts" />
+            <Comment className="post__reacts"/><span>{millify(postCommentCount)}</span>
+            <span onClick={handleSave}>
+              <Bookmark className="post__reacts"/>
+            </span>
           </div>
         </Card.Body>
       </Card>
     </Col>
   );
 };
-PostComponent.propTypes = postComponentProps;
-export default PostComponent;
+ContentCard.propTypes = postComponentProps;
+export default ContentCard;

@@ -59,3 +59,11 @@ export const ADD_COMMENT = gql`
           }
     }
 `
+
+export const SAVE_CONTENT = gql`
+    mutation SAVE_CONTENT($contentId: String!, $contentType: String!) {
+          contentSaved(contentId: $contentId, contentType: $contentType) {
+            message
+          }
+        }
+`

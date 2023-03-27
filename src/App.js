@@ -25,6 +25,9 @@ import NotificationPanel from "./pages/setting/NotificationPanel";
 import PrivacyPanel from "./pages/setting/PrivacyPanel";
 import LogoutPanel from "./pages/setting/LogoutPanel";
 import SettingLayout from "./layouts/SettingLayout";
+import Setting from "./layouts/Setting";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import SavedPostPage from "./pages/Profile/SavedPost/SavedPostPage";
 
 function App() {
 
@@ -52,7 +55,8 @@ function App() {
             <Route path="chat" element={<Home/>}/>
             <Route path="explore" element={<Home/>}/>
             <Route path="notifications" element={<Home/>}/>
-            <Route path="profile" element={<ProfileInfo/>}/>
+            <Route path="profile" element={<ProfilePage/>}/>
+            <Route path="savedPost" element={<SavedPostPage/>}/>
             <Route path="create" element={<PrivateRoute><CreateMenu/></PrivateRoute>}>
               <Route index element={<PostPanel/>}/>
               <Route path="post" element={<PostPanel/>}/>

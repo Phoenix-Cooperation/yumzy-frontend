@@ -19,11 +19,15 @@ import millify from "millify";
 import CommentSection from "./CommentSection";
 import { Row } from "react-bootstrap";
 import {GET_COMMENTS} from "../../Graphql/Queries/getPostQueries";
-const ContentModal = ({ show, handleHide, contentData }) => {
+// import ContentActions from "./ContentActions";
+const ContentModal = ({ show, handleHide, contentData, 
+  // handleHideContentActions, 
+  handleShowContentActions }) => {
 
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
-
+  
+  const {id : contentId} = contentData
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
   const [postCommentCount, setPostCommentCount] = useState(0);
@@ -56,9 +60,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
       setComments(data.getComments);
     }
   },[data])
-
-  console.log(contentData, "contentData");
-
+  
   const handleFetchMoreComment = async () => {
     console.log("fetching");
     const { data } = await fetchMore({
@@ -118,7 +120,10 @@ const ContentModal = ({ show, handleHide, contentData }) => {
               (<img className="contentModal__avatar" src={contentData.user.photoURL} alt="First slide" />) : 
               (<User className="contentModal__avatar"/>)}
             {contentData.user.username}
-            <Menu className="contentModal__menu"/>
+            <Menu 
+              className="contentModal__menu"
+              onClick={() => {handleShowContentActions(contentId)}}
+            />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -196,6 +201,7 @@ const ContentModal = ({ show, handleHide, contentData }) => {
               {comments !== undefined && <CommentSection contentId={contentData.id} comments={comments} handleCommentFetchMore={() => handleFetchMoreComment()}/>}
             </Col>
           </Row>
+          {/* <ContentActions show={showConentActions} hide={handleHideContentActions} contentId={contentActionId}/> */}
         </Modal.Body>
       </Modal>
     </>

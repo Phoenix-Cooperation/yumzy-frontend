@@ -4,6 +4,7 @@ import ContentCard from "./ContentCard";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
 import {useQuery} from "@apollo/client";
 import ContentModal from "./ContentModal";
+import ContentActions from "./ContentActions";
 
 const PostPage = () => {
 
@@ -19,8 +20,18 @@ const PostPage = () => {
   // const [showTipsPost, setShowTipsPost] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
-  // setPostData(data?.getContent)
-  // setAfter(2);
+  const [showConentActions, setShowContentActions] = useState(false)
+  const [contentActionId, setContentActionId] = useState(null)
+
+  const handleShowContentActions = (contentId) => {
+    setContentActionId(contentId)
+    setShowContentActions(true)
+  }
+  
+  const handleHideContentActions = () => {
+    setContentActionId(null)
+    setShowContentActions(false)
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -127,12 +138,26 @@ const PostPage = () => {
       <div>
         {postData.map((data, index) => (
           <div key={data.id+index}>
-            <ContentCard key={data.id + index} data = {data} handlePopup={() => handlePostPopup(data,index)}/>
+            <ContentCard 
+              key={data.id + index} 
+              data = {data} 
+              handlePopup={() => handlePostPopup(data,index)}
+              showConentActions = {showConentActions}
+              handleShowContentActions = {handleShowContentActions}
+            />
           </div>
         ))}
         {selectedPost && selectedPost.user && selectedPost.title &&
-          <ContentModal contentData={selectedPost} show={showPost} handleHide={handlePostHide}/>
+          <ContentModal 
+            contentData={selectedPost} 
+            show={showPost} 
+            handleHide={handlePostHide}
+            handleShowContentActions = {handleShowContentActions}
+            handleHideContentActions = {handleHideContentActions}
+            showConentActions={showConentActions}
+          />
         }
+        <ContentActions show={showConentActions} hide={handleHideContentActions} contentId={contentActionId}/>
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>

@@ -1,31 +1,110 @@
-import React from "react"
-// import { Container,  } from "react-bootstrap";
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react"
+import { useMutation, useQuery } from "@apollo/client";
 import Modal from "react-bootstrap/Modal";
+import { SAVE_CONTENT, UNSAVE_CONTENT } from "../../api/mutations";
+import { CHECK_USER_SAVED_CONTENT } from "../../api/queries";
+import Spinner from "react-bootstrap/Spinner";
 
-// eslint-disable-next-line react/prop-types
-const ContentActions = ({show, hide}) => {
+const ContentActions = ({show, hide, contentDetail}) => {
+  const [isContentSaved, setIsContentSaved] = useState(false)
+  const { contentId, contentType } = contentDetail
+  // const [stateLoading, setStateLoading] = useState(true)
+  // console.log(contentId, "contentId contentActions")
+  const [saveContent] = useMutation(SAVE_CONTENT)
+  const [unSaveContent] = useMutation(UNSAVE_CONTENT)
+
+  
+  const { data: checkUserSavedContentData, loading, refetch: reCheck } = useQuery(CHECK_USER_SAVED_CONTENT, {variables: {
+    contentId: contentId
+  }})
+
+  console.log(checkUserSavedContentData , "check user saved")
+
+  useEffect(() => {
+    if (checkUserSavedContentData !== undefined) {
+      const { checkUserSavedContent } = checkUserSavedContentData
+      console.log("checkUserSavedContent", checkUserSavedContent)
+
+      if (checkUserSavedContent.message) {
+        setIsContentSaved(true)
+      } else {
+        setIsContentSaved(false)
+      }
+    }
+
+    if (contentId) {
+      reCheck()
+    }
+
+  }, [loading, contentId, checkUserSavedContentData])
+  
+  console.log(isContentSaved, "isContentSaved")
+  
+  const handleSaveContent = async () => {
+    const { data: { contentSaved: { message }} } = await saveContent({
+      variables: {
+        contentSaveInput: { contentId, contentType }
+      }
+    })
+    console.log("message content save", message)
+    if (message) {
+      console.log("content saved")
+      setIsContentSaved(true)
+    }
+  }
+
+  const handleUnsaveContent = async () => {
+    const {data: { contentUnsaved: { message }} } = await unSaveContent({
+      variables: {
+        contentSaveInput: { contentId, contentType }
+      }
+    })
+    console.log("message content unsave", message)
+
+    if (message) {
+      console.log("content unsaved")
+      setIsContentSaved(false)
+    }
+
+  }
+
+
+  const handleHide = () => {
+    setIsContentSaved(false)
+    hide()
+  }
+
   return (
     <Modal
       className="ContentActionsModal"
       show={show}
-      onHide={hide}
+      onHide={handleHide}
       dialogClassName="contentModal--width"
       aria-labelledby="example-custom-modal-styling-title"
       centered
     >
-      <div className="ContentActionsModal__container">
-        <div className="ContentActionsModal__col">
-          <span>
-            Save Content
-          </span>
-          <span>
+      {loading ? (<span className="d-flex justify-content-center align-center"><Spinner/></span>): (<>
+        <div className="ContentActionsModal__container">
+          <div className="ContentActionsModal__col">
+            {isContentSaved ? (
+              <span onClick={handleUnsaveContent}>
+                Unsave Content
+              </span>) : (
+              <span onClick={handleSaveContent}>
+                Save Content
+              </span>)}
+            <span>
             Report
-          </span>
-          <span onClick={hide}>
+            </span>
+            <span onClick={hide}>
             Close
-          </span>
+            </span>
+          </div>
         </div>
-      </div>
+      
+      </>)}
+      
     </Modal>
   )
 }

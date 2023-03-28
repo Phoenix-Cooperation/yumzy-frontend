@@ -27,7 +27,7 @@ const ContentModal = ({ show, handleHide, contentData,
   // eslint-disable-next-line no-undef
   const s3Url = process.env.REACT_APP_S3_IMAGE_URL;
   
-  const {id : contentId} = contentData
+  const {id : contentId, type: contentType } = contentData
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
   const [postCommentCount, setPostCommentCount] = useState(0);
@@ -122,7 +122,7 @@ const ContentModal = ({ show, handleHide, contentData,
             {contentData.user.username}
             <Menu 
               className="contentModal__menu"
-              onClick={() => {handleShowContentActions(contentId)}}
+              onClick={() => {handleShowContentActions(contentId, contentType)}}
             />
           </Modal.Title>
         </Modal.Header>

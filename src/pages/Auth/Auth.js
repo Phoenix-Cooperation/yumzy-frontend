@@ -12,7 +12,6 @@ import userStore from "../../utils/userStore";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
-// import { bgcolor } from "@mui/system";
 
 
 const Auth = () => {
@@ -97,7 +96,7 @@ const Auth = () => {
 
   return (
     <>
-      <div className="backgroundImage">
+      <div className="authBG">
       </div>
       <div className="auth">
         <div className="auth__form">

@@ -1,6 +1,8 @@
-.backgroundImage{
-  background-image: url("../../images/loginBG.png");
-  background-size: cover;
+
+.authBG{
+  background-image: url("../../images/authBG.png");
+  background-size: contain;
+  background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,6 +16,7 @@
   top: 8%;
   right: 10%;
   width: toRem(400);
+
 
   &__form {
     background-color: $form-background-color;

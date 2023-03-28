@@ -59,3 +59,19 @@ export const ADD_COMMENT = gql`
           }
     }
 `
+
+export const SAVE_CONTENT = gql`
+    mutation SAVE_CONTENT($contentSaveInput: SaveContentInput!){
+        contentSaved(contentSaveInput: $contentSaveInput){
+            message
+        }
+    }
+`
+
+export const UNSAVE_CONTENT = gql`
+    mutation UNSAVE_CONTENT($contentSaveInput: SaveContentInput!){
+        contentUnsaved(contentSaveInput: $contentSaveInput) {
+            message
+        }
+    }
+`

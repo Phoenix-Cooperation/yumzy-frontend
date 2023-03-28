@@ -14,7 +14,7 @@ import millify from "millify";
 // eslint-disable-next-line react/display-name
 const PostComponent = (props) => {
 
-  const { handleShowContentActions, data : { id } } = props
+  const { handleShowContentActions, data : { id, type } } = props
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
   const [postCommentCount, setPostCommentCount] = useState(0);
@@ -79,17 +79,17 @@ const PostComponent = (props) => {
           {props.data.user.photoURL !== null || props.data.user.photoURL !== undefined ? <img
             className="post__avatar"
             src={props.data.user.photoURL}
-            alt="First slide"
+            alt="dp"
           /> : <User className="post__avatar" />}
           {props.data.user.username}
           <Menu
             className="post__menu"
-            onClick={() => {handleShowContentActions(id)}} />
+            onClick={() => {handleShowContentActions(id, type)}} />
         </Card.Header>
         <div onClick={() => props.handlePopup()}>
           <Carousel variant="dark" className="post__image">
             {
-              props.data.images.map((image, index) => (
+              props.data.images?.map((image, index) => (
                 <Carousel.Item key={props.data.id + index}>
                   <img
                     className=""

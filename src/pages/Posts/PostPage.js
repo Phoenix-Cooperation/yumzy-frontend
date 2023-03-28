@@ -21,17 +21,22 @@ const PostPage = () => {
   const [selectedPost, setSelectedPost] = useState({});
 
   const [showConentActions, setShowContentActions] = useState(false)
-  const [contentActionId, setContentActionId] = useState(null)
+  const [contentActionDetail, setContentActionDetail] = useState({
+    contentId: null,
+    contentType: null,
+  })
 
-  const handleShowContentActions = (contentId) => {
-    setContentActionId(contentId)
+  const handleShowContentActions = (contentId, contentType) => {
+    setContentActionDetail({contentId, contentType})
     setShowContentActions(true)
   }
   
   const handleHideContentActions = () => {
-    setContentActionId(null)
+    setContentActionDetail({ contentId: null, contentType: null})
     setShowContentActions(false)
   }
+
+  // console.log(contentActionDetail, "postpage")
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -157,7 +162,7 @@ const PostPage = () => {
             showConentActions={showConentActions}
           />
         }
-        <ContentActions show={showConentActions} hide={handleHideContentActions} contentId={contentActionId}/>
+        <ContentActions show={showConentActions} hide={handleHideContentActions} contentDetail={contentActionDetail}/>
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>

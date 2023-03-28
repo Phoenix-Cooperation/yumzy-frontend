@@ -24,15 +24,17 @@ const PostPage = () => {
   const [contentActionDetail, setContentActionDetail] = useState({
     contentId: null,
     contentType: null,
+    images: [],
+    username: null
   })
 
-  const handleShowContentActions = (contentId, contentType) => {
-    setContentActionDetail({contentId, contentType})
+  const handleShowContentActions = (contentId, contentType, images, username) => {
+    setContentActionDetail({contentId, contentType, images, username})
     setShowContentActions(true)
   }
   
   const handleHideContentActions = () => {
-    setContentActionDetail({ contentId: null, contentType: null})
+    setContentActionDetail({ contentId: null, contentType: null, images: [], username: null })
     setShowContentActions(false)
   }
 

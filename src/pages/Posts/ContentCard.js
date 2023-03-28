@@ -6,7 +6,6 @@ import { ReactComponent as Yummy } from "../../assets/images/icons/emoticon-tong
 import { ReactComponent as YummyFill } from "../../assets/images/icons/emoticon-tongue-fill.svg"
 import { ReactComponent as Comment } from "../../assets/images/icons/comment-processing.svg"
 import { ReactComponent as Bookmark } from "../../assets/images/icons/bookmark-outline.svg"
-import { ReactComponent as BookmarkFill } from "../../assets/images/icons/bookmark_FILL.svg"
 import {postComponentProps} from "../../types/component.proptypes";
 import {useMutation} from "@apollo/client";
 import {REACT_TO_CONTENT,UN_REACT_TO_CONTENT,SAVE_CONTENT} from "../../api/mutations";
@@ -100,7 +99,7 @@ const ContentCard = (props) => {
         </Card.Header>
         <div onClick={() => props.handlePopup()}>
           <Carousel variant="dark" className="post__image">
-            {
+            {props.data.images &&
               props.data.images.map((image, index) => (
                 <Carousel.Item key={props.data.id + index}>
                   <img

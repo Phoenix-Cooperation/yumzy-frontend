@@ -71,7 +71,8 @@ const ProfileContent = () => {
         })
 
         if (data !== undefined) {
-          setPostData([...postData, ...data.getContent.content]);
+          console.log(data);
+          setPostData([...postData, ...data.getContentUserId.content]);
           console.log("poasts", postData.length);
           setAfter(postData.length)
           setGetMoreData(false);
@@ -86,7 +87,8 @@ const ProfileContent = () => {
   useEffect(() => {
     console.log(data);
     if(data !== undefined) {
-      setPostData(prev => ([...prev, ...data.getContent.content]));
+      console.log(data);
+      setPostData(prev => ([...prev, ...data.getContentUserId.content]));
     }
   }, [data])
 

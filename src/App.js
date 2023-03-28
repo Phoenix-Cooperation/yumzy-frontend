@@ -7,7 +7,6 @@ import UserLayout from "./layouts/UserLayout";
 import CreateMenu from "./layouts/CreateMenu";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
-import ProfileInfo from "./pages/Profile/ProfileInfo";
 
 // import Posts from "./pages/Posts/PostPage"
 import RecipePanel from "./pages/createContent/RecipePanel";
@@ -25,6 +24,8 @@ import NotificationPanel from "./pages/setting/NotificationPanel";
 import PrivacyPanel from "./pages/setting/PrivacyPanel";
 import LogoutPanel from "./pages/setting/LogoutPanel";
 import SettingLayout from "./layouts/SettingLayout";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import SavedPostPage from "./pages/Profile/SavedPost/SavedPostPage";
 
 function App() {
 
@@ -52,7 +53,8 @@ function App() {
             <Route path="chat" element={<Home/>}/>
             <Route path="explore" element={<Home/>}/>
             <Route path="notifications" element={<Home/>}/>
-            <Route path="profile" element={<ProfileInfo/>}/>
+            <Route path="profile" element={<ProfilePage/>}/>
+            <Route path="savedPost" element={<SavedPostPage/>}/>
             <Route path="create" element={<PrivateRoute><CreateMenu/></PrivateRoute>}>
               <Route index element={<PostPanel/>}/>
               <Route path="post" element={<PostPanel/>}/>

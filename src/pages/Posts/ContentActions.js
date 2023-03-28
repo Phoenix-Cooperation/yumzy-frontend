@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react"
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, gql } from "@apollo/client";
 import Modal from "react-bootstrap/Modal";
 import { SAVE_CONTENT, UNSAVE_CONTENT } from "../../api/mutations";
 import { CHECK_USER_SAVED_CONTENT } from "../../api/queries";
@@ -8,7 +8,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 const ContentActions = ({show, hide, contentDetail}) => {
   const [isContentSaved, setIsContentSaved] = useState(false)
-  const { contentId, contentType } = contentDetail
+  const { contentId, contentType, username } = contentDetail
   const [saveContent] = useMutation(SAVE_CONTENT)
   const [unSaveContent] = useMutation(UNSAVE_CONTENT)
 
@@ -16,6 +16,14 @@ const ContentActions = ({show, hide, contentDetail}) => {
   const { data: checkUserSavedContentData, loading, refetch: reCheck } = useQuery(CHECK_USER_SAVED_CONTENT, {variables: {
     contentId: contentId
   }})
+
+  const GET_USER = gql`
+    query GetUser {
+      user @client
+    }
+  `
+
+  const { data: { user }} = useQuery(GET_USER)
 
 
   useEffect(() => {
@@ -87,6 +95,12 @@ const ContentActions = ({show, hide, contentDetail}) => {
             <span>
             Report
             </span>
+            {username === user.username && (
+              <>
+                <span>Delete</span>
+              </>
+            )}
+           
             <span onClick={hide}>
             Close
             </span>

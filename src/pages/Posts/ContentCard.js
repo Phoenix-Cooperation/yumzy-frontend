@@ -14,7 +14,7 @@ import millify from "millify";
 // eslint-disable-next-line react/display-name
 const ContentCard = (props) => {
 
-  const { handleShowContentActions, data : { id, type } } = props
+  const { handleShowContentActions, data : { id, type, images, user: { username } } } = props
   const [isReact, setIsReact] = useState(false);
   const [postReactCount, setPostReactCount] = useState(0);
   const [postCommentCount, setPostCommentCount] = useState(0);
@@ -95,7 +95,7 @@ const ContentCard = (props) => {
           {props.data.user.username}
           <Menu
             className="post__menu"
-            onClick={() => {handleShowContentActions(id, type)}} />
+            onClick={() => {handleShowContentActions(id, type, images, username)}} />
         </Card.Header>
         <div onClick={() => props.handlePopup()}>
           <Carousel variant="dark" className="post__image">

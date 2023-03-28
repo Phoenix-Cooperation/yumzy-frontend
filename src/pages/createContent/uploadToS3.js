@@ -1,4 +1,5 @@
 import axios from "axios";
+import generateImageName from "./generateImageName";
 
 export const uploadToS3 = async (files) => {
   // eslint-disable-next-line no-undef
@@ -7,11 +8,14 @@ export const uploadToS3 = async (files) => {
 
   let errors = []
   await Promise.all(files.map(async (file) => {
-    console.log(file);
+    // console.log(file);
     const { type, name } = file.file;
-    console.log(type, name)
+    const nameSplit = name.split(".")
+    const imgExt = nameSplit.pop()
+    const imageName = generateImageName(imgExt)
+    
     const body = {
-      fileName: name,
+      fileName: imageName,
       fileType: type
     }
 
@@ -26,9 +30,10 @@ export const uploadToS3 = async (files) => {
       
 
       if (type === "image/jpeg" || type === "image/png") {
-        uploadedFiles.push(`images/${name}`);
-      } else {
-        uploadedFiles.push(`${name}`)
+        uploadedFiles.push(`images/${imageName}`);
+      } 
+      else {
+        uploadedFiles.push(`${imageName}`)
       }
     } catch (err) {
 

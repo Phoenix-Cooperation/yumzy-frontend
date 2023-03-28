@@ -9,8 +9,6 @@ import Spinner from "react-bootstrap/Spinner";
 const ContentActions = ({show, hide, contentDetail}) => {
   const [isContentSaved, setIsContentSaved] = useState(false)
   const { contentId, contentType } = contentDetail
-  // const [stateLoading, setStateLoading] = useState(true)
-  // console.log(contentId, "contentId contentActions")
   const [saveContent] = useMutation(SAVE_CONTENT)
   const [unSaveContent] = useMutation(UNSAVE_CONTENT)
 
@@ -19,12 +17,10 @@ const ContentActions = ({show, hide, contentDetail}) => {
     contentId: contentId
   }})
 
-  console.log(checkUserSavedContentData , "check user saved")
 
   useEffect(() => {
     if (checkUserSavedContentData !== undefined) {
       const { checkUserSavedContent } = checkUserSavedContentData
-      console.log("checkUserSavedContent", checkUserSavedContent)
 
       if (checkUserSavedContent.message) {
         setIsContentSaved(true)
@@ -39,17 +35,13 @@ const ContentActions = ({show, hide, contentDetail}) => {
 
   }, [loading, contentId, checkUserSavedContentData])
   
-  console.log(isContentSaved, "isContentSaved")
-  
   const handleSaveContent = async () => {
     const { data: { contentSaved: { message }} } = await saveContent({
       variables: {
         contentSaveInput: { contentId, contentType }
       }
     })
-    console.log("message content save", message)
     if (message) {
-      console.log("content saved")
       setIsContentSaved(true)
     }
   }
@@ -60,10 +52,8 @@ const ContentActions = ({show, hide, contentDetail}) => {
         contentSaveInput: { contentId, contentType }
       }
     })
-    console.log("message content unsave", message)
 
     if (message) {
-      console.log("content unsaved")
       setIsContentSaved(false)
     }
 

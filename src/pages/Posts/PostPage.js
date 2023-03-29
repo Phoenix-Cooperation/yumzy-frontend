@@ -190,12 +190,14 @@ const PostPage = () => {
             showConentActions={showConentActions}
           />
         }
-        <ContentActions 
-          show={showConentActions} 
-          hide={handleHideContentActions} 
-          contentDetail={contentActionDetail}
-          deleteContent={deleteContentAction}
-        />
+        {showConentActions && (
+          <ContentActions 
+            show={showConentActions} 
+            hide={handleHideContentActions} 
+            contentDetail={contentActionDetail}
+            deleteContent={deleteContentAction}
+          />
+        )}
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>

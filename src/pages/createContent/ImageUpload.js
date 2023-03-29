@@ -52,10 +52,10 @@ const ImageUpload = ({ handleErrors, handleImageChange }) => {
       <div
         onClick={focusImageUploadInput}
       >
-        <button
-          className="createContent__form__upload"
-        >Upload
-        </button>
+        <span className="createContent__form__upload">
+          Upload
+        </span>
+    
       </div>
     </div>
   )

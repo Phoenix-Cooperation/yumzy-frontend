@@ -75,3 +75,11 @@ export const UNSAVE_CONTENT = gql`
         }
     }
 `
+
+export const DELETE_CONTENT = gql`
+    mutation DELETE_CONTENT($contentId: String!) {
+        deleteContentById(contentId: $contentId){
+            message
+        }
+    }
+`

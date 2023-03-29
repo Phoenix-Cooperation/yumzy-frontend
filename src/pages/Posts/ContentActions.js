@@ -6,7 +6,7 @@ import { SAVE_CONTENT, UNSAVE_CONTENT } from "../../api/mutations";
 import { CHECK_USER_SAVED_CONTENT } from "../../api/queries";
 import Spinner from "react-bootstrap/Spinner";
 
-const ContentActions = ({show, hide, contentDetail}) => {
+const ContentActions = ({show, hide, contentDetail, deleteContent}) => {
   const [isContentSaved, setIsContentSaved] = useState(false)
   const { contentId, contentType, username } = contentDetail
   const [saveContent] = useMutation(SAVE_CONTENT)
@@ -97,7 +97,7 @@ const ContentActions = ({show, hide, contentDetail}) => {
             </span>
             {username === user.username && (
               <>
-                <span>Delete</span>
+                <span onClick={deleteContent}>Delete</span>
               </>
             )}
            
@@ -105,7 +105,7 @@ const ContentActions = ({show, hide, contentDetail}) => {
             Close
             </span>
           </div>
-        </div>
+        </div>   
       
       </>)}
       

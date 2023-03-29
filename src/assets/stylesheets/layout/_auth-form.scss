@@ -1,3 +1,21 @@
+.backgroundImage{
+  background-image: url("../../images/loginBG.png");
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authBG{
+  background-image: url("../../images/authBG.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .auth{      
   position: absolute;
@@ -6,7 +24,6 @@
   top: 8%;
   right: 10%;
   width: toRem(400);
-
 
   &__form {
     background-color: $form-background-color;

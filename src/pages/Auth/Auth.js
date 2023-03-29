@@ -12,6 +12,7 @@ import userStore from "../../utils/userStore";
 
 import { ReactComponent as Logo } from "../../assets/images/Logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/images/google-icon.svg";
+// import { bgcolor } from "@mui/system";
 
 
 const Auth = () => {
@@ -95,75 +96,79 @@ const Auth = () => {
   }, [auth])
 
   return (
-    <div className="auth">
-      <div className="auth__form">
-        <div className="auth__form_logo">
-          <Logo className="auth__form_logo_img" />
-        </div>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-
-          <Form.Group>
-            <Form.Control className="auth__form_input" {...register("email")} type="email" placeholder="Email Address" />
-            <p className="auth__form_error" >{errors.email?.message}</p>
-          </Form.Group>
-
-          {isSignup && (
-            <Form.Group>
-              <Form.Control className="auth__form_input" {...register("username")} type="text" placeholder="Username" />
-              <p className="auth__form_error" >{errors.username?.message}</p>
-            </Form.Group>
-          )}
-
-          <Form.Group>
-            <Form.Control className="auth__form_input" {...register("password")} type="password" placeholder="Password" />
-            <p className="auth__form_error" >{errors.password?.message}</p>
-          </Form.Group>
-
-          {isSignup && (
-            <Form.Group>
-              <Form.Control className="auth__form_input" {...register("confirmPassword")} type="password" placeholder="Re-enter password" />
-              <p className="auth__form_error" >{errors.confirmPassword?.message}</p>
-            </Form.Group>
-          )}
-
-          <button className="auth__form_btn" type="submit">
-            {isSignup ? "Sign Up" : "Sign In"}
-          </button>
-
-        </Form>
-
-        <div className="auth__form_googleLogin">
-          <hr className="auth__form_googleLogin_hr" />
-          <span className="auth__form_googleLogin_orSpan">or</span>
-          <button
-            className="auth__form_googleLogin_btn"
-            onClick={handleGoogleSignIn}
-          >
-            <span><GoogleLogo className="auth__form_googleLogin_btn_logo" />Continue with Google</span>
-          </button>
-        </div>
+    <>
+      <div className="authBG">
       </div>
+      <div className="auth">
+        <div className="auth__form">
+          <div className="auth__form_logo">
+            <Logo className="auth__form_logo_img" />
+          </div>
+          <Form onSubmit={handleSubmit(onSubmit)}>
 
-      <div className="auth__handler">
-        {isSignup ? (
-          <p>Already have an account?
-            <span
-              className="auth__handler_toggle"
-              onClick={handleIsSignup}>
+            <Form.Group>
+              <Form.Control className="auth__form_input" {...register("email")} type="email" placeholder="Email Address" />
+              <p className="auth__form_error" >{errors.email?.message}</p>
+            </Form.Group>
+
+            {isSignup && (
+              <Form.Group>
+                <Form.Control className="auth__form_input" {...register("username")} type="text" placeholder="Username" />
+                <p className="auth__form_error" >{errors.username?.message}</p>
+              </Form.Group>
+            )}
+
+            <Form.Group>
+              <Form.Control className="auth__form_input" {...register("password")} type="password" placeholder="Password" />
+              <p className="auth__form_error" >{errors.password?.message}</p>
+            </Form.Group>
+
+            {isSignup && (
+              <Form.Group>
+                <Form.Control className="auth__form_input" {...register("confirmPassword")} type="password" placeholder="Re-enter password" />
+                <p className="auth__form_error" >{errors.confirmPassword?.message}</p>
+              </Form.Group>
+            )}
+
+            <button className="auth__form_btn" type="submit">
+              {isSignup ? "Sign Up" : "Sign In"}
+            </button>
+
+          </Form>
+
+          <div className="auth__form_googleLogin">
+            <hr className="auth__form_googleLogin_hr" />
+            <span className="auth__form_googleLogin_orSpan">or</span>
+            <button
+              className="auth__form_googleLogin_btn"
+              onClick={handleGoogleSignIn}
+            >
+              <span><GoogleLogo className="auth__form_googleLogin_btn_logo" />Continue with Google</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="auth__handler">
+          {isSignup ? (
+            <p>Already have an account?
+              <span
+                className="auth__handler_toggle"
+                onClick={handleIsSignup}>
               &nbsp;Sign In
-            </span>
-          </p>) : (
-          <p>New to yumzy?
-            <span
-              className="auth__handler_toggle"
-              onClick={handleIsSignup}>
+              </span>
+            </p>) : (
+            <p>New to yumzy?
+              <span
+                className="auth__handler_toggle"
+                onClick={handleIsSignup}>
               &nbsp;Sign Up
-            </span>
-          </p>)
-        }
+              </span>
+            </p>)
+          }
 
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

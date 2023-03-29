@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
 import ContentCard from "./ContentCard";
 import { GET_CONTENT } from "../../Graphql/Queries/getPostQueries"
-import {useQuery} from "@apollo/client";
+import { DELETE_CONTENT } from "../../api/mutations";
+import {useQuery, useMutation } from "@apollo/client";
 import ContentModal from "./ContentModal";
 import ContentActions from "./ContentActions";
+import { deleteFromS3 } from "../../utils/deleteFromS3";
 
 const PostPage = () => {
 
@@ -38,6 +40,30 @@ const PostPage = () => {
     setShowContentActions(false)
   }
 
+  const [deleteContent] = useMutation(DELETE_CONTENT)
+
+  const deleteContentAction = async () => {
+    const { contentId, images } = contentActionDetail
+    if (contentId) {
+      console.log(contentId)
+      const { data: { deleteContentById : { message }}} = await deleteContent({
+        variables: {
+          contentId
+        }
+      })
+
+      if ( message === "success") {
+        if (images.length > 0) {
+          await deleteFromS3(images)
+        }
+        handlePostHide()
+        let tempPostData = postData.filter((data) => data.id !== contentId)
+        setPostData(tempPostData)
+        handleHideContentActions()
+      }
+
+    }
+  } 
   // console.log(contentActionDetail, "postpage")
 
   useEffect(() => {
@@ -164,7 +190,12 @@ const PostPage = () => {
             showConentActions={showConentActions}
           />
         }
-        <ContentActions show={showConentActions} hide={handleHideContentActions} contentDetail={contentActionDetail}/>
+        <ContentActions 
+          show={showConentActions} 
+          hide={handleHideContentActions} 
+          contentDetail={contentActionDetail}
+          deleteContent={deleteContentAction}
+        />
       </div>
       {/*<RecipiePost title="Ramen Recipie" description="asdjaj ioajsdkasj aodjlasjd adasjkdj" time="10 minutes"/>*/}
     </Row>
